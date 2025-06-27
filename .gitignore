@@ -1,0 +1,8 @@
+.vscode
+/awstats
+/dataFile
+/dataFile_cites
+/dataFileDev
+/logs
+/sys/vendor
+/sys/vendor.zip

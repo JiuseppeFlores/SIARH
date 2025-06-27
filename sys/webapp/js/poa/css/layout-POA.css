@@ -1,0 +1,6 @@
+body{
+  min-width: 300px;
+}
+.card-body{
+  padding: 15px;
+}

@@ -1,0 +1,2800 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: henrytaby
+ * Date: 3/5/2018
+ * Time: 15:27
+ */
+
+switch($accion) {
+    /**
+     * Página por defecto
+     */
+    default:
+        // print_struc($_SESSION);
+        // echo $_SESSION[userv][usuario];
+        // exit;
+        /**
+         * Cargamos catalogos necesarios
+         */
+
+        //print_struc($CFGm->tabla);exit;
+        $grill_list = $objItem->get_grilla_list_sbm("item");
+        $smarty->assign("grill_list", $grill_list);
+        /**
+         * usamos el template para mootools
+         */
+        $smarty->assign("subpage", $webm["index"]);
+        $smarty->assign("subpage_js", $webm["index_js"]);
+        break;
+
+    /**
+     * Creación de JSON
+     */
+    case 'getItemList':
+        $res = $objItem->get_item_datatable_Rows();
+        $core->print_json($res);
+        break;
+
+    case 'itemUpdate':
+        $smarty->assign("type", $type);
+        $smarty->assign("id", $id);
+
+        $menu_tab = $objItem->get_item_tab_sbm($type,"index");
+
+        $smarty->assign("menu_tab", $menu_tab);
+        $smarty->assign("menu_tab_active", "general");
+
+        if ($type == "update") {
+            $item = $objItem->get_item($id, "item");
+            $smarty->assign("item", $item);
+        }
+        $smarty->assign("subpage", $webm["item_index"]);
+        $smarty->assign("subpage_js", $webm["item_index_js"]);
+        break;
+
+    case 'itemDelete':
+        $res = $objItem->item_delete($id);
+        $core->print_json($res);
+        break;
+
+    //Obtener los permisos para ficha pozo
+    case 'obtenerPermisos':
+        //$perpozo = '1.- Pozos';
+        $itemIdSubmoduloPozo = 279;
+        $res = $objItem->get_permisos($_SESSION[userv][usuario], $itemIdSubmoduloPozo);
+        echo json_encode($res);
+        // $dato = 1;
+        // $smarty->assign("dato1", $dato);
+        // $smarty->assign("subpage_js", $webm["lista_index_js"]);
+        exit();
+        break;
+
+    //
+    //Importar Archivos desde Excel
+    //
+    case 'enviarArchivo':
+        //print_r($_FILES['file-0']);
+        include './lib/phpexcel/Classes/PHPExcel/IOFactory.php';
+        $NombreArchivo = $_FILES['file-0']['tmp_name']; //'D://pozo.xlsx';
+        $objPHPExcel = PHPExcel_IOFactory::load($NombreArchivo);
+        //$objPHPExcel->setActiveSheetIndex(0);
+
+        $nombreHojas = $objPHPExcel->getSheetNames();
+        $verificacion = $objItem->verificarConfiguracion($nombreHojas);
+
+        if($verificacion){
+            echo json_encode($objPHPExcel->getSheetNames());
+        }else{
+            echo json_encode(array('res'=>false));
+        }
+        
+        $objPHPExcel->disconnectWorksheets();
+        unset($objPHPExcel);
+        exit();
+        break;
+    
+    case 'procesarArchivo':
+        include './lib/phpexcel/Classes/PHPExcel/IOFactory.php';
+        $NombreArchivo = $_FILES['file-0']['tmp_name'];
+        $objPHPExcel = PHPExcel_IOFactory::load($NombreArchivo);
+
+        switch (strtolower($hoja)){
+            case 'general':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n";
+
+                $contadorfilas = 0;
+                $datosGenerales = [];
+                
+                //$dep = $objItem->obtenerCatDepartamento();
+                //$depine = $objItem->obtenerCatDepartamentoIne();
+                //$pro = $objItem->obtenerCatProvincia();
+                //$mun = $objItem->obtenerCatMunicipio();
+                $com = $objItem->obtenerCatComunidad();
+                $loc = $objItem->obtenerCatLocalidad();
+                $acu = $objItem->obtenerAcuifero();
+                $eps = $objItem->obtenerEpsas();
+                //$cue = $objItem->obtenerCuenca();
+
+                //print_r($objItem->obtenerAcuifero());
+                //print_r($objItem->obtenerCatDepartamento());
+                //print_r($objItem->obtenerCatProvincia());
+                //print_r($objItem->obtenerCatMunicipio());
+                //print_r($objItem->obtenerCatComunidad());
+                //print_r($objItem->obtenerCatLocalidad()); 
+                //print_r($objItem->obtenerCuenca()); 
+                //echo "Cuenca: ".$cue[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(23, 2)->getFormattedValue())];
+                //exit();
+               
+                // && $numColumnasEntero == 24
+                if($numFilas>1){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for($i=2; $i<=$numFilas; $i++){
+
+                      if(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) !== ""){
+
+                        $utmdecimal = $objItem->convertirUtmToDec((float) $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                                  (float) $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue().'K');
+                        $dms = $objItem->convertirLatLonDecToDms($utmdecimal['lat_decimal'], $utmdecimal['lon_decimal']);
+
+                        $latitudDecimal = (float) $utmdecimal['lat_decimal'];
+                        $longitudDecimal = (float) $utmdecimal['lon_decimal'];
+                        //print_struc(" Los valores : ".$latitudDecimal." - ".$longitudDecimal); exit;
+                        $ubicacionPolitica = $objItem->get_ubicacion_politica($latitudDecimal, $longitudDecimal);
+                        $ubicacionMacrocuenca = $objItem->get_ubicacion_macrocuenca($latitudDecimal, $longitudDecimal);
+                        $codigoinedepto = $objItem->get_codigo_ine_departamento($ubicacionPolitica[0]['deptoid']);
+                        $ubicacionCuencaEstrategica = $objItem->get_ubicacion_cuenca_estrategica($latitudDecimal, $longitudDecimal);
+                        //print_struc($ubicacionCuencaEstrategica); exit;
+                        // $ubicacionGeografica = array(
+                        //     'res' => 1,
+                        //     'deptoId' => $ubicacionPolitica[0]['deptoid'],
+                        //     'provinciaId' => $ubicacionPolitica[0]['provinciaid'],
+                        //     'municipioId' => $ubicacionPolitica[0]['municipioid'],
+                        //     'macroId' => $ubicacionMacrocuenca[0]['macroid'],
+                        //     'cuencaestraId' => $ubicacionCuencaEstrategica[0]['cuencaestraid']
+                        // );
+
+                        //echo "Error en codigo: ".$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()."\n";
+
+                        //$epsas = $objItem->formatearTexto($eps, trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(20, $i)->getFormattedValue()));
+
+                        //"0".$ubicacionMacrocuenca[0]['macroid']."-".$codigoinedepto[0]['codigo_ine']."-P",
+                        //(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                        //Falta agregar estado analizar
+                        $datosGenerales[] = array(
+                                                  1,
+                                                  "0".$ubicacionMacrocuenca[0]['macroid']."-".$codigoinedepto[0]['codigo_ine']."-P", 
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  $dms['lat_gra'].'-'.$dms['lat_min'].'-'.$dms['lat_seg'],
+                                                  $utmdecimal['lat_decimal'],
+                                                  $dms['lon_gra'].'-'.$dms['lon_min'].'-'.$dms['lon_seg'],
+                                                  $utmdecimal['lon_decimal'],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue()."K",
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+                                                  $ubicacionPolitica[0]['deptoid'],
+                                                  $ubicacionPolitica[0]['provinciaid'],
+                                                  $ubicacionPolitica[0]['municipioid'],
+                                                  $com[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $i)->getFormattedValue())],
+                                                  $loc[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, $i)->getFormattedValue())],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(16, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(18, $i)->getFormattedValue(),
+                                                  $acu[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(19, $i)->getFormattedValue())],
+                                                  $eps[strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(20, $i)->getFormattedValue()))],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(21, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(22, $i)->getFormattedValue(),
+                                                  $ubicacionMacrocuenca[0]['macroid'],
+                                                  $ubicacionCuencaEstrategica[0]['cuencaestraid'],
+                                                  "Registrado",
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()
+                                                );
+                        $contadorfilas++;                        
+                      }else{                        
+                        break;
+                      }                         
+                    }
+                    //print_r($datosGenerales); exit();
+                    session_start();
+                    //$_SESSION['numfilas'] = $numFilas; //Variablle numero de filas de la hoja excel
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero; //Variable numero de columnas de la hoja excel
+                    $_SESSION['datosGenerales'] = $datosGenerales; //Array contiene informacion de la hoja GENERAL
+                    //$_SESSION['codigos'] = NULL; //Array contiene inormacion de los Id's autoincrementales y codigo sirh
+                    $_SESSION['banderaSql'] = 1; //1=insert, 2=update
+                    $_SESSION['controltransaccion'] = NULL; //Variable que permite insertar y actualizar registros de secciones diferentes (especifico, perforacion, constructivos, perfilaje electrico, implementacion) en la tabla item_pozo
+                     
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }                 
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosGenerales);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+                      
+                exit();
+                break;
+
+            case 'especifico':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n";
+                //echo count($_SESSION['datosGenerales']); 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+                // print_r($_SESSION['controltransaccion']);
+                // print_r($_SESSION['codigos']);
+
+                $contadorfilas = 0;
+                $datosEspecificos = [];
+
+                $usoagua = $objItem->obtenerUsoAgua();
+                $propoz = $objItem->obtenerPropositoPozo();
+
+                // && $numColumnasEntero == 7
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){ //validar los datos de $_SESSION['datosGenerales'] si estan vacios
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosEspecificos[] = array(                                                  
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  $usoagua[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())],
+                                                  $propoz[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;                 
+                    $_SESSION['datosEspecificos'] = $datosEspecificos;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosEspecificos);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosEspecificos);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+                      
+                exit();
+                break;
+
+            case 'perforacion':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n";    
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosPerforacion = [];
+
+                $tippoz = $objItem->obtenerPerTipoPozo();
+                $tipper = $objItem->obtenerPerTipoPerforacion();
+                $metper = $objItem->obtenerPerMetodoPerforacion();
+
+                // print_r($objItem->obtenerPerTipoPozo());
+                // print_r($objItem->obtenerPerTipoPerforacion());
+                // print_r($objItem->obtenerPerMetodoPerforacion());
+
+                // && $numColumnasEntero == 9
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                        if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                          $datosPerforacion[] = array(                                                  
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()),
+                                                  $tippoz[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())],
+                                                  $tipper[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())],
+                                                  $metper[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                          $contadorfilas++;
+                        }else{
+                            break;
+                        }
+                         
+                    }
+                    //print_r($datosPerforacion);
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosPerforacion'] = $datosPerforacion;
+                    //$_SESSION['codigos'] = NULL;
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosPerforacion);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'perforacion_excavado':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n";    
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosPerforacionExcavado = [];
+
+                $tippoz = $objItem->obtenerPerTipoPozo();
+                $tiprev = $objItem->obtenerPerTipoRevestimiento();
+                $metexc = $objItem->obtenerPerTipoExcavacion();
+
+                // print_r($objItem->obtenerPerTipoPozo());
+                // print_r($objItem->obtenerPerTipoPerforacion());
+                // print_r($objItem->obtenerPerMetodoPerforacion());
+
+                // && $numColumnasEntero == 9
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                        if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                          $datosPerforacionExcavado[] = array(                                                  
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()),
+                                                  $tippoz[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())],
+                                                  $tiprev[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())],
+                                                  $metexc[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                          $contadorfilas++;
+                        }else{
+                            break;
+                        }
+                         
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosPerforacionExcavado'] = $datosPerforacionExcavado;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosPerforacionExcavado);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosPerforacionExcavado);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'constructivos':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosConstructivos = [];
+
+                $tiptub = $objItem->obtenerConTipoTuberia();
+                $tipsel = $objItem->obtenerConTipoSello();
+
+                //print_r($objItem->obtenerConTipoTuberia());
+                //print_r($objItem->obtenerConTipoSello());
+                //print_r($_SESSION['codigos']);
+                
+                // && $numColumnasEntero == 8
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosConstructivos[] = array(                                                  
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                                  $tiptub[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  $tipsel[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue())],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosConstructivos'] = $datosConstructivos;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosConstructivos);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosConstructivos);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'constructivos_rejilla_filtro':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosConDiseno = [];
+
+                $tiprejfil = $objItem->obtenerTipoRejillaFiltro();
+
+                //print_r($objItem->obtenerTipoRejillaFiltro());
+                
+                // && $numColumnasEntero == 6
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosConDiseno[] = array(
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],                                            
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  $tiprejfil[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosConDiseno'] = $datosConDiseno;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosConDiseno);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosConDiseno);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'columna_litologica':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosColumnaLitologica = [];
+
+                $coltipper = $objItem->obtenerTipoPermeabilidad();
+
+                //print_r($objItem->obtenerTipoPermeabilidad());
+                //print_r($_SESSION['codigos']);
+                
+                // && $numColumnasEntero == 13
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosColumnaLitologica[] = array(
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],                                            
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+                                                  $coltipper[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $i)->getFormattedValue())],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosColumnaLitologica'] = $datosColumnaLitologica;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosColumnaLitologica);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosColumnaLitologica);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'perfilaje_electrico':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosPerfilajeElectrico = [];
+
+                $pertippar = $objItem->obtenerTipoParametro();
+
+                //print_r($objItem->obtenerTipoParametro());
+                
+                // && $numColumnasEntero == 6
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+
+                        $parametros = explode(",", trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()));
+                        $parametrosid = "";
+
+                        foreach($parametros as $key=>$valor){
+                          $parametrosid = $parametrosid.$pertippar[trim($valor)].",";
+                        }
+                        $parametrosid = substr($parametrosid, 0, -1);
+
+                        $datosPerfilajeElectrico[] = array(                                                                                              
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  //$pertippar[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())],
+                                                  $parametrosid,
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosPerfilajeElectrico'] = $datosPerfilajeElectrico;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosPerfilajeElectrico);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosPerfilajeElectrico);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'implementacion':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosImplementacion = [];
+
+                $imptipene = $objItem->obtenerTipoEnergia();
+
+                //print_r($objItem->obtenerTipoEnergia());
+                
+                // && $numColumnasEntero == 7
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosImplementacion[] = array(                                                                                              
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                  $imptipene[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosImplementacion'] = $datosImplementacion;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosImplementacion);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosImplementacion);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'monitoreo_cantidad':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosMonitoreoCantidad = [];
+
+                $cantipepo = $objItem->obtenerTipoEpoca();
+
+                //print_r($objItem->obtenerTipoEpoca());
+                
+                // && $numColumnasEntero == 12
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        // print_struc($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()); exit;
+                        $datosMonitoreoCantidad[] = array(
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],                                                                                              
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  $cantipepo[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+                    //print_struc($datosMonitoreoCantidad); exit; 
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonitoreoCantidad'] = $datosMonitoreoCantidad;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonitoreoCantidad);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonitoreoCantidad);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'monitoreo_calidad':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosMonitoreoCalidad = [];
+
+                $caltipepo = $objItem->obtenerTipoEpoca();
+
+                //print_r($objItem->obtenerTipoEpoca());
+                
+                // && $numColumnasEntero == 12
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosMonitoreoCalidad[] = array(
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],                                                                                              
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  $caltipepo[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()                                                   
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonitoreoCalidad'] = $datosMonitoreoCalidad;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonitoreoCalidad);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonitoreoCalidad);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            //Segunda forma
+            // case 'monitoreo_calidad':
+            //     $objPHPExcel->setActiveSheetIndexByName($hoja);
+            //     $sheet = $objPHPExcel->getActiveSheet();
+            //     $numFilas = $sheet->getHighestRow();
+            //     $numColumnas = $sheet->getHighestColumn();
+            //     $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+            //     echo "Filas: ".$numFilas."\n";
+            //     echo "Columnas: ".$numColumnasEntero."\n"; 
+            //     echo "Bandera: ".$_SESSION['banderaSql'];             
+            //     $datosMonitoreoCalidad = [];
+
+            //     $caltipepo = $objItem->obtenerTipoEpoca();
+
+            //     print_r($objItem->obtenerTipoEpoca());
+                
+            //     // && $numColumnasEntero == 12
+            //     if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+            //         //Cargamos todos los datos del archivo Excel a una matriz
+            //         for ($i=2; $i<=$numFilas; $i++){
+            //             $datosMonitoreoCalidad[] = array(
+            //                                       $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],                                                                                              
+            //                                       $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()),
+            //                                       $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+            //                                       $caltipepo[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())],
+            //                                       $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+            //                                       $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+            //                                       $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue()),
+            //                                       $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+            //                                       $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+            //                                       $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+            //                                       $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $i)->getFormattedValue(),
+            //                                       $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $i)->getFormattedValue(),
+            //                                       date("Y-m-d H:i:s"),
+            //                                       date("Y-m-d H:i:s"),
+            //                                       1,
+            //                                       1,
+            //                                       $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()
+            //                                      ); 
+            //         }
+
+            //         //session_start();
+            //         //$_SESSION['numfilas'] = $numFilas;
+            //         //$_SESSION['numcolumnas'] = $numColumnasEntero;
+            //         $_SESSION['datosMonitoreoCalidad'] = $datosMonitoreoCalidad;
+            //         //$_SESSION['codigos'] = NULL;
+            //         print_r($datosMonitoreoCalidad);
+            //         //echo json_encode($datosMonitoreoCalidad);
+            //     }else{
+            //         echo json_encode(array('res'=>false));
+            //     }
+
+            //     unset($datosMonitoreoCalidad);
+            //     $objPHPExcel->disconnectWorksheets();
+            //     unset($objPHPExcel);
+
+            //     exit();
+            //     break;
+
+            case 'mc_campo':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosMonCalCampo = [];
+
+                //print_r($_SESSION['codigomoncal']);
+                
+                // && $numColumnasEntero == 14
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        for ($j=1; $j<=15; $j++){ //$numColumnasEntero-2
+                            if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue() != "") {
+                                $datosMonCalCampo[] = array(
+                                                  $_SESSION['codigomoncal'][$i-2],
+                                                  1,
+                                                  $objItem->obtenerIdCampo($j),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, $i)->getFormattedValue(), //$numColumnasEntero-1
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );   
+                            }                             
+                        }
+
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }                                                
+                    }
+                    //print_struc($datosMonCalCampo); exit;
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonCalCampo'] = $datosMonCalCampo;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonCalCampo);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonCalCampo);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'mc_basicos':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosMonCalBasicos = [];
+
+                //print_r($_SESSION['codigomoncal']);
+                
+                // && $numColumnasEntero == 24
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        for ($j=1; $j<=22; $j++){ //$numColumnasEntero-2
+                            if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue() != "") {
+                                $datosMonCalBasicos[] = array(
+                                                  $_SESSION['codigomoncal'][$i-2],
+                                                  2,
+                                                  $objItem->obtenerIdBasicos($j),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(23, $i)->getFormattedValue(), //$numColumnasEntero-1
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );   
+                            }                             
+                        }
+
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }                                                
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonCalBasicos'] = $datosMonCalBasicos;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonCalBasicos);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonCalBasicos);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'mc_inorganicos':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosMonCalInorganicos = [];
+
+                // print_r($_SESSION['codigomoncal']);
+                // exit();
+                
+                // && $numColumnasEntero == 68
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        for ($j=1; $j<=66; $j++){ //$numColumnasEntero-2
+                            if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue() != "") {
+                                $datosMonCalInorganicos[] = array(
+                                                  $_SESSION['codigomoncal'][$i-2],
+                                                  3,
+                                                  $objItem->obtenerIdInorganicos($j),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(67, $i)->getFormattedValue(), //$numColumnasEntero-1
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );   
+                            }                             
+                        }
+
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                                                
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonCalInorganicos'] = $datosMonCalInorganicos;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonCalInorganicos);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonCalInorganicos);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'mc_organicos':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;
+                $datosMonCalOrganicos = [];
+
+                //print_r($_SESSION['codigomoncal']);
+                
+                // && $numColumnasEntero == 33
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        for ($j=1; $j<=31; $j++){ //$numColumnasEntero-2
+                            if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue() != "") {
+                                $datosMonCalOrganicos[] = array(
+                                                  $_SESSION['codigomoncal'][$i-2],                                                                                              
+                                                  4,
+                                                  $objItem->obtenerIdOrganicos($j),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(32, $i)->getFormattedValue(), //$numColumnasEntero-1
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );   
+                            }                             
+                        }
+
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }                                                
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonCalOrganicos'] = $datosMonCalOrganicos;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonCalOrganicos);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonCalOrganicos);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'mc_microorganismos':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosMonCalMicro = [];
+
+                //print_r($_SESSION['codigomoncal']);
+                
+                // && $numColumnasEntero == 15
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        for ($j=1; $j<=13; $j++){ //$numColumnasEntero-2
+                            if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue() != "") {
+                                $datosMonCalMicro[] = array(
+                                                  $_SESSION['codigomoncal'][$i-2],
+                                                  5,
+                                                  $objItem->obtenerIdMicroorganismos($j),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $i)->getFormattedValue(), //$numColumnasEntero-1
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );   
+                            }                             
+                        }
+
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }                                                
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonCalMicro'] = $datosMonCalMicro;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonCalMicro);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonCalMicro);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'mc_plaguicidas':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;           
+                $datosMonCalPlaguicidas = [];
+
+                //print_r($_SESSION['codigomoncal']);
+                
+                // && $numColumnasEntero == 59
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        for ($j=1; $j<=57; $j++){ //$numColumnasEntero-2
+                            if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue() != "") {
+                                $datosMonCalPlaguicidas[] = array(
+                                                  $_SESSION['codigomoncal'][$i-2],
+                                                  6,
+                                                  $objItem->obtenerIdPlaguicidas($j),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(58, $i)->getFormattedValue(), //$numColumnasEntero-1
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );   
+                            }                             
+                        }
+
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }                                                
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonCalPlaguicidas'] = $datosMonCalPlaguicidas;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonCalPlaguicidas);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonCalPlaguicidas);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'monitoreo_isotopico':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosMonitoreoIsotopico = [];
+
+                $caltipepo = $objItem->obtenerTipoEpoca();
+
+                //print_r($objItem->obtenerTipoEpoca());
+                
+                // && $numColumnasEntero == 12
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosMonitoreoIsotopico[] = array(
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],                                                                                              
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  $caltipepo[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()                                                   
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonitoreoIsotopico'] = $datosMonitoreoIsotopico;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonitoreoIsotopico);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonitoreoIsotopico);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'mi_radioactividad':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosMonIsoRad = [];
+
+                //print_r($_SESSION['codigomoniso']);
+                
+                // && $numColumnasEntero == 4
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        for ($j=1; $j<=2; $j++){ //$numColumnasEntero-2
+                            if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue() != "") {
+                                $datosMonIsoRad[] = array(
+                                                  $_SESSION['codigomoniso'][$i-2],
+                                                  1,
+                                                  $objItem->obtenerIdRadioActividad($j),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(), //$numColumnasEntero-1
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );   
+                            }                             
+                        }
+
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }                                                
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonIsoRad'] = $datosMonIsoRad;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonIsoRad);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonIsoRad);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'mi_isotopos':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;           
+                $datosMonIsoIso = [];
+
+                //print_r($_SESSION['codigomoniso']);
+                
+                // && $numColumnasEntero == 15
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        for ($j=1; $j<=13; $j++){ //$numColumnasEntero-2
+                            if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue() != "") {
+                                $datosMonIsoIso[] = array(
+                                                  $_SESSION['codigomoniso'][$i-2],
+                                                  2,
+                                                  $objItem->obtenerIdIsotopos($j),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $i)->getFormattedValue(), //$numColumnasEntero-1
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );   
+                            }                             
+                        }
+
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }                                                
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonIsoIso'] = $datosMonIsoIso;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonIsoIso);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonIsoIso);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'mi_otros':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosMonIsoOtr = [];
+
+                //print_r($_SESSION['codigomoniso']);
+                
+                // && $numColumnasEntero == 4
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        for ($j=1; $j<=2; $j++){ //$numColumnasEntero-2
+                            if ($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue() != "") {
+                                $datosMonIsoOtr[] = array(
+                                                  $_SESSION['codigomoniso'][$i-2],
+                                                  3,
+                                                  $objItem->obtenerIdOtros($j),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(), //$numColumnasEntero-1
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );   
+                            }                             
+                        }
+                      }else{
+                        break;
+                      }                                                
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosMonIsoOtr'] = $datosMonIsoOtr;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosMonIsoOtr);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosMonIsoOtr);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'hidraulicos':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosHidraulicos = [];
+
+                $hidra = $objItem->obtenerTipoPrueba();
+
+                //print_r($objItem->obtenerTipoPrueba());
+                
+                // && $numColumnasEntero == 9
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosHidraulicos[] = array(
+                                                  $_SESSION['codigos'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],                                                                                              
+                                                  $hidra[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()                                                   
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosHidraulicos'] = $datosHidraulicos;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosHidraulicos);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosHidraulicos);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'hpb_escalonado':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosHPBEscalonado = [];
+
+                $tipbom = $objItem->obtenerTipoBombeo();
+
+                //print_r($_SESSION['codigohidra']);
+                
+                // && $numColumnasEntero == 11
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosHPBEscalonado[] = array(
+                                                  $_SESSION['codigohidra'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],                                                                                              
+                                                  $tipbom[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  $objItem->tiempo_segundos($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()                                               
+                                                 );
+                        $contadorfilas++;                      
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosHPBEscalonado'] = $datosHPBEscalonado;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosHPBEscalonado);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosHPBEscalonado);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'escalonado_escalon':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosEscalon = [];
+
+                //print_r($_SESSION['codigohpbescalonado']);
+                
+                // && $numColumnasEntero == 7
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosEscalon[] = array(
+                                                  $_SESSION['codigohpbescalonado'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  $objItem->tiempo_segundos($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;                      
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosEscalon'] = $datosEscalon;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosEscalon);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosEscalon);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'escalonado_recuperacion':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosEscRecuperacion = [];
+
+                //print_r($_SESSION['codigohpbescalonado']);
+                
+                // && $numColumnasEntero == 8
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosEscRecuperacion[] = array(
+                                                  $_SESSION['codigohpbescalonado'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                                  $objItem->tiempo_segundos($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()),                                                  
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()                                              
+                                                 );
+                        $contadorfilas++;                        
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosEscRecuperacion'] = $datosEscRecuperacion;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosEscRecuperacion);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosEscRecuperacion);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'escalonado_recuperacion_escalon':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosEscRecEscalon = [];
+
+                //print_r($_SESSION['codigoescrecesc']);
+                
+                // && $numColumnasEntero == 8
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosEscRecEscalon[] = array(
+                                                  $_SESSION['codigoescrecesc'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  $objItem->tiempo_segundos($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()),                                                  
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosEscRecEscalon'] = $datosEscRecEscalon;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosEscRecEscalon);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosEscRecEscalon);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'hpb_continuo':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosHPBContinuo = [];
+
+                $tipbom = $objItem->obtenerTipoBombeo();
+
+                //print_r($_SESSION['codigohidra']);
+                
+                // && $numColumnasEntero == 11
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosHPBContinuo[] = array(
+                                                  $_SESSION['codigohidra'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],                                                                                              
+                                                  $tipbom[trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  $objItem->tiempo_segundos($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()                                               
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosHPBContinuo'] = $datosHPBContinuo;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosHPBContinuo);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosHPBContinuo);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'continuo_escalon':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosEscalonContinuo = [];
+
+                //print_r($_SESSION['codigohpbcontinuo']);
+                
+                // && $numColumnasEntero == 7
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosEscalonContinuo[] = array(
+                                                  $_SESSION['codigohpbcontinuo'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  $objItem->tiempo_segundos($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosEscalonContinuo'] = $datosEscalonContinuo;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosEscalonContinuo);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosEscalonContinuo);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'continuo_recuperacion':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];  
+
+                $contadorfilas = 0;           
+                $datosConRecuperacion = [];
+
+                //print_r($_SESSION['codigohpbcontinuo']);
+                
+                // && $numColumnasEntero == 8
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosConRecuperacion[] = array(
+                                                  $_SESSION['codigohpbcontinuo'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue())) == "NULL") ? NULL : $objItem->convertirFecha($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue()),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                                  $objItem->tiempo_segundos($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue()),                                                  
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId],
+                                                  $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()                                              
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosConRecuperacion'] = $datosConRecuperacion;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosConRecuperacion);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosConRecuperacion);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;
+
+            case 'continuo_recuperacion_escalon':
+                $objPHPExcel->setActiveSheetIndexByName($hoja);
+                $sheet = $objPHPExcel->getActiveSheet();
+                $numFilas = $sheet->getHighestRow();
+                $numColumnas = $sheet->getHighestColumn();
+                $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                // echo "Filas: ".$numFilas."\n";
+                // echo "Columnas: ".$numColumnasEntero."\n"; 
+                // echo "Bandera: ".$_SESSION['banderaSql'];
+
+                $contadorfilas = 0;             
+                $datosConRecEscalon = [];
+
+                //print_r($_SESSION['codigoconrecesc']);
+                
+                // && $numColumnasEntero == 8
+                if($numFilas>1 && count($_SESSION['datosGenerales'])>0 && $_SESSION['datosGenerales'] != ""){
+                    //Cargamos todos los datos del archivo Excel a una matriz
+                    for ($i=2; $i<=$numFilas; $i++){
+                      if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) != ""){
+                        $datosConRecEscalon[] = array(
+                                                  $_SESSION['codigoconrecesc'][$objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()],
+                                                  $objItem->tiempo_segundos($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                                                            $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue()),                                                  
+                                                  (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue()) == "" || strtoupper(trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue())) == "NULL") ? NULL : $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                                  date("Y-m-d H:i:s"),
+                                                  date("Y-m-d H:i:s"),
+                                                  $_SESSION[userv][itemId],
+                                                  $_SESSION[userv][itemId]
+                                                 );
+                        $contadorfilas++;
+                      }else{
+                        break;
+                      }
+                    }
+
+                    //session_start();
+                    //$_SESSION['numfilas'] = $numFilas;
+                    //$_SESSION['numcolumnas'] = $numColumnasEntero;
+                    $_SESSION['datosConRecEscalon'] = $datosConRecEscalon;
+                    //$_SESSION['codigos'] = NULL;
+                    //print_r($datosConRecEscalon);
+                    if($contadorfilas == 0){
+                      echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                    }else{
+                      echo json_encode(array('res'=>true, 'numfilas'=>$contadorfilas));
+                    }
+                }else{
+                    echo json_encode(array('res'=>false, 'numfilas'=>$contadorfilas));
+                }
+
+                unset($datosConRecEscalon);
+                $objPHPExcel->disconnectWorksheets();
+                unset($objPHPExcel);
+
+                exit();
+                break;           
+             
+            default:
+                echo "Esta hoja excel no se pudo procesar";
+                //print_r($_SESSION['codigos']);
+                exit();
+                break;
+         }         
+
+        break;
+
+    case 'guardarArchivo':
+
+        switch (strtolower($hoja)){
+            case 'general':
+                $res = $objItem->agregarGeneral($_SESSION['datosGenerales']);
+                //echo json_encode(array("res"=>$res));
+                echo json_encode($res);
+                //print_r($res);
+                break;
+
+            case 'especifico':
+                $res = $objItem->agregarEspecifico($_SESSION['datosEspecificos']);
+                echo json_encode($res);
+                break;
+
+            case 'perforacion':
+                $res = $objItem->agregarPerforacion($_SESSION['datosPerforacion']);
+                echo json_encode($res);
+                break;
+
+            case 'perforacion_excavado':
+                $res = $objItem->agregarPerforacionExcavado($_SESSION['datosPerforacionExcavado']);
+                echo json_encode($res);
+                break;
+
+            case 'constructivos':
+                $res = $objItem->agregarConstructivos($_SESSION['datosConstructivos']);
+                echo json_encode($res);
+                break;
+
+            case 'constructivos_rejilla_filtro':
+                $res = $objItem->agregarConstructivosRejillaFiltro($_SESSION['datosConDiseno']);
+                echo json_encode($res);
+                break;
+
+            case 'columna_litologica':
+                $res = $objItem->agregarColumnaLitologica($_SESSION['datosColumnaLitologica']);
+                echo json_encode($res);
+                break;
+
+            case 'perfilaje_electrico':
+                $res = $objItem->agregarPerfilajeElectrico($_SESSION['datosPerfilajeElectrico']);
+                echo json_encode($res);
+                break;
+
+            case 'implementacion':
+                $res = $objItem->agregarImplementacion($_SESSION['datosImplementacion']);
+                echo json_encode($res);
+                break;
+
+            case 'monitoreo_cantidad':
+                $res = $objItem->agregarMonitoreoCantidad($_SESSION['datosMonitoreoCantidad']);
+                echo json_encode($res);
+                break;
+
+            case 'monitoreo_calidad':
+                $res = $objItem->agregarMonitoreoCalidad($_SESSION['datosMonitoreoCalidad']);
+                echo json_encode($res);
+                break;
+
+            case 'mc_campo':
+                $res = $objItem->agregarMonCalCampo($_SESSION['datosMonCalCampo']);
+                echo json_encode($res);
+                break;
+
+            case 'mc_basicos':
+                $res = $objItem->agregarMonCalCampo($_SESSION['datosMonCalBasicos']);
+                echo json_encode($res);
+                break;
+
+            case 'mc_inorganicos':
+                $res = $objItem->agregarMonCalCampo($_SESSION['datosMonCalInorganicos']);
+                echo json_encode($res);
+                break;
+
+            case 'mc_organicos':
+                $res = $objItem->agregarMonCalCampo($_SESSION['datosMonCalOrganicos']);
+                echo json_encode($res);
+                break;
+
+            case 'mc_microorganismos':
+                $res = $objItem->agregarMonCalCampo($_SESSION['datosMonCalMicro']);
+                echo json_encode($res);
+                break;
+
+            case 'mc_plaguicidas':
+                $res = $objItem->agregarMonCalCampo($_SESSION['datosMonCalPlaguicidas']);
+                echo json_encode($res);
+                break;
+
+            case 'monitoreo_isotopico':
+                $res = $objItem->agregarMonitoreoIsotopico($_SESSION['datosMonitoreoIsotopico']);
+                echo json_encode($res);
+                break;
+
+            case 'mi_radioactividad':
+                $res = $objItem->agregarMonIsoCampo($_SESSION['datosMonIsoRad']);
+                echo json_encode($res);
+                break;
+
+            case 'mi_isotopos':
+                $res = $objItem->agregarMonIsoCampo($_SESSION['datosMonIsoIso']);
+                echo json_encode($res);
+                break;
+
+            case 'mi_otros':
+                $res = $objItem->agregarMonIsoCampo($_SESSION['datosMonIsoOtr']);
+                echo json_encode($res);
+                break;
+
+            case 'hidraulicos':
+                $res = $objItem->agregarHidraulicos($_SESSION['datosHidraulicos']);
+                echo json_encode($res);
+                break;
+
+            case 'hpb_escalonado':
+                $res = $objItem->agregarHPBEscalonado($_SESSION['datosHPBEscalonado']);
+                echo json_encode($res);
+                break;
+
+            case 'escalonado_escalon':
+                $res = $objItem->agregarEscalones($_SESSION['datosEscalon']);
+                echo json_encode($res);
+                break;
+
+            case 'escalonado_recuperacion':
+                $res = $objItem->agregarEscRecuperacion($_SESSION['datosEscRecuperacion']);
+                echo json_encode($res);
+                break;
+
+            case 'escalonado_recuperacion_escalon':
+                $res = $objItem->agregarEscRecEscalon($_SESSION['datosEscRecEscalon']);
+                echo json_encode($res);
+                break;
+
+            case 'hpb_continuo':
+                $res = $objItem->agregarHPBContinuo($_SESSION['datosHPBContinuo']);
+                echo json_encode($res);
+                break;
+
+            case 'continuo_escalon':
+                $res = $objItem->agregarEscalonesContinuo($_SESSION['datosEscalonContinuo']);
+                echo json_encode($res);
+                break;
+
+            case 'continuo_recuperacion':
+                $res = $objItem->agregarConRecuperacion($_SESSION['datosConRecuperacion']);
+                echo json_encode($res);
+                break;
+
+            case 'continuo_recuperacion_escalon':
+                $res = $objItem->agregarConRecEscalon($_SESSION['datosConRecEscalon']);
+                echo json_encode($res);
+                break;  
+
+            default:
+                echo "Esta hoja excel no se pudo guardar";
+                //print_r($_SESSION['codigos']);
+                exit();
+                break;
+        }
+
+        exit();
+        break;
+
+    case 'resetearDatos':
+        $_SESSION['banderaSql'] = 1;
+        unset($_SESSION['banderaSql']);       
+        // $_SESSION['banderaSql'] = "";
+        $_SESSION['codigos'] = NULL;
+        unset($_SESSION['codigos']);
+        $_SESSION['controltransaccion'] = NULL;
+        unset($_SESSION['controltransaccion']);       
+        $_SESSION['datosGenerales'] = NULL;
+        unset($_SESSION['datosGenerales']);
+        $_SESSION['datosEspecificos'] = NULL;
+        unset($_SESSION['datosEspecificos']);
+        $_SESSION['datosPerforacion'] = NULL;
+        unset($_SESSION['datosPerforacion']);
+        $_SESSION['datosConstructivos'] = NULL;
+        unset($_SESSION['datosConstructivos']);
+        $_SESSION['datosConDiseno'] = NULL;
+        unset($_SESSION['datosConDiseno']);
+        $_SESSION['datosColumnaLitologica'] = NULL;
+        unset($_SESSION['datosColumnaLitologica']);
+        $_SESSION['datosPerfilajeElectrico'] = NULL;
+        unset($_SESSION['datosPerfilajeElectrico']);
+        $_SESSION['datosImplementacion'] = NULL;
+        unset($_SESSION['datosImplementacion']);
+        $_SESSION['datosMonitoreoCantidad'] = NULL;
+        unset($_SESSION['datosMonitoreoCantidad']);
+        $_SESSION['datosMonitoreoCalidad'] = NULL;
+        unset($_SESSION['datosMonitoreoCalidad']);
+        $_SESSION['codigomoncal'] = NULL;
+        unset($_SESSION['codigomoncal']);
+        $_SESSION['datosMonCalCampo'] = NULL;
+        unset($_SESSION['datosMonCalCampo']);
+        $_SESSION['datosMonCalBasicos'] = NULL;
+        unset($_SESSION['datosMonCalBasicos']);
+        $_SESSION['datosMonCalInorganicos'] = NULL;
+        unset($_SESSION['datosMonCalInorganicos']);
+        $_SESSION['datosMonCalOrganicos'] = NULL;
+        unset($_SESSION['datosMonCalOrganicos']);
+        $_SESSION['datosMonCalMicro'] = NULL;
+        unset($_SESSION['datosMonCalMicro']);
+        $_SESSION['datosMonCalPlaguicidas'] = NULL;
+        unset($_SESSION['datosMonCalPlaguicidas']);
+        $_SESSION['datosMonitoreoIsotopico'] = NULL;
+        unset($_SESSION['datosMonitoreoIsotopico']);
+        $_SESSION['codigomoniso'] = NULL;       
+        unset($_SESSION['codigomoniso']);
+        $_SESSION['datosMonIsoRad'] = NULL;
+        unset($_SESSION['datosMonIsoRad']);
+        $_SESSION['datosMonIsoIso'] = NULL;
+        unset($_SESSION['datosMonIsoIso']);
+        $_SESSION['datosMonIsoOtr'] = NULL;        
+        unset($_SESSION['datosMonIsoOtr']);
+        $_SESSION['codigohidra'] = NULL;
+        unset($_SESSION['codigohidra']);
+        $_SESSION['datosHidraulicos'] = NULL;
+        unset($_SESSION['datosHidraulicos']);
+        $_SESSION['datosHPBEscalonado'] = NULL;
+        unset($_SESSION['datosHPBEscalonado']);
+        $_SESSION['codigohpbescalonado'] = NULL;
+        unset($_SESSION['codigohpbescalonado']);
+        $_SESSION['datosEscalon'] = NULL;
+        unset($_SESSION['datosEscalon']);
+        $_SESSION['datosEscRecuperacion'] = NULL;
+        unset($_SESSION['datosEscRecuperacion']);
+        $_SESSION['codigoescrecesc'] = NULL;
+        unset($_SESSION['codigoescrecesc']);
+        $_SESSION['datosEscRecEscalon'] = NULL;
+        unset($_SESSION['datosEscRecEscalon']);
+        $_SESSION['datosHPBContinuo'] = NULL;
+        unset($_SESSION['datosHPBContinuo']);
+        $_SESSION['codigohpbcontinuo'] = NULL;
+        unset($_SESSION['codigohpbcontinuo']);
+        $_SESSION['datosEscalonContinuo'] = NULL;
+        unset($_SESSION['datosEscalonContinuo']);
+        $_SESSION['datosConRecuperacion'] = NULL;
+        unset($_SESSION['datosConRecuperacion']);
+        $_SESSION['codigoconrecesc'] = NULL;
+        unset($_SESSION['codigoconrecesc']);
+        $_SESSION['datosConRecEscalon'] = NULL;
+        unset($_SESSION['datosConRecEscalon']);
+
+        echo json_encode(array("res"=>true));
+        exit();
+        break;
+
+	    case 'obtenerHojasArchivoDatosMonitoreo':
+        try {
+            include './lib/phpexcel/Classes/PHPExcel/IOFactory.php';
+            $archivo = $_FILES['fileDatosMonitoreo']['tmp_name'];
+            $objPHPExcel = PHPExcel_IOFactory::load($archivo);
+
+            $hojas = $objPHPExcel->getSheetNames();
+
+            $hojasMonitoreo = $objItem->obtenerDefinicionHojasMonitoreo();
+            $hojasMonitoreoCalidad = $objItem->obtenerDefinicionHojasMonitoreoCalidad();
+            $numHojas = count($hojas);
+
+            $hojasMonitoreoExistentes = array();
+            $hojasMonitoreoCalidadExistentes = array();
+            for ($i=0; $i<$numHojas; $i++) {
+                if (in_array(strtoupper($hojas[$i]), $hojasMonitoreo)) {
+                $hojasMonitoreoExistentes[] = $hojas[$i];
+                }
+
+                if (in_array(strtoupper($hojas[$i]), $hojasMonitoreoCalidad)) {
+                $hojasMonitoreoCalidadExistentes[] = $hojas[$i];
+                }
+            }
+
+            if (count($hojasMonitoreo) == count($hojasMonitoreoExistentes) && count($hojasMonitoreoCalidad) == count($hojasMonitoreoCalidadExistentes)) {
+                echo json_encode(array(
+                    'estado' => true,
+                    'mensaje' => '',
+                    'resultado' => $hojasMonitoreoExistentes
+                ));
+            } else {
+                echo json_encode(array(
+                    'estado' => false,
+                    'mensaje' => 'El archivo excel no contiene las hojas requeridas para la importación ('.implode(', ', $hojasMonitoreo).', '.implode(', ', $hojasMonitoreoCalidad).'.',
+                    'resultado' => null
+                ));
+            }
+            
+            $objPHPExcel->disconnectWorksheets();
+            unset($objPHPExcel);
+            exit();
+            break;
+        } catch (Error $e) {
+            echo json_encode(array(
+                'estado' => false,
+                'mensaje' => 'Ocurrió un error, revise el archivo de logs.',
+                'resultado' => null
+            ));
+            exit;
+        } catch (Exception $ex) {
+            global $sysLog;
+            $sysLog->writeLog("", "obtenerHojasArchivoDatosMonitoreo", "error", "siasbo|ficha_pozo|index: ".$ex->getMessage(), "", "");
+            echo json_encode(array(
+                'estado' => false,
+                'mensaje' => 'Ocurrió una excepción, revise el archivo de logs.',
+                'resultado' => null
+            ));
+            exit;
+        }
+      
+    case 'procesarArchivoDatosMonitoreo':
+        try {
+            include './lib/phpexcel/Classes/PHPExcel/IOFactory.php';
+            $archivo = $_FILES['fileDatosMonitoreo']['tmp_name'];
+            $objPHPExcel = PHPExcel_IOFactory::load($archivo);
+
+            $fichaId = $item['fichaId'];
+            $nombreHoja = $item['nombreHoja'];
+    
+            switch (strtoupper($nombreHoja)) {
+                case 'MONITOREO_CANTIDAD':
+                    $objPHPExcel->setActiveSheetIndexByName($nombreHoja);
+                    $sheet = $objPHPExcel->getActiveSheet();
+                    $numFilas = $sheet->getHighestRow();
+
+                    $contadorfilas = 0;
+                    $datosMonitoreo = [];
+                    
+                    $catalogoEpocas = $objItem->obtenerTipoEpoca();
+                    
+                    if ($numFilas > 1) {
+                        //Carga datos de archivo excel a un array
+                        $filaInicio = 3;
+                        for ($i=$filaInicio; $i<=$numFilas; $i++) {
+                            if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) !== "") {
+                                $datosMonitoreo[] = array(
+                                    $fichaId,
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $i)->getFormattedValue(),
+                                    date("Y-m-d H:i:s"),
+                                    date("Y-m-d H:i:s"),
+                                    $_SESSION[userv][itemId],
+                                    $_SESSION[userv][itemId]
+                                );
+                                $contadorfilas++;
+                            } else {
+                                break;
+                            }
+                        }
+
+                        // Valida datos del array
+                        $resValidacion = $objItem->validarDatosMonitoreoCantidad($datosMonitoreo, $filaInicio);
+
+                        if ($resValidacion["estado"] == false) {
+                            echo json_encode(array(
+                                'estado' => false,
+                                'mensaje' => 'Existen datos incorrectos, revise las celdas observadas.<br>'.$resValidacion["mensaje"],
+                                'resultado' => null
+                            ));
+                        } else {
+                            // Transforma datos del array
+                            $datosMonitoreoTransformado = $objItem->transformarDatosMonitoreoCantidad($datosMonitoreo, $catalogoEpocas);
+
+                            // Valida existencia de datos en BD
+                            $cantidadExistenciasBd = $objItem->validarExistenciaDatosMonitoreoCantidad($fichaId, $datosMonitoreoTransformado);
+                            if ($cantidadExistenciasBd > 0) {
+                                echo json_encode(array(
+                                    'estado' => false,
+                                    'mensaje' => 'Los datos que desea importar ya existen en el sistema (se encontraron '.$cantidadExistenciasBd.' coincidencias).',
+                                    'resultado' => null
+                                ));
+                            } else {
+                                // Guarda datos en la BD
+                                $resGuardarDb = $objItem->guardarDatosMonitoreoCantidad($datosMonitoreoTransformado);
+                                if ($resGuardarDb['estado'] && $resGuardarDb['filasafectadas'] == $contadorfilas) {
+                                    echo json_encode(array(
+                                        'estado' => true,
+                                        'mensaje' => 'La importación de datos de monitoreo de cantidad se realizó con éxito ('.$resGuardarDb['filasafectadas'].' registros importados).',
+                                        'resultado' => null
+                                    ));
+                                } else {
+                                    echo json_encode(array(
+                                        'estado' => false,
+                                        'mensaje' => 'No se pudo realizar la importación.',
+                                        'resultado' => null
+                                    ));
+                                }
+                            }
+                        }
+                    } else {
+                        echo json_encode(array(
+                            'estado' => false,
+                            'mensaje' => 'No existen datos en la hoja de Excel.',
+                            'resultado' => null
+                        ));
+                    }
+    
+                    unset($datosMonitoreo);
+                    unset($datosMonitoreoTransformado);
+                    $objPHPExcel->disconnectWorksheets();
+                    unset($objPHPExcel);
+                            
+                    exit();
+                    break;
+                
+                case 'MONITOREO_CALIDAD':
+                    $objPHPExcel->setActiveSheetIndexByName($nombreHoja);
+                    $sheet = $objPHPExcel->getActiveSheet();
+                    $numFilas = $sheet->getHighestRow();
+
+                    $contadorfilas = 0;
+                    $datosMonitoreo = [];
+                    $idsMuestra = array();
+                    
+                    if ($numFilas > 1) {
+                        $filaInicio = 3;
+                        for ($i = $filaInicio; $i <= $numFilas; $i++) {
+                            if (trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue()) !== "") {
+                                $numeroMuestra = trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $i)->getFormattedValue());
+                                //Guarda datos de archivo excel a un array
+                                $datosMonitoreo[$numeroMuestra] = array(
+                                    $fichaId,
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $i)->getFormattedValue(),
+                                    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $i)->getFormattedValue(),
+                                    date("Y-m-d H:i:s"),
+                                    date("Y-m-d H:i:s"),
+                                    $_SESSION[userv][itemId],
+                                    $_SESSION[userv][itemId]
+                                );
+
+                                // Guarda número de muestra en un array
+                                $idsMuestra[$numeroMuestra] = 0;
+
+                                $contadorfilas++;
+                            } else {
+                                break;
+                            }
+                        }
+
+                        // Obtiene datos de las hojas de compuestos de calidad
+                        $hojasMonitoreoCalidad = $objItem->obtenerDefinicionHojasMonitoreoCalidad();
+                        $parametrosCalidad = $objItem->obtenerDefinicionParametrosCalidad();
+                        $datosMonitoreoCalidadCompuestos = array();
+                        $contadorFilasCompuestos = 0;
+
+                        foreach ($hojasMonitoreoCalidad as $clave => $valor) {
+                            $objPHPExcel->setActiveSheetIndexByName($valor);
+                            $sheet = $objPHPExcel->getActiveSheet();
+                            $numFilas = $sheet->getHighestRow();
+                            $numColumnas = $sheet->getHighestColumn();
+                            $numColumnasEntero = PHPExcel_Cell::columnIndexFromString($numColumnas);
+
+                            if ($numFilas > 1 && $numColumnasEntero > 1) {
+                                $filaInicioCompuestos = 2;
+                                
+                                for ($i = $filaInicioCompuestos; $i <= $numFilas; $i++) {
+                                    for ($j = 1; $j < $numColumnasEntero - 1; $j++) {
+                                        $valorCelda = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue();
+                                        if ($valorCelda != "" && $valorCelda != null) {
+                                            $datosMonitoreoCalidadCompuestos[] = array(
+                                                $valor,
+                                                $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $i)->getFormattedValue(),
+                                                $parametrosCalidad[$valor],
+                                                $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, 1)->getFormattedValue(),
+                                                $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($j, $i)->getFormattedValue(),
+                                                $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($numColumnasEntero - 1, $i)->getFormattedValue(),
+                                                date("Y-m-d H:i:s"),
+                                                date("Y-m-d H:i:s"),
+                                                $_SESSION[userv][itemId],
+                                                $_SESSION[userv][itemId]
+                                            );
+                                            $contadorFilasCompuestos++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // Valida datos del array
+                        $resValidacion = $objItem->validarDatosMonitoreoCalidad($datosMonitoreo, $filaInicio);
+                        $resValidacionCompuestos = $objItem->validarDatosCompuestosMonitoreoCalidad($datosMonitoreoCalidadCompuestos);
+
+                        if ($resValidacion["estado"] == false) {
+                            echo json_encode(array(
+                                'estado' => false,
+                                'mensaje' => 'Existen datos incorrectos, revise las celdas observadas.<br>'.$resValidacion["mensaje"],
+                                'resultado' => null
+                            ));
+                        } elseif ($resValidacionCompuestos["estado"] == false) {
+                            echo json_encode(array(
+                                'estado' => false,
+                                'mensaje' => 'Existen datos incorrectos, revise las observaciones.<br>'.$resValidacionCompuestos["mensaje"],
+                                'resultado' => null
+                            ));
+                        } else {
+                            // Obtiene catalogos de la BD
+                            $catalogoEpocas = $objItem->obtenerTipoEpoca();
+                            $catalogoCompuestosCalidad = $objItem->obtenerCatalogoCompuestosCalidad();
+
+                            // Transforma datos del array
+                            $datosMonitoreoTransformado = $objItem->transformarDatosMonitoreoCalidad($datosMonitoreo, $catalogoEpocas);
+
+                            // Guarda datos en la BD
+                            $resGuardarDb = $objItem->guardarDatosMonitoreoCalidad($datosMonitoreoTransformado, $datosMonitoreoCalidadCompuestos, $idsMuestra, $catalogoCompuestosCalidad);
+
+                            if ($resGuardarDb['estado'] && $resGuardarDb['filasafectadas'] == $contadorfilas && $resGuardarDb['filasAfectadasCompuestos'] == $contadorFilasCompuestos) {
+                                echo json_encode(array(
+                                    'estado' => true,
+                                    'mensaje' => 'La importación de datos de monitoreo de calidad y compuestos se realizó con éxito ('.$resGuardarDb['filasafectadas'].' registros de calidad y '.$resGuardarDb['filasAfectadasCompuestos'].' registros de compuestos importados).',
+                                    'resultado' => null
+                                ));
+                            } else {
+                                echo json_encode(array(
+                                    'estado' => false,
+                                    'mensaje' => 'No se pudo realizar la importación.',
+                                    'resultado' => null
+                                ));
+                            }
+                        }
+                    } else {
+                        echo json_encode(array(
+                            'estado' => false,
+                            'mensaje' => 'No existen datos en la hoja de Excel.',
+                            'resultado' => null
+                        ));
+                    }
+    
+                    unset($datosMonitoreo);
+                    unset($datosMonitoreoTransformado);
+                    unset($datosMonitoreoCalidadCompuestos);
+                    $objPHPExcel->disconnectWorksheets();
+                    unset($objPHPExcel);
+                            
+                    exit();
+                    break;
+            }
+        } catch (Error $e) {
+            echo json_encode(array(
+                'estado' => false,
+                'mensaje' => 'Ocurrió un error, revise el archivo de logs.',
+                'resultado' => null
+            ));
+            exit;
+        } catch (Exception $ex) {
+            global $sysLog;
+            $sysLog->writeLog("", "procesarArchivoDatosMonitoreo", "error", "siasbo|ficha_pozo|index: ".$ex->getMessage(), "", "");
+            echo json_encode(array(
+                'estado' => false,
+                'mensaje' => 'Ocurrió una excepción, revise el archivo de logs.',
+                'resultado' => null
+            ));
+            exit;
+        }
+
+    case 'codice':
+        echo "es una mala llamada de un snippet";
+        exit();
+        break;
+
+}
+

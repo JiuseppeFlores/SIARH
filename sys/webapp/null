@@ -1,0 +1,1000 @@
+  219  cd ..
+  220  ll
+  221  cd inc/
+  222  ll
+  223  nano inc.php 
+  224  nano template.php 
+  225  cd ..
+  226  ll
+  227  cd submodule/
+  228  ll
+  229  cd catalogo_clase/
+  230  ll}
+  231  ll
+  232  cd inc/
+  233  ll
+  234  }nano db.php 
+  235  nano db.php 
+  236  nano inc.php 
+  237  cd  ..
+  238  ll
+  239  cd snippet/
+  240  ll
+  241  cd general/
+  242  ll
+  243  cd inc/
+  244  ll
+  245  nano inc.php }
+  246  ll
+  247  nano grilla.php 
+  248  cd ..
+  249  ll
+  250  cd ..
+  251  ll
+  252  cd ..
+  253  ll
+  254  cd submodule/
+  255  ll
+  256  cd index/
+  257  ll
+  258  cd inc/
+  259  ll
+  260  nano db.php 
+  261  cd .
+  262  ll
+  263  cd inc/
+  264  ll
+  265  nano inc.php 
+  266  cd ..
+  267  ll
+  268  }cd catalogo_clase/
+  269  cd catalogo_clase/
+  270  ll
+  271  cd inc/
+  272  ll
+  273  nano db.php 
+  274  cd ..
+  275  ll
+  276  cd ..
+  277  ll
+  278  cd ..
+  279  ll
+  280  timedatectl
+  281  history
+  282  cd ..df -h
+  283  df -h
+  284  timedatectl
+  285  timedatectl set-time "2024-10-30 16:50:30"
+  286  timedatectl
+  287  df -h
+  288  exit
+  289  systemctl status httpd
+  290  systemctl restart httpd
+  291  cd /var/www/
+  292  ll
+  293  cd siarh/
+  294  ll
+  295  cd sys/
+  296  ll
+  297  cd webapp/
+  298  ll
+  299  cd ..
+  300  cd db
+  301  ll
+  302  cd poa
+  303  ll
+  304  cd ..
+  305  ll
+  306  cd webapp/
+  307  ll
+  308  cd module
+  309  ll
+  310  cd poa/
+  311  ll
+  312  cd submodule/formulario_usuario
+  313  ll
+  314  cd snippet/general/view/
+  315  ll
+  316  nano index.tpl 
+  317  ll
+  318  nano index.js.tpl 
+  319  nano index.css.tpl 
+  320  cd ..
+  321  ll
+  322  cd inc/
+  323  ll
+  324  nano campos.php 
+  325  nano grilla.php 
+  326  nano inc.php 
+  327  nano tab.php 
+  328  nano tpl.php 
+  329  cd ..
+  330  ll
+  331  nano controller.php 
+  332  cd ..
+  333  ll
+  334  cd index/
+  335  ll
+  336  nano controller.php 
+  337  cd inc/
+  338  ll
+  339  nano grilla.php 
+  340  nano inc.php 
+  341  nano tpl.php 
+  342  cd ..
+  343  ll
+  344  cd ..
+  345  ll
+  346  cd unidad/
+  347  ll
+  348  nano class.catalog.php 
+  349  ll
+  350  cd inc/
+  351  ll
+  352  nano campos.php 
+  353  cd ..
+  354  ll
+  355  cd ..
+  356  ll
+  357  cd ..
+  358  ll
+  359  cd inc/
+  360  ll
+  361  nano db.referencia.php 
+  362  systemctl status httpd
+  363  systemctl restart httpd
+  364  systemctl status httpd
+  365  systemctl restart httpd
+  366  cd /var/www/
+  367  ls
+  368  cd html/
+  369  ll
+  370  cd ..
+  371  cd publico
+  372  ll
+  373  cd public
+  374  ll
+  375  cd webapp/
+  376  ll
+  377  cd module/
+  378  ll
+  379  cd personal/
+  380  ll
+  381  cd submodule/
+  382  ll
+  383  cd ..
+  384  ll
+  385  cd ..
+  386  ll
+  387  find . -name seguridad
+  388  find . -name seguridad*
+  389  find . -d -name seguridad*
+  390  cd ..
+  391  cd siarh/
+  392  ll
+  393  cd sys/
+  394  ll
+  395  cd webapp/
+  396  ll
+  397  cd module
+  398  ll
+  399  cd seguridad/
+  400  ll
+  401  cd inc/
+  402  ll
+  403  nano inc.php 
+  404  cd ..
+  405  ll
+  406  cd submodule/
+  407  ll
+  408  cd control_ingreso/
+  409  ll
+  410  cd inc/
+  411  ll
+  412  nano db.php 
+  413  cd ..
+  414  ll
+  415  cd inc/
+  416  ll
+  417  nano inc.php 
+  418  cd ..
+  419  ll
+  420  cd ..
+  421  ll
+  422  cd ..
+  423  ll
+  424  cd submodule/
+  425  ll
+  426  cd ..
+  427  ll
+  428  cd inc/
+  429  l
+  430  ll
+  431  nano inc.php 
+  432  cd ..
+  433  ll
+  434  cd /var/www/
+  435  ll
+  436  cd siarh/
+  437  ll
+  438  cd sys
+  439  ll
+  440  cd webapp/
+  441  ll
+  442  cd module
+  443  ll
+  444  cd presas/
+  445  ll
+  446  cd inc/
+  447  ll
+  448  nano inc.php 
+  449  nano template.php 
+  450  ll
+  451  cd ..
+  452  ll
+  453  cd submodule/
+  454  ll
+  455  cd index/
+  456  ll
+  457  nano index.html 
+  458  cd inc/
+  459  ll
+  460  nano db.php 
+  461  nano db.referencia.php 
+  462  nano inc.php 
+  463  pwd
+  464  cd ..
+  465  ll
+  466  cd snippet/
+  467  ll
+  468  cd index/
+  469  ll
+  470  cd inc/
+  471  ll
+  472  nano inc.php 
+  473  mamp tab.php 
+  474  nano tab.php 
+  475  cd ..
+  476  ll
+  477  nano controller.php 
+  478  cd view/
+  479  ll
+  480  nano index.tpl
+  481  cd ..
+  482  ll
+  483  cd ..
+  484  ll
+  485  cd ..
+  486  ll
+  487  cd ..
+  488  ll
+  489  cd ..
+  490  ll
+  491  cd classes/
+  492  ll
+  493  cd ..
+  494  cd inc/
+  495  ll
+  496  cd ..
+  497  cd submodule/
+  498  ll
+  499  cd ..
+  500  cd template/
+  501  ll
+  502  cd ..
+  503  ll
+  504  df -h
+  505  systemctl status httpd
+  506  systemctl restart httpd
+  507  cd /var/www/
+  508  ll
+  509  cd siarh/
+  510  ll
+  511  cd sys/
+  512  ll
+  513  cd webapp/
+  514  ll
+  515  cd modul
+  516  cd module
+  517  ll
+  518  cd siasbo
+  519  ll
+  520  ped
+  521  pwd
+  522  cd inc/
+  523  ll
+  524  nano inc.php 
+  525  cd ..
+  526  ll
+  527  cd classes/
+  528  ll
+  529  nano class.modulo_core.php 
+  530  cd ..
+  531  ll
+  532  cd img/
+  533  ll
+  534  cd ..
+  535  cd inc/
+  536  ll
+  537  nano inc.php 
+  538  nano template.php 
+  539  ls -al
+  540  cd ..
+  541  ll
+  542  cd submodule/
+  543  ll
+  544  cd consultas/
+  545  ll
+  546  nano index.html 
+  547  cd inc/
+  548  ll
+  549  nano db.php 
+  550  nano db.referencia.php 
+  551  nano inc.php 
+  552  nano db.php 
+  553  cd ..
+  554  ll
+  555  cd snippet/
+  556  ll
+  557  cd archivos/
+  558  ll
+  559  cd inc/
+  560  ll
+  561  cd ..
+  562  cd general/
+  563  ll
+  564  cd inc/
+  565  ll
+  566  cd ..
+  567  ll
+  568  cd ficha_excel/
+  569  ll
+  570  cd inc/
+  571  ll
+  572  nano db.php 
+  573  pwd
+  574  cd ..
+  575  ll
+  576  cd ..
+  577  ll
+  578  cd index/
+  579  ll
+  580  cd inc/
+  581  ll
+  582  nano db.php 
+  583  nano db.referencia.php 
+  584  nano inc.php 
+  585  cd .
+  586  cd ..
+  587  ll
+  588  cd snippet/
+  589  ll
+  590  cd index/
+  591  ll
+  592  cd ind
+  593  cd inc/
+  594  ll
+  595  nano tpl.php 
+  596  cd ..
+  597  ll
+  598  cd ..
+  599  ll
+  600  cd ..
+  601  ll
+  602  cd parametros/
+  603  ll
+  604  cd inc/
+  605  ll
+  606  nano db.php 
+  607  cd ..
+  608  ll
+  609  cd usuarios/
+  610  ll
+  611  cd inc/
+  612  ll
+  613  nano db.php 
+  614  cd ..
+  615  ll
+  616  cd ..
+  617  ll
+  618  cd inc/
+  619  ll
+  620  nano inc.php 
+  621  cd ..
+  622  ll
+  623  cd submodule/
+  624  ll
+  625  cd geovisor/
+  626  ll
+  627  cd inc/
+  628  ll
+  629  nano db.php 
+  630  ped
+  631  pwd
+  632  cd ..
+  633  ll
+  634  cd ..
+  635  ll
+  636  cd ..
+  637  ll
+  638  du -sh siasbo
+  639  ip  a
+  640  pwd
+  641  du -sh siasbo
+  642  cd siasbo_v2/
+  643  ll
+  644  cd submodule/
+  645  ll
+  646  cd ..
+  647  cd siasbo
+  648  ll
+  649  cd submodule/
+  650  ll
+  651  cd ..
+  652  du -sh siasbo_v2/
+  653  php --version
+  654  lsb_release
+  655  cat /etc/os-release
+  656  mysql
+  657  `mysql -e ' SELECT VERSION(); ' `
+  658  mysql --version
+  659  df -h
+  660  systemctl status httpd
+  661  timedatectl
+  662  timedatectl set-time 12:10:30
+  663  timedatectl
+  664  timedatectl set-time "2025-01-27 17:44:30"
+  665  timedatectl
+  666  systemctl status httpd
+  667  exit
+  668  timedatectl
+  669  timedatectl set-time 12:19:30
+  670  timedatectl
+  671  cd /var/www/
+  672  ll
+  673  cd html/
+  674  ll
+  675  cd ..
+  676  cd publico
+  677  ll
+  678  cd public
+  679  ll
+  680  cd webapp/
+  681  ll
+  682  cd module/
+  683  ll
+  684  cd /var/www/siarh/sys/webapp/module
+  685  ll
+  686  cd siasbo
+  687  ls
+  688  cd submodule/
+  689  ll
+  690  cd ficha_pozo/snippet/
+  691  ll
+  692  cd index/
+  693  ll
+  694  cp class.php class.php.bk
+  695  cp controller.php controller.php.bk
+  696  ll
+  697  nano class.php
+  698  ls -tla
+  699  nano  controller.php
+  700  pwd
+  701  cd view/
+  702  ll
+  703  cd lista/
+  704  ll
+  705  pwd
+  706  cp lista.js.tpl lista.js.tpl.bk
+  707  cp lista.tpl lista.tpl.bk
+  708  ls -tla
+  709  ll
+  710  nano lista.js.tpl
+  711  nano lista.tpl
+  712  cp lista.tpl lista_ventanas_modal.tpl
+  713  ll
+  714  nano lista_ventanas_modal.tpl 
+  715  systemctl status httpd
+  716  systemctl restart httpd
+  717  systemctl status httpd
+  718  cd ..
+  719  pwd
+  720  ll
+  721  nano class.php
+  722  nano controller.php
+  723  cd view/
+  724  cd lista/
+  725  ll
+  726  cd ..
+  727  ll
+  728  cd inc/
+  729  ll
+  730  nano db.php
+  731  cd ..}
+  732  cd ..
+  733  cd snippet/index/
+  734  ll
+  735  pwd
+  736  nano class.php
+  737  nano controller.php
+  738  ll
+  739  cd ..
+  740  cd index/
+  741  cd view/lista/
+  742  ll
+  743  nano lista.js.tpl
+  744  nano lista.tpl
+  745  nano lista_ventanas_modal.tpl 
+  746  systemctl restart httpd
+  747  ll
+  748  nano lista.js.tpl
+  749  nano lista.tpl
+  750  nano lista_ventanas_modal.tpl 
+  751  sysstemctl restart httpd
+  752  systemctl restart httpd
+  753  ll
+  754  cd ..
+  755  ll
+  756  scp -r root@192.168.5.111:/home/respaldos_web/siasbo/class.php .
+  757  ll
+  758  scp -r root@192.168.5.111:/home/respaldos_web/siasbo/controller.php .
+  759  cd view/
+  760  cd lista/
+  761  ll
+  762  scp -r root@192.168.5.111:/home/respaldos_web/siasbo/lista/lista.js.tpl .
+  763  ll
+  764  scp -r root@192.168.5.111:/home/respaldos_web/siasbo/lista/lista.tpl .
+  765  ll
+  766  scp -r root@192.168.5.111:/home/respaldos_web/siasbo/lista/lista_ventanas_modal.tpl .
+  767  ll
+  768  nano lista_ventanas_modal.tpl 
+  769  systemctl restart httpd
+  770  cd /var/www/
+  771  ll
+  772  cd siarh/
+  773  ll
+  774  cd sys/
+  775  ll
+  776  cd webapp/
+  777  ll
+  778  cd module/
+  779  ll
+  780  cd siasbo
+  781  ll
+  782  cd inc/
+  783  ll
+  784  nano inc.php 
+  785  cd ..
+  786  ll
+  787  cd submodule/
+  788  ll
+  789  cd ficha_pozo/
+  790  ll
+  791  cd inc/
+  792  ll
+  793  nano db.php 
+  794  cd ..
+  795  ll
+  796  cd ..
+  797  ll
+  798  cd ficha_pozo/
+  799  ll
+  800  cd inc/
+  801  ll
+  802  nano db.php 
+  803  cd /var/www/
+  804  ll
+  805  cd siarh/
+  806  ll
+  807  cd logs/
+  808  ll
+  809  du -sh sys_access_log 
+  810  df -h
+  811  ll
+  812  nano access_log 
+  813  cat sys_error_log | grep 2025
+  814  ll
+  815  cat sys_access_log | grep 2025
+  816  ll
+  817  du -sh sys_error_log 
+  818  nano sys_error_log 
+  819  cat sys_error_log | grep /02/2025
+  820  cat sys_error_log | grep 02/2025
+  821  cat sys_error_log | grep 02-2025
+  822  cat sys_error_log | grep 2025
+  823  ll
+  824  cd ..
+  825  ll
+  826  cd sys/
+  827  ll
+  828  cd db/
+  829  ll
+  830  pwd
+  831  cd siasbo/
+  832  lll
+  833  ll
+  834  cd ..
+  835  ll
+  836  pwd
+  837  cd siasbo/
+  838  ll
+  839  nano mmaya_siasbo.mwb 
+  840  cd ..
+  841  ll
+  842  cd ..
+  843  ll
+  844  cd webapp/
+  845  ll
+  846  cd module
+  847  ll
+  848  cd siasbo
+  849  ll
+  850  systemctl restart httpd
+  851  systemctl status httpd
+  852  df -h
+  853  systemctl status https
+  854  systemctl status httpd
+  855  df -h
+  856  exit
+  857  cd /var/www/siarh/
+  858  cd sys/
+  859  ll
+  860  cd webapp/module/
+  861  ll
+  862  cd rrhh
+  863  ll
+  864  cd submodule/
+  865  ll
+  866  cd credencial_impresion/
+  867  ll
+  868  nano index.html 
+  869  cd inc/
+  870  ll
+  871  nano db.php 
+  872  nano inc.php 
+  873  cd ..
+  874  ll
+  875  cd snippet/
+  876  ll
+  877  cd impresiones/
+  878  ll
+  879  nano controller.php 
+  880  nano cd inc/
+  881  cd inc/
+  882  ll
+  883  nano campos.php 
+  884  nano grilla.php 
+  885  cd ..
+  886  ll
+  887  cd ..
+  888  ll
+  889  cd inc/
+  890  ll
+  891  nano db.referencia.php 
+  892  cd ..
+  893  ll
+  894  cd snippet/
+  895  ll
+  896  cd impresiones/
+  897  ll
+  898  cd inc/
+  899  ll
+  900  nano grilla.php 
+  901  nano campos.php 
+  902  cd /var/www/
+  903  ll
+  904  cd siarh/
+  905  ll
+  906  cd sys/
+  907  ll
+  908  cd webapp/
+  909  ll
+  910  cd module
+  911  ll
+  912  cd simca/
+  913  ll
+  914  cd inc/
+  915  ll
+  916  nano inc.php 
+  917  nano template.php 
+  918  cd ..
+  919  ll
+  920  cd submodule/
+  921  ll
+  922  cd datos/
+  923  ll
+  924  cd inc/
+  925  ll
+  926  nano db.php 
+  927  passwd root
+  928  passwd admin
+  929  nmtui
+  930  shutown -r
+  931  shutdown -r
+  932  systemctl status httpd
+  933  systemctl restart httpd
+  934  cd /etc/httpd/sites-enabled/
+  935  ll
+  936  nano miofi.mmaya.gob.bo-le-ssl.conf 
+  937  nano miofi.mmaya.gob.bo.conf 
+  938  nano miofi.mmaya.gob.bo-le-ssl.conf 
+  939  systemctl restart httpd
+  940  cd /etc/
+  941  ls
+  942  nano hosts
+  943  nano HOSTNAME 
+  944  nano hosts.allow 
+  945  nano hosts.deny 
+  946  cd httpd/sites-enabled/
+  947  ll
+  948  nano miofi.mmaya.gob.bo-le-ssl.conf 
+  949  cd /var/www/siarh/sys/webapp/
+  950  ll
+  951  nano index.
+  952  nano index.php
+  953  nano public.php 
+  954  cd /var/www/siarh/sys/webapp/
+  955  systemctl status httpd
+  956  cd /etc/httpd/sites-enabled/
+  957  ll
+  958  nano  miofi.mmaya.gob.bo-le-ssl.conf 
+  959  cd /var/www/
+  960  ll
+  961  cd siarh/
+  962  ll
+  963  cd sys/
+  964  kk
+  965  ll
+  966  cd webapp/
+  967  ll
+  968  cd module
+  969  ll
+  970  nano /etc/hosts.allow 
+  971  nano /etc/hosts.deny 
+  972  netstat -tunel
+  973  nmtui
+  974  passwd root
+  975  passwd admin
+  976  clear
+  977  ls
+  978  history 
+  979  php -v
+  980  lastb 
+  981  lastb -a
+  982  cd /var/www/
+  983  ll
+  984  cd publico
+  985  ll
+  986  cd ..
+  987  cd siarh/
+  988  ll
+  989  cd sys/
+  990  ll
+  991  cd webapp/
+  992  ll}
+  993  ll
+  994  cd module
+  995  ll
+  996  cd simheb/
+  997  ll
+  998  cd inc/
+  999  ll
+ 1000  nano config.php 
+ 1001  cd /var/www/
+ 1002  ll
+ 1003  cd siarh/
+ 1004  ll
+ 1005  cd sys
+ 1006  l
+ 1007  ll
+ 1008  cd webapp/
+ 1009  ll
+ 1010  cd module
+ 1011  ll
+ 1012  ls -tla
+ 1013  mc
+ 1014  ll
+ 1015  df -h
+ 1016  cd config
+ 1017  ll
+ 1018  cd inc/
+ 1019  ll
+ 1020  nano inc.php 
+ 1021  cd ..
+ 1022  cd submodule/
+ 1023  ll
+ 1024  cd listaUsuarios/
+ 1025  ll
+ 1026  cd classes/
+ 1027  ll
+ 1028  nano class.catalog.php 
+ 1029  nano class.general.php 
+ 1030  nano class.index.php 
+ 1031  nano class.permiso.php 
+ 1032  cd ..
+ 1033  cd controller/
+ 1034  ll
+ 1035  nano general.php 
+ 1036  nano item.php 
+ 1037  nano permiso.php 
+ 1038  cd ..
+ 1039  ll
+ 1040  cd inc/
+ 1041  ll
+ 1042  nano general.tpl.php 
+ 1043  nano inc.php 
+ 1044  nano permiso.tpl.php 
+ 1045  nano template.php 
+ 1046  ls -ytla
+ 1047  ls -tla
+ 1048  cd ..
+ 1049  cd inc/
+ 1050  ll
+ 1051  cd ..
+ 1052  ll
+ 1053  cd template/
+ 1054  ll
+ 1055  cd general/
+ 1056  ll
+ 1057  nano index.tpl 
+ 1058  cd grupo/
+ 1059  ll
+ 1060  nano itemTable.tpl 
+ 1061  cd ..
+ 1062  ll
+ 1063  cd Institucion/
+ 1064  ll
+ 1065  naon itemTable.tpl 
+ 1066  nano itemTable.tpl 
+ 1067  cd ..
+ 1068  ll
+ 1069  cd ..
+ 1070  ll
+ 1071  nano index.tpl 
+ 1072  nano item.tpl 
+ 1073  cd permiso/
+ 1074  ll
+ 1075  nano index.tpl 
+ 1076  nano index.js.tpl 
+ 1077  cd ..
+ 1078  ll
+ 1079  cd print/
+ 1080  ll
+ 1081  nano index.tpl 
+ 1082  nano page01.tpl 
+ 1083  cd ..
+ 1084  ll
+ 1085  cd tab01/
+ 1086  ll
+ 1087  nano list.tpl 
+ 1088  cd ..
+ 1089  cd template/
+ 1090  ll
+ 1091  nano template.tpl 
+ 1092  cd ..
+ 1093  ..
+ 1094  cd ..
+ 1095  ll
+ 1096  cd ..
+ 1097  ll
+ 1098  cd listaGrupos/
+ 1099  ll
+ 1100  cd classes/
+ 1101  ll
+ 1102  cd ..
+ 1103  cd controller/
+ 1104  ll
+ 1105  nano general.php 
+ 1106  cd ..
+ 1107  ll
+ 1108  cd ..
+ 1109  ll
+ 1110  cd ..
+ 1111  ll
+ 1112  cd template/
+ 1113  ll
+ 1114  nano template.tpl 
+ 1115  cd ..
+ 1116  ll
+ 1117  cd siasbo
+ 1118  ll
+ 1119  cd inc/
+ 1120  ll
+ 1121  nano inc.php 
+ 1122  cd ..
+ 1123  ll
+ 1124  cd submodule/
+ 1125  ll
+ 1126  cd geovisor/
+ 1127  ll
+ 1128  nano index.html 
+ 1129  cd inc/
+ 1130  ll
+ 1131  nano db.php 
+ 1132  pwd
+ 1133  cd ..
+ 1134  ll
+ 1135  cd consultas/
+ 1136  ll
+ 1137  nano index.html 
+ 1138  cd inc/
+ 1139  ll
+ 1140  nano db.php 
+ 1141  nano db.referencia.php 
+ 1142  nano inc.php 
+ 1143  cd ..
+ 1144  ll
+ 1145  cd snippet/
+ 1146  ll
+ 1147  cd archivos/
+ 1148  ll
+ 1149  cd inc/
+ 1150  ll
+ 1151  nano tpl.php 
+ 1152  cd ..
+ 1153  ll
+ 1154  cd general/
+ 1155  ll
+ 1156  cd inc/
+ 1157  ll
+ 1158  cd ..
+ 1159  ll
+ 1160  cd view/
+ 1161  l
+ 1162  ll
+ 1163  nano index.tpl 
+ 1164  cd ..
+ 1165  cd --
+ 1166  ññ
+ 1167  ll
+ 1168  cd ..
+ 1169  llll
+ 1170  ll
+ 1171  pwd
+ 1172  cd var/www/
+ 1173  ll
+ 1174  cd siarh/
+ 1175  ll
+ 1176  cd sys/
+ 1177  ll
+ 1178  du -sh webapp.zip 
+ 1179  rm -r webapp.zip 
+ 1180  ll
+ 1181  cd webapp/
+ 1182  ll
+ 1183  cd modul
+ 1184  cd module
+ 1185  cd ..
+ 1186  nao index.php
+ 1187  nano index.t
+ 1188  nano index.php
+ 1189  cd module/
+ 1190  ll
+ 1191  cd siasbo
+ 1192  ll
+ 1193  cd submodule/
+ 1194  ll
+ 1195  cd usuarios/
+ 1196  ll
+ 1197  nano index.html 
+ 1198  cd inc/
+ 1199  ll
+ 1200  nano db.php 
+ 1201  nano inc.php 
+ 1202  cd ..
+ 1203  ll
+ 1204  cd ..
+ 1205  ll
+ 1206  cd reportes/
+ 1207  ll
+ 1208  cd inc/
+ 1209  ll
+ 1210  nano db.php 
+ 1211  cd ..
+ 1212  ll
+ 1213  cd ..
+ 1214  ll
+ 1215  cd ..
+ 1216  ll
+ 1217  cd ..
+ 1218  history > null

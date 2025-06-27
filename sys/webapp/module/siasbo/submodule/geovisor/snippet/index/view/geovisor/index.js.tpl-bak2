@@ -1,0 +1,2347 @@
+{literal}
+<script>
+    proj4.defs("EPSG:2154","+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+    proj4.defs("EPSG:27700","+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs");
+    //proj4.defs("EPSG:32662","+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
+    //proj4.defs("EPSG:54024","+proj=bonne +lon_0=0 +lat_1=60 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs ");
+    proj4.defs('EPSG:5479', '+proj=lcc +lat_1=-76.66666666666667 +lat_2=-79.33333333333333 +lat_0=-78 +lon_0=163 +x_0=7000000 +y_0=5000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
+    proj4.defs('EPSG:23032', '+proj=utm +zone=32 +ellps=intl +towgs84=-87,-98,-121,0,0,0,0 +units=m +no_defs');
+    proj4.defs('EPSG:21781', '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs');
+    proj4.defs('EPSG:3413', '+proj=stere +lat_0=90 +lat_ts=70 +lon_0=-45 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs');
+    proj4.defs('EPSG:2163', '+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs');
+    proj4.defs('ESRI:54009', '+proj=moll +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs');
+
+    // Define projection extent
+    if (ol.proj.proj4 && ol.proj.proj4.register) {
+        ol.proj.proj4.register(proj4);
+    }
+    ol.proj.get('EPSG:2154').setExtent([0, 6000000, 1250000, 7200000]);
+    ol.proj.get('EPSG:27700').setExtent([0, 0, 800000, 1400000]);
+    ol.proj.get('EPSG:5479').setExtent([6825737.53, 4189159.80, 9633741.96, 5782472.71]);
+    ol.proj.get('EPSG:23032').setExtent([-1206118.71, 4021309.92, 1295389.00, 8051813.28]);
+    ol.proj.get('EPSG:21781').setExtent([485071.54, 75346.36, 828515.78, 299941.84]);
+    ol.proj.get('EPSG:3413').setExtent([-4194304, -4194304, 4194304, 4194304]);
+    ol.proj.get('EPSG:2163').setExtent([/*-8040784.5135*/-4000000, -2577524.9210, 3668901.4484, /*4785105.1096*/4450000]);
+    ol.proj.get('ESRI:54009').setExtent([-18e6, -9e6, 18e6, 9e6]);
+
+    var projectionGraticula = {
+        '4326': new ol.control.Graticule({ step: 0.05, stepCoord: 5, margin:5, projection: 'EPSG:4326', formatCoord:function(c){ return c.toFixed(1)+"°" } }),
+        //'32662': new ol.control.Graticule({ step: 1000, stepCoord: 1, projection: 'EPSG:32662' }),
+        '5479': new ol.control.Graticule({ step: 1000, stepCoord: 1, projection: 'EPSG:5479' }),
+        '23032': new ol.control.Graticule({ step: 1000, stepCoord: 1, projection: 'EPSG:23032' }),
+        '21781': new ol.control.Graticule({ step: 1000, stepCoord: 5, projection: 'EPSG:21781' }),
+        '3413': new ol.control.Graticule({ step: 1000, stepCoord: 5, projection: 'EPSG:3413' }),
+        '2163': new ol.control.Graticule({ step: 1000, stepCoord: 5, projection: 'EPSG:2163' }),
+        '54009': new ol.control.Graticule({ step: 1000, stepCoord: 5, projection: 'ESRI:54009' }),
+        '2154': new ol.control.Graticule({ step: 1000, stepCoord: 5, projection: 'EPSG:2154' }), 
+        '27700': new ol.control.Graticule({ step: 1000, stepCoord: 5, projection: 'EPSG:27700' })
+    };
+
+    var capaGraticula;
+    //--------------------------------------------------------
+    var capaOrientacion;
+    //--------------------------------------------------------
+	var btn_state_search = 1;
+	var btn_state_info = 1;
+    var btn_state_config = 1;
+    var opcion_busqueda_info = 0;
+    var mapa, vista, puntosPozo, puntosManantial, puntosGeofisica;
+    var mapaBing;
+    var urlBase = "{/literal}{$getModule}{literal}";
+    var sourcePozo;
+    var clusterPozo;
+    var sourceManantial;
+    var sourceGeofisica;
+    var coodenadaReferencia;
+    var contadorReferencia = 0;
+    var tipoMapa = 0;
+    var centrarMapa;
+    var resInicial;
+    var mapaDepartamental;
+    var mapaMunicipios;
+    var mapaCuencaEstra25;
+    var mapaHidrogeologia;
+    var mapaGeologia;
+    var mapaMacrocuencas;
+    var mapaAcuiferos;
+    var mapaGuadalquivirGeologia50000;
+    var mapaGuadalquivirLineasGeologicas;
+    var mapaOruroSuelos;
+    var mapaCochabambaValleAltoSuelos;
+    var poligonoSobrepuesto;
+    var poligonoSeleccionado;
+    var get_puntos;
+    var get_puntos_pozo;
+    var get_puntos_poligono;
+    var get_puntos_poligono_pozo;
+    var selecciona_poligono;
+    var ubicacionPoligono;
+    var conmutadorCapas;
+    var puntosSobrepuestos;
+
+    var snippet_mapa = function () {
+        var btn_geovisor_search = $('#btn_geovisor_search');
+        var btn_geovisor_config = $('#btn_geovisor_config');
+        var btn_geovisor_info = $('#btn_geovisor_info');
+        var btn_geovisor_move = $('#btn_geovisor_move');
+        var lnk_info_nacional = $('#lnk_info_nacional');
+        var lnk_info_deptal = $('#lnk_info_deptal');
+        var lnk_info_municipal = $('#lnk_info_municipal');
+        var lnk_info_cuenca_estrategica = $('#lnk_info_cuenca_estrategica');
+        var lnk_info_acuifero = $('#lnk_info_acuifero');
+        var lnk_info_epsa = $('#lnk_info_epsa');
+        var lnk_info_pozo = $('#lnk_info_pozo');
+        var lnk_mapa_consultas = $('#lnk_mapa_consultas');
+        var lnk_mapa_imprimir_pdf = $('#lnk_mapa_imprimir_pdf');
+        var lnk_mapa_imprimir_png = $('#lnk_mapa_imprimir_png');
+        var lnk_mapa_centrar = $('#lnk_mapa_centrar');
+        var lnk_mapa_graticula = $('#lnk_mapa_graticula');
+        var lnk_mapa_orientacion = $('#lnk_mapa_orientacion');
+        var lnk_mapa_busqueda = $('#lnk_mapa_busqueda');
+        var div_mapa = $('#mapa');
+        var bnd_busqueda = 0;
+        var txt_busca_punto = $('#txt_busca_punto');
+        var btn_busca_punto = $('#btn_busca_punto');
+
+        var initMapa = function() {
+            // Mapas Base
+            var sourceBingAerial = new ol.source.BingMaps({ 
+                key: 'AkEKaa5IN_fxt4qvZAN5_aAaZ8xtxnh_UvYZUmZdXYJvohBUfR6oTGrGWgOldrv8',
+                imagerySet: 'AerialWithLabels',
+            });
+
+            mapaBingAerial = new ol.layer.Tile({
+                id: 'bingaerial',
+                title: 'Bing Satellital Map',
+                source: sourceBingAerial,
+                visible: true,
+                name: 'bingaerial'
+            });
+
+            var sourceBingRoad = new ol.source.BingMaps({ 
+                key: 'AkEKaa5IN_fxt4qvZAN5_aAaZ8xtxnh_UvYZUmZdXYJvohBUfR6oTGrGWgOldrv8',
+                imagerySet: 'Road',
+            });
+
+            mapaBingRoad = new ol.layer.Tile({
+                id: 'bingroad',
+                title: 'Bing Street Map',
+                source: sourceBingRoad,
+                visible: false,
+                name: 'bingroad'
+            });
+
+            var mapaGoogle = new ol.layer.Tile({
+                id: 'google',
+                title: 'Google Street Map',
+                source: new ol.source.OSM({
+                    url: 'https://mt{0-3}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+                    attributions: [
+                        new ol.Attribution({ html: '© Google' }),
+                        new ol.Attribution({ html: '<a href="https://developers.google.com/maps/terms">Terms of Use.</a>' })
+                    ]
+                }),
+                visible: false,
+                name: 'google'
+            });
+
+            var mapaOSM = new ol.layer.Tile({
+                id: 'osm',
+                title: 'Open Street Map',
+                source: new ol.source.OSM(),
+                visible: false,
+                name: 'osm'
+            });
+
+            /*var sourceLandsat = new ol.source.WMTS({
+                url: 'https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi?TIME=2013-06-16',
+                layer: 'MODIS_Terra_CorrectedReflectance_TrueColor',
+                format: 'image/jpeg',
+                matrixSet: 'EPSG4326_250m',
+                tileGrid: new ol.tilegrid.WMTS({
+                    origin: [-180, 90],
+                    resolutions: [
+                        0.5625,
+                        0.28125,
+                        0.140625,
+                        0.0703125,
+                        0.03515625,
+                        0.017578125,
+                        0.0087890625,
+                        0.00439453125,
+                        0.002197265625
+                    ],
+                    matrixIds: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                    tileSize: 512
+                })
+            });
+
+            var mapaLandsat = new ol.layer.Tile({
+                id: 'landsat',
+                title: 'Mapa LandSat',
+                source: sourceLandsat,
+                extent: [-180, -90, 180, 90],
+                visible: false
+            });*/
+
+            var mapasBase = new ol.layer.Group({
+                title: 'Mapas Base',
+                layers: [
+                    mapaBingAerial,
+                    mapaBingRoad,
+                    //mapaLandsat,
+                    mapaGoogle,
+                    mapaOSM
+                ]
+            });
+
+            // Mapas Siasbo
+            var estilosBaseMapa = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: [255, 255, 255, 0]
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#288efa',
+                    width: 2
+                })
+            });
+
+            var estilosSeleccionMapa = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: [244, 208, 63, 0]
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#f4d03f',
+                    width: 3
+                })
+            });
+
+            mapaHidrogeologia = new ol.layer.Image({
+                id: 'hidrogeologia',
+                title: 'Hidrogeológico',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:hidrogeologia',
+                    }
+                }),
+                visible: false
+            });
+
+            var estilosDepartamento = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: [255, 255, 255, 0]
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#04e3fd',
+                    width: 2
+                })
+            });
+
+            /*var estilosDepartamento = function(feature, resolution) {
+                return [
+                    new ol.style.Style({
+                        text: new ol.style.Text({
+                            textAlign: 'center',
+                            textBaseline: 'middle',
+                            text: feature.get('departamen'),
+                            fill: new ol.style.Fill({
+                                color: 'yellow'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#000',
+                                width: 2
+                            }),
+                            font: 'bold 14px Arial'
+                        }),
+                        fill: new ol.style.Fill({
+                            color: [255, 255, 255, 0]
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#319FD3',
+                            width: 2
+                        })
+                    })
+                ];
+            };*/
+
+            mapaDepartamental = new ol.layer.Vector({
+                id: 'departamento',
+                title: 'Departamentos',
+                source: new ol.source.Vector({
+                    crossOrigin: 'anonymous',
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=siasbo:departamento&outputFormat=application%2Fjson',
+                    format: new ol.format.GeoJSON()
+                }),
+                style: estilosDepartamento
+            });
+
+            /*var estilosMacrocuenca = function(feature, resolution) {
+                return [
+                    new ol.style.Style({
+                        text: new ol.style.Text({
+                            textAlign: 'center',
+                            textBaseline: 'middle',
+                            text: feature.get('NOMBRE_N1'),
+                            fill: new ol.style.Fill({
+                                color: 'yellow'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#000',
+                                width: 2
+                            }),
+                            font: 'bold 14px Arial'
+                        }),
+                        fill: new ol.style.Fill({
+                            color: [255, 255, 255, 0]
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#319FD3',
+                            width: 2
+                        })
+                    })
+                ];
+            };*/
+
+            var estilosMacrocuencas = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: [255, 255, 255, 0]
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#fffb00',
+                    width: 2
+                })
+            });
+
+            mapaMacrocuencas = new ol.layer.Vector({
+                id: 'macrocuenca',
+                title: 'Macrocuencas',
+                source: new ol.source.Vector({
+                    format: new ol.format.GeoJSON(),
+                    crossOrigin: 'anonymous',
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=siasbo:macrocuencas&outputFormat=application%2Fjson'
+                }),
+                visible: false,
+                style: estilosMacrocuencas
+            });
+
+            /*var estilosMunicipios = function(feature, resolution) {
+                return [
+                    new ol.style.Style({
+                        text: new ol.style.Text({
+                            textAlign: 'center',
+                            textBaseline: 'middle',
+                            text: feature.get('municipio'),
+                            fill: new ol.style.Fill({
+                                color: 'yellow'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#000',
+                                width: 2
+                            }),
+                            font: 'bold 14px Arial'
+                        }),
+                        fill: new ol.style.Fill({
+                            color: [255, 255, 255, 0]
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#319FD3',
+                            width: 2
+                        })
+                    })
+                ];
+            };*/
+
+            var estilosMunicipios = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: [255, 255, 255, 0]
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#12fdaf',
+                    width: 2
+                })
+            });
+
+            mapaMunicipios = new ol.layer.Vector({
+                id: 'municipio',
+                title: 'Municipios',
+                source: new ol.source.Vector({
+                    format: new ol.format.GeoJSON(),
+                    crossOrigin: 'anonymous',
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=siasbo:municipios&outputFormat=application%2Fjson'
+                }),
+                visible: false,
+                style: estilosMunicipios
+            });
+
+            mapaGeologia = new ol.layer.Image({
+                id: 'geologia',
+                title: 'Geología',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:geologia',
+                    }
+                }),
+                visible: false
+            });
+
+            /*mapaGeologia = new ol.layer.Tile({
+                id: 'geologia',
+                title: 'Geología',
+                source: new ol.source.TileWMS({
+                    url: 'http://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {'LAYERS': 'siasbo:geologia'},
+                    crossOrigin: 'anonymous'
+                }),
+                visible: false
+            });*/
+
+            var estilosCuencaEstra25 = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: [255, 255, 255, 0]
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#dd12fd',
+                    width: 2
+                })
+            });
+
+            mapaCuencaEstra25 = new ol.layer.Vector({
+                id: 'cuenca25',
+                title: 'Cuenca estratégica',
+                source: new ol.source.Vector({
+                    format: new ol.format.GeoJSON(),
+                    crossOrigin: 'anonymous',
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=siasbo:cuenca_estra_25&outputFormat=application%2Fjson'
+                }),
+                visible: false,
+                style: estilosCuencaEstra25
+            });
+
+            mapaAcuiferos = new ol.layer.Image({
+                id: 'acuifero',
+                title: 'Acuíferos',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:acuiferos',
+                    }
+                }),
+                visible: false
+            });
+
+            /*mapaAcuiferos = new ol.layer.Vector({
+                id: 'acuifero',
+                title: 'Acuíferos',
+                source: new ol.source.Vector({
+                    format: new ol.format.GeoJSON(),
+                    crossOrigin: 'anonymous',
+                    url: 'http://sig01.mmaya.gob.bo/geoserver/siasbo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=siasbo:acuiferos&outputFormat=application%2Fjson'
+                }),
+                visible: false,
+                style: estilosBaseMapa
+            });*/
+
+            mapaGuadalquivirLineasGeologicas = new ol.layer.Image({
+                id: 'guadal_linea_geologica',
+                title: 'Guadalquivir - Líneas Geológicas',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:guadalquivir_lineas_geologicas',
+                    }
+                }),
+                visible: false
+            });
+
+            mapaGuadalquivirGeologia50000 = new ol.layer.Image({
+                id: 'guadal_geologia_50000',
+                title: 'Guadalquivir - Geología 50000',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:guadalquivir_geologia_50000',
+                    }
+                }),
+                visible: false
+            });
+
+            mapaOruroSuelos = new ol.layer.Image({
+                id: 'oruro_suelos',
+                title: 'Oruro - Suelos',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:oruro_suelos',
+                    }
+                }),
+                visible: false
+            });
+
+            mapaCochabambaValleAltoSuelos = new ol.layer.Image({
+                id: 'cocha_valle_alto_suelos',
+                title: 'Cochabamba, Valle Alto - Suelos',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:cochabamba_valle_alto_suelos',
+                    }
+                }),
+                visible: false
+            });
+
+            var mapasSiasbo = new ol.layer.Group({
+                title: 'Mapas Siasbo',
+                layers: [
+                    mapaCochabambaValleAltoSuelos,
+                    mapaOruroSuelos,
+                    mapaGuadalquivirGeologia50000,
+                    mapaGuadalquivirLineasGeologicas,
+                    mapaGeologia,
+                    mapaHidrogeologia,
+                    mapaMacrocuencas,
+                    mapaAcuiferos,
+                    mapaCuencaEstra25,
+                    mapaMunicipios,
+                    mapaDepartamental
+                ]
+            });
+
+            var estilosBaseMapaIsolineas = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: [255, 255, 255, 0]
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#FFD014',
+                    width: 3
+                })
+            });
+
+            var mapaPurapuraniIsolineasSodio = new ol.layer.Image({
+                id: 'purapurani_isolineas_sodio',
+                title: 'Purapurani - Sodio',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:purapurani_isolineas_sodio',
+                    }
+                }),
+                visible: false
+            });
+
+            var mapaScIsolineasCalcio = new ol.layer.Image({
+                id: 'sc_isolineas_calcio',
+                title: 'Santa Cruz - Calcio',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:sc_isolineas_calcio',
+                    }
+                }),
+                visible: false
+            });
+
+            var mapaScIsolineasCloruro = new ol.layer.Image({
+                id: 'sc_isolineas_cloruro',
+                title: 'Santa Cruz - Cloruro',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'http://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:sc_isolineas_cloruro',
+                    }
+                }),
+                visible: false
+            });
+
+            var mapaScIsolineasSodio = new ol.layer.Image({
+                id: 'sc_isolineas_sodio',
+                title: 'Santa Cruz - Sodio',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:sc_isolineas_sodio',
+                    }
+                }),
+                visible: false
+            });
+
+            var mapaScPiezometrico = new ol.layer.Image({
+                id: 'sc_piezometrico',
+                title: 'Santa Cruz - Piezométrico',
+                source: new ol.source.ImageWMS({
+                    crossOrigin: 'anonymous',
+                    ratio: 1,
+                    url: 'https://sig01.mmaya.gob.bo/geoserver/siasbo/wms',
+                    params: {
+                        'FORMAT': 'image/png',
+                        'VERSION': '1.1.1',  
+                        STYLES: '',
+                        LAYERS: 'siasbo:sc_piezometrico',
+                    }
+                }),
+                visible: false
+            });
+
+            var mapasIsolineasSiasbo = new ol.layer.Group({
+                title: 'Mapas de Isolíneas - Piezométrico',
+                layers: [
+                    mapaScPiezometrico,
+                    mapaScIsolineasSodio,
+                    mapaScIsolineasCloruro,
+                    mapaScIsolineasCalcio,
+                    mapaPurapuraniIsolineasSodio
+                ]
+            });
+
+            // Puntos de Pozo, Manantial y Geofísica
+            var textoPozo = function(texto, resolution) {
+                var text = 'Pozo '+texto;
+                if (resolution > 300) {
+                  text = '';
+                }
+                return text;
+            };
+
+            var estilosPozo = function(feature, resolution) {
+                var datosFeature = feature.get('features');
+                return [
+                    new ol.style.Style({
+                        text: new ol.style.Text({
+                            textAlign: 'left',
+                            textBaseline: 'middle',
+                            text: 'Pozo '+datosFeature[0].get('itemId'),
+                            //text: textoPozo(datosFeature[0].get('itemId'), resolution),
+                            fill: new ol.style.Fill({
+                                color: '#fff'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#000',
+                                width: 2
+                            }),
+                            font: 'bold 15px Arial'
+                        }),
+                        image: new ol.style.Circle({
+                            radius: 9,
+                            fill: new ol.style.Fill({color: '#34bfa3'}), 
+                            stroke: new ol.style.Stroke({color: '#03715b'})
+                        })
+                    })
+                ];
+            };
+
+            sourcePozo = new ol.source.Vector({
+                format: new ol.format.GeoJSON(),
+                url: urlBase + "&accion=nacional_getPuntosPozo"
+            });
+
+            clusterPozo = new ol.source.Cluster({
+                distance: 50,
+                source: sourcePozo
+            });
+
+            puntosPozo = new ol.layer.Vector({
+                id: 'pozo',
+                title: 'Pozos',
+                source: clusterPozo,
+                style: estilosPozo
+            });
+
+            var textoManantial = function(texto, resolution) {
+                var text = 'Manantial '+texto;
+                if (resolution > 300) {
+                  text = '';
+                }
+                return text;
+            };
+
+            var estilosManantial = function(feature, resolution) {
+                var datosFeature = feature.get('features');
+                return [
+                    new ol.style.Style({
+                        text: new ol.style.Text({
+                            textAlign: 'left',
+                            textBaseline: 'middle',
+                            text: 'Manantial '+datosFeature[0].get('itemId'),
+                            //text: textoManantial(datosFeature[0].get('itemId'), resolution),
+                            fill: new ol.style.Fill({
+                                color: '#fff'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#000',
+                                width: 2
+                            }),
+                            font: 'bold 15px Arial'
+                        }),
+                        image: new ol.style.Circle({
+                            radius: 9,
+                            fill: new ol.style.Fill({color: '#ffb822'}), 
+                            stroke: new ol.style.Stroke({color: '#6d4e0b'})
+                        })
+                    })
+                ];
+            };
+
+            sourceManantial = new ol.source.Vector({
+                format: new ol.format.GeoJSON(),
+                url: urlBase + "&accion=nacional_getPuntosManantial"
+            });
+
+            clusterManantial = new ol.source.Cluster({
+                distance: 50,
+                source: sourceManantial
+            });
+
+            puntosManantial = new ol.layer.Vector({
+                id: 'manantial',
+                title: 'Manantiales',
+                source: clusterManantial,
+                style: estilosManantial
+            });
+            
+            var textoGeofisica = function(texto, resolution) {
+                var text = 'Geofísica '+texto;
+                if (resolution > 300) {
+                  text = '';
+                }
+                return text;
+            };
+
+            var estilosGeofisica = function(feature, resolution) {
+                var datosFeature = feature.get('features');
+                return [
+                    new ol.style.Style({
+                        text: new ol.style.Text({
+                            textAlign: 'left',
+                            textBaseline: 'middle',
+                            text: 'Geofísica '+datosFeature[0].get('itemId'),
+                            //text: textoGeofisica(datosFeature[0].get('itemId'), resolution),
+                            fill: new ol.style.Fill({
+                                color: '#fff'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#000',
+                                width: 2
+                            }),
+                            font: 'bold 15px Arial'
+                        }),
+                        image: new ol.style.Circle({
+                            radius: 9,
+                            fill: new ol.style.Fill({color: '#bb28f6'}), 
+                            stroke: new ol.style.Stroke({color: '#612479'})
+                        })
+                    })
+                ];
+            };
+
+            sourceGeofisica = new ol.source.Vector({
+                format: new ol.format.GeoJSON(),
+                url: urlBase + "&accion=nacional_getPuntosGeofisica"
+            });
+
+            clusterGeofisica = new ol.source.Cluster({
+                distance: 50,
+                source: sourceGeofisica
+            });
+
+            puntosGeofisica = new ol.layer.Vector({
+                id: 'geofisica',
+                title: 'Geofísica',
+                source: clusterGeofisica,
+                style: estilosGeofisica
+            });
+
+            var mapaPuntosSiasbo = new ol.layer.Group({
+                title: 'Fuentes de Información',
+                layers: [
+                    puntosManantial,
+                    puntosGeofisica,
+                    puntosPozo
+                ]
+            });
+
+            var popupPunto = new ol.Overlay.Popup ({   
+                popupClass: "default",
+                closeBox: true,
+                onshow: function(){ console.log("You opened the box"); },
+                onclose: function(){ console.log("You close the box"); },
+                positioning: 'auto',
+                autoPan: true,
+                autoPanAnimation: { duration: 250 }
+            });
+
+            // Crea vista de mapa
+            vista = new ol.View({
+                //projection: ol.proj.get('EPSG:4326'),
+                center: ol.proj.fromLonLat([-64.655, -16.708]),
+                //center: ol.proj.transform([-64.655, -16.708], 'EPSG:4326', 'EPSG:4326'),
+                zoom: 5.2
+            });
+
+            // Crea mapa y asigana capa de mapas
+            mapa = new ol.Map({
+                layers: [
+                    mapasBase, 
+                    mapasSiasbo, 
+                    mapasIsolineasSiasbo,
+                    mapaPuntosSiasbo
+                ],
+                controls: ol.control.defaults({zoom: true, rotate: false}),
+                overlays: [popupPunto],
+                target: 'mapa',
+                view: vista,
+                renderer: ['canvas', 'dom']
+            });
+
+            var estilosPoligonoSobrepuesto = function(feature, resolution) {
+                return [
+                    new ol.style.Style({
+                        text: new ol.style.Text({
+                            textAlign: 'center',
+                            textBaseline: 'middle',
+                            text: feature.get('departamen'),
+                            fill: new ol.style.Fill({
+                                color: 'yellow'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#000',
+                                width: 2
+                            }),
+                            font: 'bold 14px Arial'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#f00',
+                            width: 2
+                        }),
+                        fill: new ol.style.Fill({
+                            color: 'rgba(255, 0, 0, 0.1)'
+                        })
+                    })
+                ];
+            };
+
+            poligonoSobrepuesto = new ol.layer.Vector({
+                source: new ol.source.Vector(),
+                map: mapa,
+                //style: estilosPoligonoSobrepuesto
+                style: new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: '#f00',
+                        width: 2
+                    }),
+                    fill: new ol.style.Fill({
+                        color: 'rgba(255, 0, 0, 0.01)'
+                    })
+                })
+            });
+
+            var estilosPuntosSobrepuestos = function(feature, resolution) {
+                var datosFeature = feature.getProperties();
+                return [
+                    new ol.style.Style({
+                        text: new ol.style.Text({
+                            textAlign: 'left',
+                            textBaseline: 'middle',
+                            text: datosFeature.tipoNombre+' '+datosFeature.itemId,
+                            fill: new ol.style.Fill({
+                                color: '#fff'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#000',
+                                width: 2
+                            }),
+                            font: 'bold 15px Arial'
+                        }),
+                        image: new ol.style.Circle({
+                            radius: 9,
+                            fill: new ol.style.Fill({color: 'red'}), 
+                            stroke: new ol.style.Stroke({color: '#000000'})
+                        })
+                    })
+                ];
+            };
+
+            puntosSobrepuestos = new ol.layer.Vector({
+                source: new ol.source.Vector(),
+                map: mapa,
+                style: estilosPuntosSobrepuestos,
+                visible: false
+            });
+
+            var posicionMouse = new ol.control.MousePosition({
+                coordinateFormat: ol.coordinate.createStringXY(2),
+                projection: 'EPSG:4326',
+                target: document.getElementById('window_content_location'),
+                undefinedHTML: '&nbsp;'
+            });
+
+            mapa.addControl(posicionMouse);
+
+            var escala = new ol.control.ScaleLine({
+               // target: document.getElementById('mapa_tool_escala')
+            });
+
+            mapa.addControl(escala);
+
+            conmutadorCapas = new ol.control.LayerSwitcher({
+                tipLabel: 'Leyenda'
+            });
+
+            mapa.addControl(conmutadorCapas);
+            
+            centrarMapa = function(location) {
+                var pan = ol.animation.pan({
+                    source: mapa.getView().getCenter()
+                });
+                mapa.beforeRender(pan);
+                mapa.getView().setCenter(location);
+                contadorReferencia = 0;
+            };
+
+            //mapa.getInteractions().extend([interaccionDepartamento]);
+
+            mapa.on('singleclick', function(browserEvent) {
+                popupPunto.hide();
+                var coordinate = browserEvent.coordinate;
+                var pixel = browserEvent.pixel;
+                var contador = 1;
+                mapa.forEachFeatureAtPixel(pixel, function(feature, layer) {
+                    tipoMapa = 1;
+                    if (contador == 1) {
+
+                        if (!layer) {
+                            return;
+                        }
+
+                        switch(layer.get('id')) {
+                            case 'departamento':
+                                var datos = feature.getProperties();
+                                var content = '<div class="ol-popup" style="background-color: #202233; color: #ffffff;"><p><strong>Departamento:</strong> '+datos.departamen+'<br><strong>Código INE:</strong> '+datos.cod_ine;
+                                content += '</p></div>';
+                                popupPunto.show(coordinate, content);
+                                break;
+
+                            case 'municipio':
+                                var datos = feature.getProperties();
+                                var content = '<div class="ol-popup" style="background-color: #202233; color: #ffffff;"><p><strong>Municipio:</strong> '+datos.municipio+'<br><strong>Provincia:</strong> '+datos.provincia+'<br><strong>Departamento:</strong> '+datos.departamen+'<br><strong>Código INE:</strong> '+datos.cod_ine;
+                                content += '</p></div>';
+                                popupPunto.show(coordinate, content);
+                                break;
+
+                            case 'cuenca25':
+                                var datos = feature.getProperties();
+                                var content = '<div class="ol-popup" style="background-color: #202233; color: #ffffff;"><p><strong>Cuenca estratégica:</strong> '+datos.nombre+'<br><strong>Superficie (km<sup>2</sup>):</strong> '+datos.sup_km2;
+                                content += '</p></div>';
+                                popupPunto.show(coordinate, content);
+                                break;
+
+                            case 'macrocuenca':
+                                var datos = feature.getProperties();
+                                var content = '<div class="ol-popup" style="background-color: #202233; color: #ffffff;"><p><strong>Macrocuenca:</strong> '+datos.NOMBRE_N1+'<br><strong>Superficie (km<sup>2</sup>):</strong> '+datos.SUP_N1+'<br><strong>Tipo:</strong> '+datos.TIPO_UH+'<br><strong>Categoría:</strong> '+datos.CATEGORIA;
+                                content += '</p></div>';
+                                popupPunto.show(coordinate, content);
+                                break;
+
+                            case 'pozo':
+                                var geometry = feature.get('features')[0].getGeometry();
+                                var url = "{/literal}{$getModule}{literal}&accion=getFuenteInfo&tipo="+feature.get('features')[0].get('tipo')+"&id="+feature.get('features')[0].get('itemId');
+
+                                var id = feature.get('features')[0].get('itemId');
+                                var content = '<div class="ol-popup"><h5>'+feature.get('features')[0].get('tipoNombre')+' [ID: '+feature.get('features')[0].get('itemId')+']</h5><p><strong>Código:</strong> '+feature.get('features')[0].get('codigo')+'<br><strong>Nombre:</strong> '+feature.get('features')[0].get('nombre')+'<br>';
+
+                                $.get(url, function(respuesta) {
+                                    if (respuesta != 0) {
+                                        content += '<strong>EPSA:</strong>&nbsp;'+respuesta[0].epsa+'<br><strong>Propósito:</strong>&nbsp;'+respuesta[0].proposito+'<br><strong>Uso:</strong>&nbsp;'+respuesta[0].uso+'<br><strong>Datos calidad:</strong>&nbsp;'+respuesta[0].calidad+'<br><strong>Datos isotópico:</strong>&nbsp;'+respuesta[0].isotopico+'<br><strong>Acuífero:</strong>&nbsp;'+respuesta[0].acuifero+'<br>';
+                                    }
+
+                                    content += '<a href="?module=siasbo&smodule=ficha_pozo&accion=itemUpdate&type=update&id='+id+'" target="_blank">EDITAR FICHA</a><br>';
+
+                                    content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaPozo&pozoId='+id+'" target="_blank">IMPRIMIR FICHA</a><br>';
+
+                                    if (respuesta[0].calidad == 'Si') {
+                                      content += '<a href="#" onclick="graficar_stiff('+id+');">VER GRÁFICA STIFF</a><br>';
+                                    }
+
+                                    if (respuesta[0].diseno == 'Si') {
+                                      content += '<a href="#" onclick="graficar_diseno('+id+');">VER DISEÑO DE CONSTRUCCIÓN</a><br>';
+                                    }
+
+                                    if (respuesta[0].litologia == 'Si') {
+                                      content += '<a href="#" onclick="graficar_columnalitologica('+id+');">VER COLUMNA LITOLÓGICA</a><br>';
+                                    }
+
+                                    if (respuesta[0].caudal == 'Si') {
+                                      content += '<a href="#" onclick="graficar_caudal('+id+');">VER GRAFICA DE CAUDAL</a><br>';
+                                    }
+
+                                    if (respuesta[0].abatimiento == 'Si') {
+                                      content += '<a href="#" onclick="graficar_abatimiento('+id+');">VER GRAFICA DE ABATIMIENTO</a><br>';
+                                    }
+
+                                    if (respuesta[0].escalon == 'Si') {
+                                      content += '<a href="#" onclick="graficar_escalon('+id+');">VER GRAFICA DE ESCALONES</a><br>';
+                                    }
+
+                                    if (respuesta[0].recuperacion == 'Si') {
+                                      content += '<a href="#" onclick="graficar_recuperacion('+id+');">VER GRAFICA DE RECUPERACION</a><br>';
+                                    }    
+
+                                    // content += '<a href="#" onclick="graficar_escalon('+id+');">VER GRAFICA DE ESCALONES</a><br>';
+                                    // content += '<a href="#" onclick="graficar_recuperacion('+id+');">VER GRAFICA DE RECUPERACION</a><br>';                         
+
+                                    content += '</p></div>';
+
+                                    popupPunto.show(feature.get('features')[0].getGeometry().getFirstCoordinate(), content);
+                                    centrarMapa(coordinate);
+                                });
+                                break;
+
+                            case 'geofisica':
+                                var geometry = feature.get('features')[0].getGeometry();
+                                var url = "{/literal}{$getModule}{literal}&accion=getFuenteInfo&tipo="+feature.get('features')[0].get('tipo')+"&id="+feature.get('features')[0].get('itemId');
+
+                                var id = feature.get('features')[0].get('itemId');
+                                var content = '<div class="ol-popup"><h5>'+feature.get('features')[0].get('tipoNombre')+' [ID: '+feature.get('features')[0].get('itemId')+']</h5><p><strong>Código:</strong> '+feature.get('features')[0].get('codigo')+'<br><strong>Nombre:</strong> '+feature.get('features')[0].get('nombre')+'<br>';
+
+                                content += '<a href="?module=siasbo&smodule=ficha_geofisica&accion=itemUpdate&type=update&id='+id+'" target="_blank">EDITAR FICHA</a><br>';
+
+                                content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaGeoSev&pozoId='+id+'" target="_blank">IMPRIMIR FICHA SEV</a><br>';
+
+                                content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaGeoTomografia&pozoId='+id+'" target="_blank">IMPRIMIR FICHA TOMOGRAFÍA</a><br>';
+
+                                content += '</p></div>';
+
+                                popupPunto.show(feature.get('features')[0].getGeometry().getFirstCoordinate(), content);
+                                centrarMapa(coordinate);
+                                break;
+
+                            case 'manantial':
+                                var geometry = feature.get('features')[0].getGeometry();
+                                var url = "{/literal}{$getModule}{literal}&accion=getFuenteInfo&tipo="+feature.get('features')[0].get('tipo')+"&id="+feature.get('features')[0].get('itemId');
+
+                                var id = feature.get('features')[0].get('itemId');
+                                var content = '<div class="ol-popup"><h5>'+feature.get('features')[0].get('tipoNombre')+' [ID: '+feature.get('features')[0].get('itemId')+']</h5><p><strong>Código:</strong> '+feature.get('features')[0].get('codigo')+'<br><strong>Nombre:</strong> '+feature.get('features')[0].get('nombre')+'<br>';
+
+                                $.get(url, function(respuesta) {
+                                    if (respuesta != 0) {
+                                        content += '<strong>EPSA:</strong>&nbsp;'+respuesta[0].epsa+'<br><strong>Propósito:</strong>&nbsp;'+respuesta[0].proposito+'<br><strong>Uso:</strong>&nbsp;'+respuesta[0].uso+'<br><strong>Datos calidad:</strong>&nbsp;'+respuesta[0].calidad+'<br><strong>Datos isotópico:</strong>&nbsp;'+respuesta[0].isotopico+'<br><strong>Acuífero:</strong>&nbsp;'+respuesta[0].acuifero+'<br>';
+                                    }
+
+                                    content += '<a href="?module=siasbo&smodule=ficha_manantial&accion=itemUpdate&type=update&id='+id+'" target="_blank">EDITAR FICHA</a><br>';
+
+                                    content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaManantial&manantialId='+id+'" target="_blank">IMPRIMIR FICHA</a>';
+
+                                    content += '</p></div>';
+
+                                    popupPunto.show(feature.get('features')[0].getGeometry().getFirstCoordinate(), content);
+                                    centrarMapa(coordinate);
+                                });
+                                break;
+                        }
+
+                        /*var geometry = feature.get('features')[0].getGeometry();
+                        var url = "{/literal}{$getModule}{literal}&accion=getFuenteInfo&tipo="+feature.get('features')[0].get('tipo')+"&id="+feature.get('features')[0].get('itemId');
+                        switch(geometry.getType()) {
+                            case 'Point':
+                              var id = feature.get('features')[0].get('itemId');
+                              var content = '<div class="ol-popup"><h5>'+feature.get('features')[0].get('tipoNombre')+' [ID: '+feature.get('features')[0].get('itemId')+']</h5><p><strong>Código:</strong> '+feature.get('features')[0].get('codigo')+'<br><strong>Nombre:</strong> '+feature.get('features')[0].get('nombre')+'<br>';
+
+                                switch(feature.get('features')[0].get('tipo')) {
+                                    case 1:
+                                        $.get(url, function(respuesta) {
+                                            if (respuesta != 0) {
+                                                content += '<strong>EPSA:</strong>&nbsp;'+respuesta[0].epsa+'<br><strong>Propósito:</strong>&nbsp;'+respuesta[0].proposito+'<br><strong>Uso:</strong>&nbsp;'+respuesta[0].uso+'<br><strong>Datos calidad:</strong>&nbsp;'+respuesta[0].calidad+'<br><strong>Datos isotópico:</strong>&nbsp;'+respuesta[0].isotopico+'<br><strong>Acuífero:</strong>&nbsp;'+respuesta[0].acuifero+'<br>';
+                                            }
+
+                                            content += '<a href="?module=siasbo&smodule=ficha_pozo&accion=itemUpdate&type=update&id='+id+'" target="_blank">EDITAR FICHA</a><br>';
+
+                                            content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaPozo&pozoId='+id+'" target="_blank">IMPRIMIR FICHA</a><br>';
+
+                                            if (respuesta[0].calidad == 'Si') {
+                                              content += '<a href="#" onclick="graficar_stiff('+id+');">VER GRÁFICA STIFF</a><br>';
+                                            }
+
+                                            if (respuesta[0].diseno == 'Si') {
+                                              content += '<a href="#" onclick="graficar_diseno('+id+');">VER DISEÑO DE CONSTRUCCIÓN</a><br>';
+                                            }
+
+                                            if (respuesta[0].litologia == 'Si') {
+                                              content += '<a href="#" onclick="graficar_columnalitologica('+id+');">VER COLUMNA LITOLÓGICA</a><br>';
+                                            }
+
+                                            if (respuesta[0].caudal == 'Si') {
+                                              content += '<a href="#" onclick="graficar_caudal('+id+');">VER GRAFICA DE CAUDAL</a><br>';
+                                            }
+
+                                            if (respuesta[0].abatimiento == 'Si') {
+                                              content += '<a href="#" onclick="graficar_abatimiento('+id+');">VER GRAFICA DE ABATIMIENTO</a><br>';
+                                            }
+
+                                            content += '</p></div>';
+
+                                            popupPunto.show(feature.get('features')[0].getGeometry().getFirstCoordinate(), content);
+                                            centrarMapa(coordinate);
+                                        });
+                                        break;
+
+                                    case 2:
+                                        content += '<a href="?module=siasbo&smodule=ficha_geofisica&accion=itemUpdate&type=update&id='+id+'" target="_blank">EDITAR FICHA</a><br>';
+
+                                        //content += '<a href="?module=siasbo&smodule=geovisor&accion=getFicha&reporte_file=geofisica_sev&id='+id+'" target="_blank">IMPRIMIR FICHA GEOFÍSICA SEV</a><br>';
+
+                                        //content += '<a href="?module=siasbo&smodule=geovisor&accion=getFicha&reporte_file=geofisica_tomografia&id='+id+'" target="_blank">IMPRIMIR FICHA GEOFÍSICA TOMOGRAFÍA</a><br>';
+
+                                        content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaGeoSev&pozoId='+id+'" target="_blank">IMPRIMIR FICHA SEV</a><br>';
+
+                                        content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaGeoTomografia&pozoId='+id+'" target="_blank">IMPRIMIR FICHA TOMOGRAFÍA</a><br>';
+
+                                        content += '</p></div>';
+
+                                        popupPunto.show(feature.get('features')[0].getGeometry().getFirstCoordinate(), content);
+                                        centrarMapa(coordinate);
+                                        break;
+
+                                    case 3:
+                                        $.get(url, function(respuesta) {
+                                            if (respuesta != 0) {
+                                                content += '<strong>EPSA:</strong>&nbsp;'+respuesta[0].epsa+'<br><strong>Propósito:</strong>&nbsp;'+respuesta[0].proposito+'<br><strong>Uso:</strong>&nbsp;'+respuesta[0].uso+'<br><strong>Datos calidad:</strong>&nbsp;'+respuesta[0].calidad+'<br><strong>Datos isotópico:</strong>&nbsp;'+respuesta[0].isotopico+'<br><strong>Acuífero:</strong>&nbsp;'+respuesta[0].acuifero+'<br>';
+                                            }
+
+                                            content += '<a href="?module=siasbo&smodule=ficha_manantial&accion=itemUpdate&type=update&id='+id+'" target="_blank">EDITAR FICHA</a><br>';
+
+                                            //content += '<a href="?module=siasbo&smodule=geovisor&accion=getFicha&reporte_file=manantial&id='+id+'" target="_blank">IMPRIMIR FICHA MANANTIAL</a>';
+
+                                            content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaManantial&manantialId='+id+'" target="_blank">IMPRIMIR FICHA</a>';
+
+                                            content += '</p></div>';
+
+                                            popupPunto.show(feature.get('features')[0].getGeometry().getFirstCoordinate(), content);
+                                            centrarMapa(coordinate);
+                                        });
+                                        break;
+                                }
+                                break;
+
+                            case 'Polygon':
+                                //console.log(feature);
+                                //console.log(Layer);
+                                break;
+
+                            case 'MultiPolygon':
+                                //alert('Mi poligono');
+                                break;
+
+                            default:
+                                console.log(geometry.getType());
+                                break;
+                        }*/
+                        contador++;
+                    } else {
+                        return false;   
+                    }
+                });
+                // Muestra atributos de mapas de tipo Tile/Image
+                if (tipoMapa == 0) {
+                    var resolucionVista = vista.getResolution();
+                    var proyeccionVista = vista.getProjection();
+
+                    if (mapaGeologia.getVisible()) {
+                        var sourceMapa = mapaGeologia.getSource();
+                        var url = sourceMapa.getGetFeatureInfoUrl(
+                            browserEvent.coordinate,
+                            resolucionVista,
+                            proyeccionVista,
+                            {'INFO_FORMAT': 'application/json'}
+                        );
+                        $.get(url, function(respuesta) {
+                            if (respuesta.features.length > 0) {
+                                var propiedades = respuesta.features[0].properties;
+                                var content = '<div class="ol-popup" style="background-color: #202233; color: #ffffff;"><p><strong>Región morfológica:</strong> '+propiedades.REG_MORFO+'<br><strong>Periodo:</strong> '+propiedades.PERIODO+'<br><strong>Descripción:</strong> '+propiedades.DESCRIPCIO;
+
+                                content += '<br><a href="./module/siasbo/submodule/geovisor/snippet/metadatos/geologia.docx" target="_blank">DESCARGAR METADATOS</a>';
+
+                                content += '</p></div>';
+                                popupPunto.show(coordinate, content);
+                            }
+                            
+                        });
+                    } else if (mapaHidrogeologia.getVisible()) {
+                        var sourceMapa = mapaHidrogeologia.getSource();
+                        var url = sourceMapa.getGetFeatureInfoUrl(
+                            browserEvent.coordinate,
+                            resolucionVista,
+                            proyeccionVista,
+                            {'INFO_FORMAT': 'application/json'}
+                        );
+                        $.get(url, function(respuesta) {
+                            if (respuesta.features.length > 0) {
+                                var propiedades = respuesta.features[0].properties;
+                                var content = '<div class="ol-popup" style="background-color: #202233; color: #ffffff;"><p><strong>Unidad:</strong> '+propiedades.UNIDAD+'<br><strong>Periodo:</strong> '+propiedades.PERIODO+'<br><strong>Descripción acuífero:</strong> '+propiedades.DESCRIP_AC;
+
+                                content += '<br><a href="./module/siasbo/submodule/geovisor/snippet/metadatos/hidrogeologia.docx" target="_blank">DESCARGAR METADATOS</a>';
+
+                                content += '</p></div>';
+                                popupPunto.show(coordinate, content);
+                            }
+                        });
+                    } else if (mapaGuadalquivirGeologia50000.getVisible()) {
+                        var sourceMapa = mapaGuadalquivirGeologia50000.getSource();
+                        var url = sourceMapa.getGetFeatureInfoUrl(
+                            browserEvent.coordinate,
+                            resolucionVista,
+                            proyeccionVista,
+                            {'INFO_FORMAT': 'application/json'}
+                        );
+                        $.get(url, function(respuesta) {
+                            if (respuesta.features.length > 0) {
+                                var propiedades = respuesta.features[0].properties;
+                                var content = '<div class="ol-popup" style="background-color: #202233; color: #ffffff;"><p><strong>Estrat.:</strong> '+propiedades.ESTRAT+'<br><strong>Descrip. Estrat.:</strong> '+propiedades.DESCR_ESTR+'<br><strong>Descripción:</strong> '+propiedades.DESCRIPCIO;
+
+                                content += '<br><a href="./module/siasbo/submodule/geovisor/snippet/metadatos/guadalquivir.docx" target="_blank">DESCARGAR METADATOS</a>';
+
+                                content += '</p></div>';
+                                popupPunto.show(coordinate, content);
+                            }
+                        });
+                    } else if (mapaOruroSuelos.getVisible()) {
+                        var sourceMapa = mapaOruroSuelos.getSource();
+                        var url = sourceMapa.getGetFeatureInfoUrl(
+                            browserEvent.coordinate,
+                            resolucionVista,
+                            proyeccionVista,
+                            {'INFO_FORMAT': 'application/json'}
+                        );
+                        $.get(url, function(respuesta) {
+                            if (respuesta.features.length > 0) {
+                                var propiedades = respuesta.features[0].properties;
+                                var content = '<div class="ol-popup" style="background-color: #202233; color: #ffffff;"><p><strong>Simbología:</strong> '+propiedades.Simbologí+'<br><strong>Ar_Li_Arc1:</strong> '+propiedades.Prof1_cm+'<br><strong>Ar_Li_Arc1:</strong> '+propiedades.Ar_Li_Arc1+'<br><strong>Prof2_cm:</strong> '+propiedades.Prof2_cm+'<br><strong>Ar_Li_Arc2:</strong> '+propiedades.Ar_Li_Arc2+'<br><strong>Prof3_cm:</strong> '+propiedades.Prof3_cm+'<br><strong>Ar_Li_Arc3:</strong> '+propiedades.Ar_Li_Arc3+'<br><strong>Prof4_cm:</strong> '+propiedades.Prof4_cm+'<br><strong>Ar_Li_Arc4:</strong> '+propiedades.Ar_Li_Arc4+'<br><strong>Prof5_cm:</strong> '+propiedades.Prof5_cm+'<br><strong>Ar_Li_Arc5:</strong> '+propiedades.Ar_Li_Arc5+'<br><strong>Prof6_cm:</strong> '+propiedades.Prof6_cm+'<br><strong>Ar_Li_Arc6:</strong> '+propiedades.Ar_Li_Arc6;
+
+                                content += '<br><a href="./module/siasbo/submodule/geovisor/snippet/metadatos/suelos_oruro.docx" target="_blank">DESCARGAR METADATOS</a>';
+
+                                content += '</p></div>';
+                                popupPunto.show(coordinate, content);
+                            }
+                        });
+                    } else if (mapaCochabambaValleAltoSuelos.getVisible()) {
+                        var sourceMapa = mapaCochabambaValleAltoSuelos.getSource();
+                        var url = sourceMapa.getGetFeatureInfoUrl(
+                            browserEvent.coordinate,
+                            resolucionVista,
+                            proyeccionVista,
+                            {'INFO_FORMAT': 'application/json'}
+                        );
+                        $.get(url, function(respuesta) {
+                            if (respuesta.features.length > 0) {
+                                var propiedades = respuesta.features[0].properties;
+                                var content = '<div class="ol-popup" style="background-color: #202233; color: #ffffff;"><p><strong>Serie:</strong> '+propiedades.SERIE+'<br><strong>Símbolo Cartográfico:</strong> '+propiedades.SÍMB_CART+'<br><strong>Textura:</strong> '+propiedades.TEXTURA+'<br><strong>Prof1_cm:</strong> '+propiedades.Prof1_cm+'<br><strong>Ar_Li_Arc1:</strong> '+propiedades.Ar_Li_Arc1+'<br><strong>Prof2_cm:</strong> '+propiedades.Prof2_cm+'<br><strong>Ar_Li_Arc2:</strong> '+propiedades.Ar_Li_Arc2+'<br><strong>Prof3_cm:</strong> '+propiedades.Prof3_cm+'<br><strong>Ar_Li_Arc3:</strong> '+propiedades.Ar_Li_Arc3+'<br><strong>Prof4_cm:</strong> '+propiedades.Prof4_cm+'<br><strong>Ar_Li_Arc4:</strong> '+propiedades.Ar_Li_Arc4+'<br><strong>Prof5_cm:</strong> '+propiedades.Prof5_cm+'<br><strong>Ar_Li_Arc5:</strong> '+propiedades.Ar_Li_Arc5+'<br><strong>Prof6_cm:</strong> '+propiedades.Prof6_cm+'<br><strong>Ar_Li_Arc6:</strong> '+propiedades.Ar_Li_Arc6;
+
+                                content += '<br><a href="./module/siasbo/submodule/geovisor/snippet/metadatos/suelos_valle_alto.docx" target="_blank">DESCARGAR METADATOS</a>';
+
+                                content += '</p></div>';
+                                popupPunto.show(coordinate, content);
+                            }
+                        });
+                    }
+                } else {
+                    tipoMapa = 0;
+                }
+            });
+            generarEscala();
+        };
+
+        var generarEscala = function() {
+            // Variables de escala
+            var canvas = $('canvas').get(0); 
+            //get the Scaleline div container the style-width property
+            var olscale = $('.ol-scale-line-inner');
+            //Scaleline thicknes
+            var line1 = 6;
+            //Offset from the left
+            var x_offset = 55;
+            //offset from the bottom
+            var y_offset = 40;
+            var fontsize1 = 15;
+            var font1 = 'bold ' + fontsize1 + 'px Arial';
+            // how big should the scale be (original css-width multiplied)
+            var multiplier = 2;
+
+            var dibujarEscala = function(e) {
+                var ctx = e.context;
+                //var scalewidth = parseInt(olscale.css('width'),10)*multiplier;
+                var scalewidth = parseInt(55,10)*multiplier;
+                var scale = olscale.text();
+                var scalenumber = (parseInt(scale,10)*multiplier)/2;
+                var scaleunit = scale.match(/[Aa-zZ]{1,}/g);
+
+                //Scale Text
+                ctx.beginPath();
+                ctx.textAlign = "left";
+                ctx.strokeStyle = "#ffffff";
+                ctx.fillStyle = "#000000";
+                ctx.lineWidth = 2;
+                ctx.font = font1;
+                ctx.strokeText([scalenumber + ' ' + scaleunit], x_offset + fontsize1 / 2, canvas.height - y_offset - fontsize1 / 2);
+                ctx.fillText([scalenumber + ' ' + scaleunit], x_offset + fontsize1 / 2, canvas.height - y_offset - fontsize1 / 2);
+
+                //Scale Dimensions
+                var xzero = scalewidth + x_offset;
+                var yzero = canvas.height - y_offset;
+                var xfirst = x_offset + scalewidth * 1 / 4;
+                var xsecond = xfirst + scalewidth * 1 / 4;
+                var xthird = xsecond + scalewidth * 1 / 4;
+                var xfourth = xthird + scalewidth * 1 / 4;
+
+                // Stroke
+                ctx.beginPath();
+                ctx.lineWidth = line1 + 2;
+                ctx.strokeStyle = "#000000";
+                ctx.fillStyle = "#ffffff";
+                ctx.moveTo(x_offset, yzero);
+                ctx.lineTo(xzero + 1, yzero);
+                ctx.stroke();
+
+                //sections black/white
+                ctx.beginPath();
+                ctx.lineWidth = line1;
+                ctx.strokeStyle = "#000000";
+                ctx.moveTo(x_offset, yzero);
+                ctx.lineTo(xfirst, yzero);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineWidth = line1;
+                ctx.strokeStyle = "#FFFFFF";
+                ctx.moveTo(xfirst, yzero);
+                ctx.lineTo(xsecond, yzero);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineWidth = line1;
+                ctx.strokeStyle = "#000000";
+                ctx.moveTo(xsecond, yzero);
+                ctx.lineTo(xthird, yzero);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineWidth = line1;
+                ctx.strokeStyle = "#FFFFFF";
+                ctx.moveTo(xthird, yzero);
+                ctx.lineTo(xfourth, yzero);
+                ctx.stroke();
+            };
+
+            mapa.on('postcompose', function (evt) {
+                dibujarEscala(evt);
+            });
+        };
+
+        get_puntos = function(url, source, vector, mapaSeleccionado, id) {
+            $.get(url, function(respuesta) {
+                /*source.forEachFeature(function(feature) {
+                    source.removeFeature(feature);
+                });
+                source.addFeatures(features);*/
+                vector.setSource(null);
+                var nuevoVector = new ol.source.Vector();
+                var format = new ol.format.GeoJSON();
+                var features = format.readFeatures(respuesta, {
+                    featureProjection: 'EPSG:3857'
+                });
+                nuevoVector.addFeatures(features);
+                var nuevoCluster = new ol.source.Cluster({
+                    id: 'pozo',
+                    title: 'Pozos',
+                    distance: 25,
+                    source: nuevoVector
+                });
+                vector.setSource(nuevoCluster);
+                contadorReferencia++;
+                var aux = JSON.parse(respuesta);
+                if (aux.features.length != 0) {
+                    coodenadaReferencia = aux.features[0].properties.minMaxLonLat;
+                }
+                if (contadorReferencia == 3) {
+                    contadorReferencia = 0;
+                    /*var sourcePoligono = mapaSeleccionado.getSource();
+                    var featurePoligono = sourcePoligono.getFeatureById(id);
+                    var extentPoligono = featurePoligono.getGeometry().getExtent();*/
+                    var location = ol.extent.applyTransform(coodenadaReferencia, ol.proj.getTransform("EPSG:4326", "EPSG:3857"));
+                    var pan = ol.animation.pan({
+                        source: mapa.getView().getCenter()
+                    });
+                    var zoom = ol.animation.zoom({
+                        resolution: mapa.getView().getResolution(),
+                        duration: 1500,
+                        easing: ol.easing.easeIn
+                    });
+                    mapa.beforeRender(pan, zoom);
+                    //mapa.getView().fitExtent(location, mapa.getSize());
+                    mapa.getView().fit(location, mapa.getSize());
+                    //mapa.getView().fit(extentPoligono, mapa.getSize());
+                }
+            });
+        };
+
+        get_puntos_pozo = function(url, source, vector, mapaSeleccionado, id) {
+            $.get(url, function(respuesta) {
+                /*source.forEachFeature(function(feature) {
+                    source.removeFeature(feature);
+                });
+                source.addFeatures(features);*/
+                vector.setSource(null);
+                var nuevoVector = new ol.source.Vector();
+                var format = new ol.format.GeoJSON();
+                var features = format.readFeatures(respuesta, {
+                    featureProjection: 'EPSG:3857'
+                });
+                nuevoVector.addFeatures(features);
+                var nuevoCluster = new ol.source.Cluster({
+                    id: 'pozo',
+                    title: 'Pozos',
+                    distance: 25,
+                    source: nuevoVector
+                });
+                vector.setSource(nuevoCluster);
+                
+                var aux = JSON.parse(respuesta);
+                var coodenada;
+                if (aux.features.length != 0) {
+                    coodenada = aux.features[0].properties.minMaxLonLat;
+                }
+                if (coodenada != 'undefined') {
+                    /*var sourcePoligono = mapaSeleccionado.getSource();
+                    var featurePoligono = sourcePoligono.getFeatureById(id);
+                    var extentPoligono = featurePoligono.getGeometry().getExtent();*/
+                    var location = ol.extent.applyTransform(coodenada, ol.proj.getTransform("EPSG:4326", "EPSG:3857"));
+                    var pan = ol.animation.pan({
+                        source: mapa.getView().getCenter()
+                    });
+                    var zoom = ol.animation.zoom({
+                        resolution: mapa.getView().getResolution(),
+                        duration: 1500,
+                        easing: ol.easing.easeIn
+                    });
+                    mapa.beforeRender(pan, zoom);
+                    //mapa.getView().fitExtent(location, mapa.getSize());
+                    mapa.getView().fit(location, mapa.getSize());
+                    //mapa.getView().fit(extentPoligono, mapa.getSize());
+                }
+            });
+        };
+
+        get_puntos_poligono = function(url, source, vector, mapaSeleccionado, id) {
+            $.get(url, function(respuesta) {
+                vector.setSource(null);
+                var nuevoVector = new ol.source.Vector();
+                var format = new ol.format.GeoJSON();
+                var features = format.readFeatures(respuesta, {
+                    featureProjection: 'EPSG:3857'
+                });
+                nuevoVector.addFeatures(features);
+                var nuevoCluster = new ol.source.Cluster({
+                    id: 'pozo',
+                    title: 'Pozos',
+                    distance: 25,
+                    source: nuevoVector
+                });
+                vector.setSource(nuevoCluster);
+                contadorReferencia++;
+                if (contadorReferencia == 3) {
+                    contadorReferencia = 0;
+                    var sourcePoligono = mapaSeleccionado.getSource();
+                    var featurePoligono = sourcePoligono.getFeatureById(id);
+                    ubicacionPoligono = featurePoligono.getGeometry().getExtent();
+                    var pan = ol.animation.pan({
+                        source: mapa.getView().getCenter()
+                    });
+                    var zoom = ol.animation.zoom({
+                        resolution: mapa.getView().getResolution(),
+                        duration: 1500,
+                        easing: ol.easing.easeIn
+                    });
+                    mapa.beforeRender(pan, zoom);
+                    mapa.getView().fit(ubicacionPoligono, mapa.getSize());
+                }
+            });
+        };
+
+        get_puntos_poligono_pozo = function(url, source, vector, mapaSeleccionado, id) {
+            $.get(url, function(respuesta) {
+                vector.setSource(null);
+                var nuevoVector = new ol.source.Vector();
+                var format = new ol.format.GeoJSON();
+                var features = format.readFeatures(respuesta, {
+                    featureProjection: 'EPSG:3857'
+                });
+                nuevoVector.addFeatures(features);
+                var nuevoCluster = new ol.source.Cluster({
+                    id: 'pozo',
+                    title: 'Pozos',
+                    distance: 25,
+                    source: nuevoVector
+                });
+                vector.setSource(nuevoCluster);
+
+                var pan = ol.animation.pan({
+                    source: mapa.getView().getCenter()
+                });
+                var zoom = ol.animation.zoom({
+                    resolution: mapa.getView().getResolution(),
+                    duration: 1500,
+                    easing: ol.easing.easeIn
+                });
+                mapa.beforeRender(pan, zoom);
+                if (ubicacionPoligono) {
+                    mapa.getView().fit(ubicacionPoligono, mapa.getSize());
+                } else {
+                    var sourcePoligono = mapaSeleccionado.getSource();
+                    var featurePoligono = sourcePoligono.getFeatureById(id);
+                    ubicacionPoligono = featurePoligono.getGeometry().getExtent();
+                    mapa.getView().fit(ubicacionPoligono, mapa.getSize());
+                }
+            });
+        };
+
+        selecciona_poligono = function(vector, id){
+            var sourcePoligono = vector.getSource();
+            //var sourcePoligonoAux = sourcePoligono.getSource();
+            //console.log(sourcePoligono);
+            //console.log(sourcePoligonoAux);
+            var featurePoligono = sourcePoligono.getFeatureById(id);
+            if (featurePoligono !== poligonoSeleccionado) {
+                if (poligonoSeleccionado) {
+                    poligonoSobrepuesto.getSource().removeFeature(poligonoSeleccionado);
+                }
+                if (featurePoligono) {
+                    poligonoSobrepuesto.getSource().addFeature(featurePoligono);
+                }
+                poligonoSeleccionado = featurePoligono;
+            }
+            /*var featurePoligono = sourcePoligonoAux.getFeatureById(id);
+            if (featurePoligono !== poligonoSeleccionado) {
+                if (poligonoSeleccionado) {
+                    poligonoSobrepuesto.getSource().removeFeature(poligonoSeleccionado);
+                }
+                if (featurePoligono) {
+                    poligonoSobrepuesto.getSource().addFeature(featurePoligono);
+                }
+                poligonoSeleccionado = featurePoligono;
+            }*/
+        };
+
+        var get_busqueda_punto = function(txt_busca_punto) {
+            $.post("{/literal}{$getModule}{literal}&accion=getBuscaPunto"
+                , {dato: txt_busca_punto}
+                , function (respuesta, textStatus, jqXHR) {
+                    if (respuesta != 0) {
+                        puntosSobrepuestos.setSource(null);
+                        var nuevoVector = new ol.source.Vector();
+                        var format = new ol.format.GeoJSON();
+                        var features = format.readFeatures(respuesta, {
+                            featureProjection: 'EPSG:3857'
+                        });
+                        nuevoVector.addFeatures(features);
+                        puntosSobrepuestos.setSource(nuevoVector);
+                        puntosSobrepuestos.setVisible(true);
+                        /*var location = ol.proj.transform([-64.655, -16.708], 'EPSG:4326', 'EPSG:3857');
+                        var pan = ol.animation.pan({
+                            source: mapa.getView().getCenter()
+                        });
+                        var zoom = ol.animation.zoom({
+                            resolution: mapa.getView().getResolution(),
+                            duration: 1500,
+                            easing: ol.easing.easeIn
+                        });
+                        mapa.beforeRender(pan, zoom);
+                        mapa.getView().setCenter(location);
+                        mapa.getView().setZoom(5.2);*/
+                    } else {
+                        swal('Advertencia!','No existen resultados para la búsqueda.','warning');
+                        puntosSobrepuestos.setSource(null);
+                        puntosSobrepuestos.setVisible(false);
+                    }
+                }
+                , 'json');
+        };
+
+        var get_info_nacional_index = function() {
+            var url = "{/literal}{$getModule}{literal}&accion=nacional_index";
+            $('#window_content_info').html("Cargando...");
+            swal({
+                title: 'Cargando!',
+                text: 'Procesando datos',
+                imageUrl: 'images/loading/loading05.gif',
+                showConfirmButton: false,
+                allowEnterKey: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            });
+
+            $.get(url, function(respuesta) {
+                if (respuesta == 0) {
+                    swal.close();
+                    swal('Advertencia!','No existen datos.','warning');
+                } else {
+                    $('#window_content_info').html(respuesta);
+                    swal.close();
+                    /*hideWindowSearch();
+                    showWindowInfo();*/
+                }
+            });
+        };
+
+        var get_info_municipal = function(id) {
+            var url = "{/literal}{$getModule}{literal}&accion=municipal_index&id="+id;
+
+            $('#window_content_info').html("Cargando...");
+            swal({
+                title: 'Cargando!',
+                text: 'Procesando datos',
+                imageUrl: 'images/loading/loading05.gif',
+                showConfirmButton: false,
+                allowEnterKey: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            });
+
+            $.get(url, function(respuesta) {
+                if (respuesta == 0) {
+                    swal.close();
+                    swal('Advertencia!','No existen datos.','warning');
+                } else {
+                    $('#window_content_info').html(respuesta);
+                    swal.close();
+                    hideWindowSearch();
+                    showWindowInfo();
+                }
+            });
+        };
+
+        var get_consulta_nacional = function() {
+            var url = "{/literal}{$getModule}{literal}&accion=nacional_getFormConsulta";
+            $('#tab_nacional').html("Cargando...");
+            swal({
+                title: 'Cargando!',
+                text: 'Procesando datos',
+                imageUrl: 'images/loading/loading05.gif',
+                showConfirmButton: false,
+                allowEnterKey: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            });
+
+            $.get(url, function(respuesta) {
+                if (respuesta == 0) {
+                    swal.close();
+                    swal('Advertencia!','No existen datos.','warning');
+                } else {
+                    $('#tab_nacional').html(respuesta);
+                    swal.close();
+                }
+            });
+        };
+
+        var get_consulta_departamental = function() {
+            var url = "{/literal}{$getModule}{literal}&accion=departamental_getFormConsulta";
+            $('#tab_deptal').html("Cargando...");
+            swal({
+                title: 'Cargando!',
+                text: 'Procesando datos',
+                imageUrl: 'images/loading/loading05.gif',
+                showConfirmButton: false,
+                allowEnterKey: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            });
+
+            $.get(url, function(respuesta) {
+                if (respuesta == 0) {
+                    swal.close();
+                    swal('Advertencia!','No existen datos.','warning');
+                } else {
+                    $('#tab_deptal').html(respuesta);
+                    swal.close();
+                }
+            });
+        };
+
+        var get_consulta_municipal = function() {
+            var url = "{/literal}{$getModule}{literal}&accion=municipal_getFormConsulta";
+            $('#tab_municipal').html("Cargando...");
+            swal({
+                title: 'Cargando!',
+                text: 'Procesando datos',
+                imageUrl: 'images/loading/loading05.gif',
+                showConfirmButton: false,
+                allowEnterKey: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            });
+
+            $.get(url, function(respuesta) {
+                if (respuesta == 0) {
+                    swal.close();
+                    swal('Advertencia!','No existen datos.','warning');
+                } else {
+                    $('#tab_municipal').html(respuesta);
+                    swal.close();
+                }
+            });
+        };
+
+        var get_consulta_cuenca_estrategica = function() {
+            var url = "{/literal}{$getModule}{literal}&accion=cuenca.estrategica_getFormConsulta";
+            $('#tab_cuenca_estrategica').html("Cargando...");
+            swal({
+                title: 'Cargando!',
+                text: 'Procesando datos',
+                imageUrl: 'images/loading/loading05.gif',
+                showConfirmButton: false,
+                allowEnterKey: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            });
+
+            $.get(url, function(respuesta) {
+                if (respuesta == 0) {
+                    swal.close();
+                    swal('Advertencia!','No existen datos.','warning');
+                } else {
+                    $('#tab_cuenca_estrategica').html(respuesta);
+                    swal.close();
+                }
+            });
+        };
+
+        var get_consulta_acuifero = function() {
+            var url = "{/literal}{$getModule}{literal}&accion=acuifero_getFormConsulta";
+            $('#tab_acuifero').html("Cargando...");
+            swal({
+                title: 'Cargando!',
+                text: 'Procesando datos',
+                imageUrl: 'images/loading/loading05.gif',
+                showConfirmButton: false,
+                allowEnterKey: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            });
+
+            $.get(url, function(respuesta) {
+                if (respuesta == 0) {
+                    swal.close();
+                    swal('Advertencia!','No existen datos.','warning');
+                } else {
+                    $('#tab_acuifero').html(respuesta);
+                    swal.close();
+                }
+            });
+        };
+
+        var get_consulta_epsa = function() {
+            var url = "{/literal}{$getModule}{literal}&accion=epsa_getFormConsulta";
+            $('#tab_epsa').html("Cargando...");
+            swal({
+                title: 'Cargando!',
+                text: 'Procesando datos',
+                imageUrl: 'images/loading/loading05.gif',
+                showConfirmButton: false,
+                allowEnterKey: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            });
+
+            $.get(url, function(respuesta) {
+                if (respuesta == 0) {
+                    swal.close();
+                    swal('Advertencia!','No existen datos.','warning');
+                } else {
+                    $('#tab_epsa').html(respuesta);
+                    swal.close();
+                }
+            });
+        };
+
+        var get_consulta_pozo = function() {
+            var url = "{/literal}{$getModule}{literal}&accion=pozo_getFormConsulta";
+            $('#tab_pozo').html("Cargando...");
+            swal({
+                title: 'Cargando!',
+                text: 'Procesando datos',
+                imageUrl: 'images/loading/loading05.gif',
+                showConfirmButton: false,
+                allowEnterKey: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            });
+
+            $.get(url, function(respuesta) {
+                if (respuesta == 0) {
+                    swal.close();
+                    swal('Advertencia!','No existen datos.','warning');
+                } else {
+                    $('#tab_pozo').html(respuesta);
+                    swal.close();
+                }
+            });
+        };
+
+        var mostrarFormBusqueda = function() {
+            $('#window_search').fadeIn();
+        };
+
+        var ocultarFormBusqueda = function() {
+            $('#window_search').hide();
+        };
+
+        var redimensionarVentana = function() {
+            $('#mapa').css('height', $('.m_content-custom').height());
+        }
+
+        var vaciar_contenido_tabs = function() {
+            $('#tab_nacional').html('');
+            $('#tab_deptal').html('');
+            $('#tab_municipal').html('');
+            $('#tab_cuenca_estrategica').html('');
+            $('#tab_acuifero').html('');
+            $('#tab_epsa').html('');
+            $('#tab_pozo').html('');
+        };
+
+        var handle_general_components = function(){
+            $('.select2').select2({
+                placeholder: "Seleccione una opción",
+                dropdownParent: $("#modal_consultas")
+            });
+        };
+
+        var handle_get_components = function() {
+            btn_geovisor_search.click(function() {
+                $('#modal_consultas').modal('show');
+            });
+
+            btn_geovisor_config.click(function() {
+                if (btn_state_info == 0) {
+                    hideWindowConfig();
+                } else {
+                    showWindowConfig();
+                }
+            });
+
+            btn_geovisor_info.click(function() {
+                if (btn_state_info == 0) {
+                    hideWindowInfo();
+                } else {
+                    showWindowInfo();
+                }
+            });
+
+            lnk_info_nacional.click(function() {
+                opcion_busqueda_info = 1;
+                mapaDepartamental.setVisible(true);
+                mapaMunicipios.setVisible(false);
+                mapaHidrogeologia.setVisible(false);
+                mapaGeologia.setVisible(false);
+                mapaCuencaEstra25.setVisible(false);
+                mapaMacrocuencas.setVisible(false);
+                mapaAcuiferos.setVisible(false);
+                vaciar_contenido_tabs();
+                get_consulta_nacional();
+            });
+
+            lnk_info_deptal.click(function() {
+                opcion_busqueda_info = 2;
+                mapaDepartamental.setVisible(true);
+                mapaMunicipios.setVisible(false);
+                mapaHidrogeologia.setVisible(false);
+                mapaGeologia.setVisible(false);
+                mapaCuencaEstra25.setVisible(false);
+                mapaMacrocuencas.setVisible(false);
+                mapaAcuiferos.setVisible(false);
+                vaciar_contenido_tabs();
+                get_consulta_departamental();
+            });
+
+            lnk_info_municipal.click(function() {
+                opcion_busqueda_info = 3;
+                mapaMunicipios.setVisible(true);
+                mapaDepartamental.setVisible(false);
+                mapaHidrogeologia.setVisible(false);
+                mapaGeologia.setVisible(false);
+                mapaCuencaEstra25.setVisible(false);
+                mapaMacrocuencas.setVisible(false);
+                mapaAcuiferos.setVisible(false);
+                vaciar_contenido_tabs();
+                get_consulta_municipal();
+            });
+
+            lnk_info_cuenca_estrategica.click(function() {
+                opcion_busqueda_info = 4;
+                mapaCuencaEstra25.setVisible(true);
+                mapaDepartamental.setVisible(false);
+                mapaMunicipios.setVisible(false);
+                mapaHidrogeologia.setVisible(false);
+                mapaGeologia.setVisible(false);
+                mapaMacrocuencas.setVisible(false);
+                mapaAcuiferos.setVisible(false);
+                vaciar_contenido_tabs();
+                get_consulta_cuenca_estrategica();
+            });
+
+            lnk_info_acuifero.click(function() {
+                opcion_busqueda_info = 5;
+                mapaDepartamental.setVisible(true);
+                mapaAcuiferos.setVisible(true);
+                mapaMunicipios.setVisible(false);
+                mapaHidrogeologia.setVisible(false);
+                mapaGeologia.setVisible(false);
+                mapaCuencaEstra25.setVisible(false);
+                mapaMacrocuencas.setVisible(false);
+                vaciar_contenido_tabs();
+                get_consulta_acuifero();
+            });
+
+            lnk_info_epsa.click(function() {
+                opcion_busqueda_info = 6;
+                mapaDepartamental.setVisible(true);
+                mapaMunicipios.setVisible(false);
+                mapaHidrogeologia.setVisible(false);
+                mapaGeologia.setVisible(false);
+                mapaCuencaEstra25.setVisible(false);
+                mapaMacrocuencas.setVisible(false);
+                mapaAcuiferos.setVisible(false);
+                vaciar_contenido_tabs();
+                get_consulta_epsa();
+            });
+
+            lnk_info_pozo.click(function() {
+                opcion_busqueda_info = 7;
+                mapaDepartamental.setVisible(true);
+                mapaMunicipios.setVisible(false);
+                mapaHidrogeologia.setVisible(false);
+                mapaGeologia.setVisible(false);
+                mapaCuencaEstra25.setVisible(false);
+                mapaMacrocuencas.setVisible(false);
+                mapaAcuiferos.setVisible(false);
+                vaciar_contenido_tabs();
+                get_consulta_pozo();
+            });
+
+            div_mapa.resize(function() {
+                redimensionarVentana();
+            });
+
+            btn_geovisor_move.click(function() {
+                lnk_mapa_centrar.trigger('click');
+            });
+
+            lnk_mapa_centrar.click(function() {
+                var location = ol.proj.transform([-64.655, -16.708], 'EPSG:4326', 'EPSG:3857');
+                var pan = ol.animation.pan({
+                    source: mapa.getView().getCenter()
+                });
+                var zoom = ol.animation.zoom({
+                    resolution: mapa.getView().getResolution(),
+                    duration: 1500,
+                    easing: ol.easing.easeIn
+                });
+                mapa.beforeRender(pan, zoom);
+                mapa.getView().setCenter(location);
+                mapa.getView().setZoom(5.2);
+                return false;
+            });
+
+            lnk_mapa_consultas.click(function() {
+                $('#modal_consultas').modal('show');
+                return false;
+            });
+
+            lnk_mapa_imprimir_pdf.click(function(){
+                mapa.once('postcompose', function(event) {
+                    var logo_mmaya = new Image();
+                    logo_mmaya.src = 'images/logo/logo_mmaya2018.png';
+                    var canvas = event.context.canvas;
+                    var mm_in_px = 3.77952755905511;
+                    var imgAncho = Math.round(canvas.width/mm_in_px);
+                    var imgAlto = Math.round(canvas.height/mm_in_px);
+                    var pageAncho = 279.4;
+                    var pageAlto = 215.9;
+                    var imgAnchoAux = 0;
+                    var imgAltoAux = 0;
+                    var puntoX = 0;
+
+                    if (imgAncho > 249) {
+                        /*imgAnchoAux = imgAncho - 249;
+                        imgAncho = imgAncho - imgAnchoAux;
+                        imgAlto = imgAlto - (0.77 * imgAnchoAux);*/
+                        imgAltoAux = imgAlto - 145.81;
+                        imgAlto = imgAlto - imgAltoAux;
+                        imgAnchoAux = imgAncho - imgAltoAux - (1.29 * imgAltoAux);
+                    } else {
+                        /*imgAnchoAux = 249 - imgAncho;
+                        imgAncho = imgAncho + imgAnchoAux;
+                        imgAlto = imgAlto + (0.77 * imgAnchoAux);*/
+                        imgAltoAux = 145.81 - imgAlto;
+                        imgAlto = imgAlto + imgAltoAux;
+                        imgAnchoAux = imgAncho + imgAltoAux + (1.29 * imgAltoAux);
+                    }
+
+                    puntoX = 14 + (pageAncho - imgAncho - 30)/2;
+                    canvas.toBlob(function(blob) {
+                        //saveAs(blob, 'map.png');
+                        var dataImg = canvas;
+                        var pdf = new jsPDF({
+                            orientation: 'landscape',
+                            unit: 'mm',
+                            format: 'letter'
+                        });
+                        pdf.setFontSize(12);
+                        pdf.setFontType("bold");
+                        pdf.text('Ministerio de Medio Ambiente y Agua', 102, 20);
+                        pdf.setFontSize(10);
+                        pdf.text('Viceministerio de Recursos Hídricos y Riego', 102, 25);
+                        pdf.text('SISTEMA DE INFORMACIÓN DE AGUAS SUBTERRÁNEAS DE BOLIVIA', 81, 30);
+                        pdf.text('REPORTE: '+$('#titulo_consulta').text(), 15, 47);
+                        pdf.addImage(logo_mmaya, 'PNG', 15, 15, 60, 18.3);
+                        //pdf.addImage(dataImg, 'PNG', 15, 54, 249, 145.81);
+                        pdf.addImage(dataImg, 'PNG', puntoX, 54, imgAncho, imgAlto);
+                        pdf.save('mapa-siasbo.pdf');
+                    }, 'image/png', 0.95);
+                });
+                mapa.renderSync();
+                return false;
+            });
+
+            lnk_mapa_imprimir_png.click(function(){
+                mapa.once('postcompose', function(event) {
+                    var canvas = event.context.canvas;
+                        canvas.toBlob(function(blob) {
+                        saveAs(blob, 'mapa-siasbo.png');
+                    });
+                });
+                mapa.renderSync();
+                return false;
+            });
+
+            lnk_mapa_graticula.click(function(){
+                if (capaGraticula) {
+                    mapa.removeControl(capaGraticula);
+                    capaGraticula = null;
+                } else {
+                    capaGraticula = projectionGraticula['4326'];
+                    var c = '#000000';
+                    var style = new ol.style.Style();
+                    style.setStroke (new ol.style.Stroke({ color: c, width: 0.4 }));
+                    style.setFill (new ol.style.Fill({ color: true ? "#fff" : "#000" }));
+                    style.setText (new ol.style.Text(
+                        {   
+                            stroke: new ol.style.Stroke({ color: "#fff", width: 1 }),
+                            fill: new ol.style.Fill({ color: c }),
+                        }));
+                    capaGraticula.setStyle(style);
+                    mapa.addControl(capaGraticula);
+                }
+                return false;
+            });
+
+            lnk_mapa_orientacion.click(function(){
+                if (capaOrientacion) {
+                    mapa.removeControl(capaOrientacion);
+                    capaOrientacion = null;
+                } else {
+                    capaOrientacion = new ol.control.Compass ({
+                        className: "bottom",
+                        src: (true ? "./images/siasbo/geovisor/norte_black.png" : "./images/siasbo/geovisor/norte_black.png")
+                    });
+                    mapa.addControl(capaOrientacion);
+                }
+                return false;
+            });
+
+            lnk_mapa_busqueda.click(function(){
+                if (bnd_busqueda == 0) {
+                    mostrarFormBusqueda();
+                    bnd_busqueda = 1;
+                } else {
+                    puntosSobrepuestos.setVisible(false);
+                    ocultarFormBusqueda();
+                    bnd_busqueda = 0;
+                }
+            });
+
+            btn_busca_punto.click(function() {
+                if (txt_busca_punto.val() != '') {
+                    get_busqueda_punto(txt_busca_punto.val());
+                } else {
+                    swal('Advertencia!','Escriba el nombre o código del punto que desea buscar.','warning');
+                }
+            });
+        };
+
+        return {
+            //main function to initiate the module
+            init: function() {
+                initMapa();
+                handle_general_components();
+                handle_get_components();
+                //redimensionarVentana();
+                get_info_nacional_index();
+                ocultarFormBusqueda();
+            }
+        };
+
+    }();
+
+    var graficar_stiff = function(id) {
+        var url = "{/literal}{$getModule}{literal}&accion=graficas_getItemStiff&id="+id;
+        
+        $('#window_content_data').html("Cargando...");
+        swal({
+            title: 'Cargando!',
+            text: 'Procesando datos',
+            imageUrl: 'images/loading/loading05.gif',
+            showConfirmButton: false,
+            allowEnterKey: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        });
+
+        $.get(url, function(respuesta) {
+            if (respuesta == 0) {
+                swal.close();
+                swal('Advertencia!','No existen datos.','warning');
+            } else {
+                //var datos = JSON.parse(respuesta);
+                $('#modal_stiff_contenido').html(respuesta);
+                $("#modal_stiff").modal("show");
+                swal.close();
+            }
+        });
+    };
+
+    var graficar_diseno = function(id) {
+        var url = "{/literal}{$getModule}{literal}&accion=graficas_getGraficaDiseno&pozoId="+id;
+        
+        $('#modal_content').html("Cargando...");
+        swal({
+            title: 'Cargando!',
+            text: 'Procesando datos',
+            imageUrl: 'images/loading/loading05.gif',
+            showConfirmButton: false,
+            allowEnterKey: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        });
+
+        $.get(url, function(respuesta) {
+            if (respuesta == 0) {
+                swal.close();
+                swal('Advertencia!','No existen datos.','warning');
+            } else {
+                $('#modal_content').html(respuesta);
+                swal.close();
+                $("#modal_window").modal("show");
+            }
+        });
+    };
+
+    var graficar_columnalitologica = function(id) {
+        var url = "{/literal}{$getModule}{literal}&accion=graficas_getGraficaColumnaLitologica&id="+id;
+        
+        $('#window_content_data').html("Cargando...");
+        swal({
+            title: 'Cargando!',
+            text: 'Procesando datos',
+            imageUrl: 'images/loading/loading05.gif',
+            showConfirmButton: false,
+            allowEnterKey: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        });
+
+        $.get(url, function(respuesta) {
+            if (respuesta == 0) {
+                swal.close();
+                swal('Advertencia!','No existen datos.','warning');
+            } else {
+                //var datos = JSON.parse(respuesta);
+                $('#modal_stiff_contenido').html(respuesta);
+                $("#modal_stiff").modal("show");
+                swal.close();
+            }
+        });
+    };
+
+    var graficar_caudal = function(id) {
+        var url = "{/literal}{$getModule}{literal}&accion=graficas_getGraficaCaudal&id="+id;
+        
+        //$('#window_content_data').html("Cargando...");
+        swal({
+            title: 'Cargando!',
+            text: 'Procesando datos',
+            imageUrl: 'images/loading/loading05.gif',
+            showConfirmButton: false,
+            allowEnterKey: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        });
+
+        $.get(url, function(respuesta) {
+            if (respuesta == 0) {
+                swal.close();
+                swal('Advertencia!','No existen datos.','warning');
+            } else {
+                //var datos = JSON.parse(respuesta);
+                $('#modal_stiff_contenido').html(respuesta);
+                $("#modal_stiff").modal("show");
+                swal.close();
+            }
+        });
+    };
+
+    var graficar_abatimiento = function(id) {
+        var url = "{/literal}{$getModule}{literal}&accion=graficas_getGraficaAbatimiento&id="+id;
+        
+        //$('#window_content_data').html("Cargando...");
+        swal({
+            title: 'Cargando!',
+            text: 'Procesando datos',
+            imageUrl: 'images/loading/loading05.gif',
+            showConfirmButton: false,
+            allowEnterKey: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        });
+
+        $.get(url, function(respuesta) {
+            if (respuesta == 0) {
+                swal.close();
+                swal('Advertencia!','No existen datos.','warning');
+            } else {
+                //var datos = JSON.parse(respuesta);
+                $('#modal_stiff_contenido').html(respuesta);
+                $("#modal_stiff").modal("show");
+                swal.close();
+            }
+        });
+    };
+
+
+
+
+
+    var graficar_escalon = function(id) {
+        var url = "{/literal}{$getModule}{literal}&accion=graficas_getGraficaEscalon&id="+id;
+        
+        //$('#window_content_data').html("Cargando...");
+        swal({
+            title: 'Cargando!',
+            text: 'Procesando datos',
+            imageUrl: 'images/loading/loading05.gif',
+            showConfirmButton: false,
+            allowEnterKey: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        });
+
+        $.get(url, function(respuesta) {
+            if (respuesta == 0) {
+                swal.close();
+                swal('Advertencia!','No existen datos.','warning');
+            } else {
+                //var datos = JSON.parse(respuesta);
+                $('#modal_stiff_contenido').html(respuesta);
+                $("#modal_stiff").modal("show");
+                swal.close();
+            }
+        });
+    };
+
+    var graficar_recuperacion = function(id) {
+        var url = "{/literal}{$getModule}{literal}&accion=graficas_getGraficaRecuperacion&id="+id;
+        
+        //$('#window_content_data').html("Cargando...");
+        swal({
+            title: 'Cargando!',
+            text: 'Procesando datos',
+            imageUrl: 'images/loading/loading05.gif',
+            showConfirmButton: false,
+            allowEnterKey: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        });
+
+        $.get(url, function(respuesta) {
+            if (respuesta == 0) {
+                swal.close();
+                swal('Advertencia!','No existen datos.','warning');
+            } else {
+                //var datos = JSON.parse(respuesta);
+                $('#modal_stiff_contenido').html(respuesta);
+                $("#modal_stiff").modal("show");
+                swal.close();
+            }
+        });
+    };
+
+	jQuery(document).ready(function() {
+        /*$('#window_search').hide();
+        $('#window_info').hide();*/
+        snippet_mapa.init();
+    });
+</script>
+{/literal}

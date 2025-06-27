@@ -1,0 +1,76 @@
+<?php
+/**
+ * Configuración de referncias de las tablas de las base de datos que utilizaremos en este módulo
+ */
+$CFGm->tabla = array();
+/**
+ * Tablas de información principal, configuración de los objetos principales
+ */
+
+/**
+ * Tablas de información principal, configuración de los objetos principales
+ */
+$db_prefix = "item_"; //prefijo de la base de datos
+$db_datos = array();
+$db_datos[] = $core->get_alias_campo("item",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo($db_prefix."anexo",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo($db_prefix."foto",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo($db_prefix."video",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo("manantial",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo("manantial_monitoreo",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo($db_prefix."archivo_adjunto",$db_prefix,"");
+
+$db_datos[] = $core->get_alias_campo("manantial_monitor_calidad",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo("manantial_monitor_calidad_dato",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo("manantial_monitor_isotopico",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo("manantial_monitor_isotopico_dato",$db_prefix,"");
+
+$CFGm->tabla = array_merge($CFGm->tabla,$core->get_tablas_from_array($db_datos,"",$dbname,"",""));
+unset($db_datos);
+unset($db_prefix);
+
+$db_datos = array();
+$db_datos[] = $core->get_alias_campo("manantial_tipo","","");
+$db_datos[] = $core->get_alias_campo("manantial_usoagua","","");
+$db_datos[] = $core->get_alias_campo("manantial_medio","","");
+$db_datos[] = $core->get_alias_campo("manantial_permanencia","","");
+$db_datos[] = $core->get_alias_campo("cuenca","","");
+
+$db_datos[] = $core->get_alias_campo("epoca","","");
+$db_datos[] = $core->get_alias_campo("pozo_monitor_calidad_parametro","","");
+$db_datos[] = $core->get_alias_campo("pozo_monitor_calidad_compuesto","","");
+$db_datos[] = $core->get_alias_campo("pozo_monitor_isotopico_parametro","","");
+$db_datos[] = $core->get_alias_campo("pozo_monitor_isotopico_compuesto","","");
+
+$CFGm->tabla = array_merge($CFGm->tabla,$core->get_tablas_from_array($db_datos,"c",$dbname,"",""));
+unset($db_datos);
+unset($db_prefix);
+
+/**
+ * Otras base de datos
+ */
+$dbname = "vrhr_territorio"; // otra base de datos que no es la principal
+$db_datos = array();
+$db_datos[] = $core->get_alias_campo("departamento","","");
+$db_datos[] = $core->get_alias_campo("provincia","","");
+$db_datos[] = $core->get_alias_campo("municipio","","");
+$db_datos[] = $core->get_alias_campo("comunidad","","");
+$db_datos[] = $core->get_alias_campo("localidad","","");
+$CFGm->tabla = array_merge($CFGm->tabla,$core->get_tablas_from_array($db_datos,"o",$dbname));
+unset($db_datos);
+unset($dbname);
+unset($db_prefix);
+
+$dbname = "vrhr_snir"; // otra base de datos que no es la principal
+$db_prefix= "core_";
+$db_datos[] = $core->get_alias_campo($db_prefix."usuario",$db_prefix,"");
+$CFGm->tabla = array_merge($CFGm->tabla,$core->get_tablas_from_array($db_datos,"o",$dbname));
+unset($db_datos);
+unset($dbname);
+unset($db_prefix);
+
+/* /
+print_struc($CFGm->tabla);
+print_struc($CFG->tabla);
+exit;
+/**/

@@ -1,0 +1,3040 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.6deb4
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: localhost
+-- Tiempo de generación: 20-07-2018 a las 18:59:25
+-- Versión del servidor: 10.1.26-MariaDB-0+deb9u1
+-- Versión de PHP: 5.6.36-0+deb8u1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `mmaya_poa`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_acciones`
+--
+
+CREATE TABLE `catalogo_acciones` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(20) NOT NULL,
+  `resultado_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_acciones`
+--
+
+INSERT INTO `catalogo_acciones` (`itemId`, `nombre`, `descripcion`, `resultado_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '1', 'Ampliación de cobert', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '2', 'Empoderamiento socia', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '3', 'Otras acciones que a', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '1', 'Ampliación de cobert', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '2', 'Empoderamiento socia', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '3', 'Otras acciones que a', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '1', 'Ampliación de cobert', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '2', 'Rehabilitación y mej', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '3', 'Empoderamiento socia', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '4', 'Otras acciones que a', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '1', 'Ampliación de cobert', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '2', 'Construcción, rehabi', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, '3', 'Empoderamiento socia', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, '4', 'Otras acciones que a', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, '1', 'Incremento de la cob', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, '2', 'Promoción y acceso a', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, '3', 'Implementación de me', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, '4', 'Construcción y mante', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, '5', 'Fortalecimiento y em', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, '6', 'Otras acciones que a', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, '1', 'Programa de gestión ', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(22, '2', 'Otras acciones que a', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(23, '1', 'Desarrollo integral ', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(24, '2', 'Otras acciones que a', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(25, '1', 'Promoción internacio', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(26, '2', 'Otras acciones que a', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(27, '1', 'Declaración universa', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(28, '2', 'Otras acciones que a', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(29, '2', 'Negociación internac', 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(30, '3', 'Otras acciones que a', 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(31, '1', 'Mecanismo participat', 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, '2', 'Impulso al reconocim', 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(33, '3', 'Impulso al reconocim', 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, '4', 'Otras acciones que a', 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(35, '1', 'Construcción de capa', 12, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, '2', 'Caracterización, eva', 12, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(37, '3', 'Redes de observación', 12, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, '4', 'Promoción de patrone', 12, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(39, '5', 'Gestión y desarrollo', 12, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(40, '6', 'Otras acciones que a', 12, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(41, '1', 'Realización de evalu', 13, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(42, '2', 'Implementación de in', 13, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(43, '3', 'Implementación de ac', 13, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(44, '4', 'Otras acciones que a', 13, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(45, '1', 'Regularización e imp', 14, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(46, '2', 'Programa nacional de', 14, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(47, '3', 'Otras acciones que a', 14, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(48, '1', 'Desarrollo de proces', 15, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(49, '2', 'Implementación de la', 15, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(50, '3', 'Otras acciones que a', 15, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(51, '1', 'Programa de gestión ', 16, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(52, '2', 'Otras acciones que a', 16, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(53, '1', 'Erradicación de la e', 17, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(54, '2', 'Otras acciones que a', 17, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(55, '1', 'Desarrollo de tecnol', 18, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(56, '2', 'Otras acciones que a', 18, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(57, '1', 'Implementación de un', 19, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(58, '2', 'Otras acciones que a', 19, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(59, '1', 'Desarrollo de accion', 20, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(60, '2', 'Comunidades urbanas:', 20, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(61, '3', 'Otras acciones que a', 20, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(62, '1', 'Programa nacional de', 21, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(63, '2', 'Otras acciones que a', 21, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(64, '1', 'Implementación del M', 22, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(65, '2', 'Implementación del M', 22, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(66, '3', 'Monitoreo y gestión ', 22, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(67, '4', 'Gestión climático y ', 22, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(68, '5', 'Otras acciones que a', 22, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(69, '1', 'Programa nacional de', 23, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(70, '2', 'Prevención control y', 23, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(71, '3', 'Otras acciones que a', 23, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(72, '1', 'Implementación del M', 24, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(73, '2', 'Otras acciones que a', 24, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(74, '1', 'Programa nacional de', 25, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(75, '2', 'Otras acciones que a', 25, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(76, '1', 'Programa nacional de', 26, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(77, '2', 'Otras acciones que a', 26, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(78, '1', 'Programa nacional de', 27, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(79, '2', 'Otras acciones que a', 27, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(80, '1', 'Centros de producció', 28, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(81, '2', 'Otras acciones que a', 28, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(82, '1', 'Desarrollo e impleme', 29, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(83, '2', 'Procesos y sistemas ', 29, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(84, '3', 'Gestión integral de ', 29, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(85, '4', 'Planes y gestión de ', 29, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(86, '5', 'Otras acciones que a', 29, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(87, '1', 'Programa de cosecha ', 30, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(88, '2', 'Otras acciones que a', 30, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(89, '1', 'Protección de la bio', 31, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(90, '2', 'Otras acciones que a', 31, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(91, '1', 'Reducción de la cont', 32, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(92, '2', 'Otras acciones que a', 32, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(93, '1', 'Aplicación de tecnol', 33, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(94, '2', 'Otras acciones que a', 33, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(95, '1', 'Restauración y recup', 34, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(96, '2', 'Otras acciones que a', 34, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(97, '1', 'Implementación de la', 35, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(98, '2', 'Otras acciones que a', 35, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(99, '1', 'Implementación de si', 36, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(100, '2', 'Otras acciones que a', 36, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(101, '1', 'Implementación de pl', 37, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(102, '2', 'Otras acciones que a', 37, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(103, '4', 'Desarrollo de una ge', 38, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(104, '11', 'Otras acciones que a', 38, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_acciones_cp`
+--
+
+CREATE TABLE `catalogo_acciones_cp` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  `accion_mp_id` int(11) NOT NULL,
+  `gestion_ini_id` int(11) NOT NULL,
+  `gestion_fin_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_acciones_cp`
+--
+
+INSERT INTO `catalogo_acciones_cp` (`itemId`, `nombre`, `descripcion`, `accion_mp_id`, `gestion_ini_id`, `gestion_fin_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '1', 'Implementar Programas y Proyectos de agua potable y saneamiento en todo el territorio nacional a través de la canalización de recursos de la Cooperación Técnica y/o Financiera a las Entidades Ejecutor', 1, 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '2', 'Ampliar la cobertura bajo riego implementado Programas y Proyectos de riego, a través de la canalización de recursos, implementación de normativas sectoriales; el fortalecimiento y desarrollo de capac', 2, 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '3', 'Fortalecer la gestión de los recursos hídricos, bajo un enfoque integral y sustentable con modalidades de participación y autogestión, que garantice su armonía con la Madre Tierra y el agua como recur', 2, 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '4', 'Formular en el marco del desarrollo integral, una nueva visión de gestión ambiental dinámica y articulada con los actores y sectores públicos y privados, a través de políticas, planes, programas y nor', 3, 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '5', 'Promover la implementación de la gestión integral de residuos sólidos mediante el desarrollo de instrumentos normativos, capacitación, asistencia técnica y gestión de proyectos en Bolivia, para el des', 3, 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '6', 'Desarrollar la Gestión Integral de la Biodiversidad en todos los niveles de organización biológica, generando políticas, planes, programas, proyectos y mecanismos técnico legales con la participación ', 3, 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '7', 'Contribuir a la gestión del Sistema Plurinacional de Áreas Protegidas (SPAP) y al establecimiento de directrices de desarrollo integral de aprovechamiento de los recursos naturales con tecnologías lim', 3, 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '8', 'Fortalecer la Gestión Integral y Sustentable de los Bosques a través del desarrollo de políticas, normas, e instrumentos de gestión y monitoreo y sistemas de información que viabilicen la ejecución de', 3, 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '9', 'Contribuir al logro de una eficiente y eficaz gestión del MMAyA, mediante la aplicación de procesos transparentes, instrumentos de gestión pública, financieros, legales y de comunicación.', 4, 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_acciones_es`
+--
+
+CREATE TABLE `catalogo_acciones_es` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `accion_cp_id` int(11) NOT NULL,
+  `gestion_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_acciones_es`
+--
+
+INSERT INTO `catalogo_acciones_es` (`itemId`, `nombre`, `descripcion`, `accion_cp_id`, `gestion_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '1', 'Fortalecer la gestión de los recursos hídricos.', 3, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '1', 'Promover la implementación de la gestión integral de residuos sólidos mediante el desarrollo de instrumentos normativos.', 5, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_acciones_mp`
+--
+
+CREATE TABLE `catalogo_acciones_mp` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `pei_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_acciones_mp`
+--
+
+INSERT INTO `catalogo_acciones_mp` (`itemId`, `nombre`, `descripcion`, `pei_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '1', 'Promover la universalización de los servicios de agua potable y saneamiento en las áreas urbana y rural, en forma concurrente y participativa.', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '2', 'Impulsar modelos de desarrollo territorial mediante una gestión integrada de recursos hídricos y manejo integral de cuencas para contribuir a la segur', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '3', 'Promover la gestión de la calidad ambiental y el manejo de los componentes de la madre tierra para el desarrollo territorial integral en Armonía con l', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '4', 'Implementar la gestión pública transparente con servidores públicos éticos, competentes y comprometidos.', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_ambitos_tem`
+--
+
+CREATE TABLE `catalogo_ambitos_tem` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `unidad_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_bienes_servicios`
+--
+
+CREATE TABLE `catalogo_bienes_servicios` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_categorias_prog`
+--
+
+CREATE TABLE `catalogo_categorias_prog` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) NOT NULL,
+  `unidad_id` int(11) NOT NULL,
+  `tipo_finan_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL,
+  `monto_actual` decimal(15,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_categorias_prog`
+--
+
+INSERT INTO `catalogo_categorias_prog` (`itemId`, `nombre`, `descripcion`, `unidad_id`, `tipo_finan_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`, `monto_actual`) VALUES
+(1, '00 0000 001', 'DIRECCION GENERAL DE ASUNTOS ADMINISTRATIVOS', 1, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(2, '00 0000 099', 'CONTROL SOCIAL', 1, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(3, '11 0000 001', 'VR FORTALECIMIENTO PLAN NACIONAL DE CUENCAS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(4, '11 0000 002', 'VR FORT. PLAN NACIONAL DE CUENCAS II-SUECIA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(5, '11 0000 005', 'OTROS INGRESOS FUNCIONAMIENTO UCP-CAF', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(6, '11 0000 008', 'AGUA SEGURA - COSECHANDO AGUA', 21, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(7, '11 0000 089', 'DEVOLUCIONES UCEP-MI RIEGO', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(8, '11 0000 090', 'FORT. PLAN NACIONAL DE CUENCAS - APS - TGN', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(9, '11 0001 000', 'SEGUIM. PNC NACIONAL', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(10, '11 0002 000', 'DESAR. PROG. RIEGO SIRIC KFW CONSULTORA S.A.', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(11, '11 0003 000', 'APLIC. SUBPROG. RIEGO INTERCOM.MAIRANA, AIQUILE Y V.SERRANO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(12, '11 0004 000', 'CAPAC. CAPACITACION ASISTENCIA TECNICA EN RIEGO ORURO', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(13, '11 0005 000', 'IMPLEM. DEL PROGRAMA MáS INVERSIóN PARA MI RIEGO NACIONAL', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(14, '11 0006 000', 'IMPLEM. IMPLEMENTACIóN DEL PROGRAMA NACIONAL DE RIEGO CON ENFOQUE DE CUENCA III - NACIONAL', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(15, '11 0007 000', 'IMPLEM. PROGRAMA NACIONAL DE RIEGO CON ENFOQUE DE CUENCA II NACIONAL', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(16, '11 0008 000', 'IMPLEM. PROGRAMA AGUA Y RIEGO PARA BOLIVIA', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(17, '11 0009 000', 'CONST. REPRESA Y SISTEMA DE RIEGO SAN MIGUEL DEL BAÑADO, MONTEAGUDO', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(18, '11 0010 000', 'CONST. REPRESA Y SISTEMA DE RIEGO VALLECITO MONTEAGUDO', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(19, '11 0011 000', 'CONST. REPRESA TOLAHUANI, COCHABAMBA', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(20, '11 0012 000', 'CONST. SISTEMA DE MICRO RIEGO WARA WARA', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(21, '11 0013 000', 'CONST. SISTEMA DE RIEGO LAGUNILLAS', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(22, '11 0014 000', 'CONST. SISTEMAS DE RIEGO DEPARTAMENTO DE POTOSI', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(23, '11 0015 000', 'CONST. SISTEMA DE MICRORIEGO AYLLU COLLPA BELEN, COROCORO', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(24, '11 0016 000', 'CONST. SISTEMA DE RIEGO CANTON CHIMBOATA', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(25, '11 0017 000', 'CONST. AGUA POTABLE, RECIENTES ASENTAMIENTOS URBANOS EN LA CIUDAD DE ORURO', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(26, '11 0018 000', 'CONST. SISTEMA DE RIEGO LAGUNA AZUL QHOCHA WASA MAYU TIRAQUE', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(27, '11 0019 000', 'CONST. SISTEMA DE RIEGO CANTON COMANCHE', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(28, '11 0020 000', 'CONST. “CONSTRUCCION SISTEMA DE AGUA POTABLE ALQA QUTA ZONA A Y ZONA B (PUCARANI) LA PAZ', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(29, '11 0021 000', 'CONST. PERFORACION DE POZOS PARA RIEGO COMUNIDAD CAPILLA UCUREÑA CLIZA', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(30, '11 0022 000', 'IMPLEM. PROGRAMA DE APOYO AL RIEGO COMUNITARIO CBBA Y CHUQUISACA', 27, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(31, '11 0023 000', 'MANEJO SUSTENTABLE DE BOSQUES EN EL ECOSISTEMA TRANSFRONTERIZO DEL GRAN CHACO AMERICANO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(32, '11 0025 000', 'CONST. SISTEMA DE RIEGO LAURA JAYUMA CAQUIAVIRI', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(33, '11 0026 000', 'CONST. SISTEMA DE RIEGO MANKAILLPA MURILLO ALTO Y MURILLO BAJO VALLEGRANDE', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(34, '11 0027 000', 'CONST. SISTEMA DE RIEGO MONTE PAULO VALLEGRANDE', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(35, '11 0028 000', 'CONST. SISTEMA DE RIEGO PUYO PUYO', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(36, '11 0030 000', 'CONST.  SIST. DE AGUA POTABLE Y ALCANTARILLADO SANITARIO SECT.DE LA COMU. DE APAÑA Y UNI LA PAZ - PALCA', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(37, '11 0031 000', 'CONST. SISTEMA DE RIEGO PAMPA YAMPARA YAMPARAEZ', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(38, '11 0033 000', 'CONST. SISTEMA DE RIEGO COLORADILLO Y SAN GERONIMO VALLEGRANDE', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(39, '11 0034 000', 'CONST. SISTEMA DE RIEGO MOLLOJAHUA VIACHA', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(40, '11 0086 000', 'IMPLEM. DEL PROGRAMA PRESAS - NACIONAL NACIONAL', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(41, '11 0087 000', 'IMPLEM. IMPLEM. PROGRAMA MÁS INVERSIÓN PARA EL RIEGO II – TRADICIONAL Y TECNIFICADO (MI RIEGO II) NACIONAL', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(42, '11 0088 000', 'IMPLEM. DEL PYTO MULTIPROPOSITO ROSITAS COMP. RIEGO -  SANTA CRUZ', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(43, '33 0000 001', 'VMA-ADMINISTRACION CENTRAL', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(44, '33 0000 003', 'VMA-MULTAS', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(45, '33 0000 004', 'VMA-RENCA', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(46, '33 0000 005', 'VM-PROGRAMA PAIS DINAMARCA-DGMACC', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(47, '33 0000 006', 'VM-PROGRAMA PAIS DINAMARCA-DESPACHO', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(48, '33 0001 000', 'CONTROL DE GLACIARES TROPICALES ANDINOS EN UN CONTEXTO DE CAMBIO CLIMÁTICO, LA PAZ', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(49, '33 0002 000', 'CONTROL Y REDUCCION DE LAS SUSTANCIAS AGOTADORAS DE LA CAPA DE OZONO EN BOLIVIA', 36, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(50, '33 0003 000', 'DESAR. LINEA DE BASE DE INVENTARIOS DE MERCURIO A NIVEL NACIONAL', 37, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(51, '33 0004 000', 'FORTAL. IMPLEMENTACION DE GESTION AMBIENTAL DE PCB EN BOLIVIA NACIONAL', 37, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(52, '33 0005 000', 'EQUIP. PROGRAMA DE PRESERVACIÓN FORESTAL CONSOLIDACIÓN DE UNA POLÍTICA FORESTAL. NACIONAL', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(53, '33 0006 000', 'ACTUAL. DEL PLAN NACIONAL DE IMPLEMENTACION DEL CONVENIO DE ESTOCOLMO SOBRE COPS NACIONAL', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(54, '33 0100 000', 'FORTAL. PROGRAMA DE BIOCULTURA (FASE II) NACIONAL', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(55, '34 0000 002', 'VM-PROGRAMA PAIS DINAMARCA-DGBAP', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(56, '34 0000 003', 'VM-FORT.DIR.GRAL.BIODIVERSIDAD Y AREAS PROT.(CITES)', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(57, '34 0000 004', 'VM-CONSERVACION Y APROVECHAMIENTO DE LA VICUÑA', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(58, '34 0000 008', 'SERNAP: SISCO', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(59, '34 0000 090', 'VM FORTALECIMIENTO (PACSBIO - APS - TGN)', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(60, '34 0001 000', 'CONSER. Y USO SOSTENIBLE DE LA TIERRA Y ECOSISTEMAS VERTICALES ANDINOS', 40, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(61, '34 0002 000', 'ACTUAL. DE LA ESTRATEGIA DE BIODIVERSIDAD Y PLAN DE ACCIÓN DEL ESTADO PLURINACIONAL DE BOLIVIA', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(62, '35 0000 002', 'VM-PROGRAMA PAIS DINAMARCA-DGGDF', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(63, '35 0000 004', 'VM SEGUIMIENTO Y MONITOREO DEL PNFR', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(68, '35 0006 000', 'FORTAL. DE LA ECONOMÍA SOCIAL COMUNITARIA DE LA GEST. INTEGRAL Y SUST.BOSQUE AMAZÓNICO PANDO Y BENI', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(69, '36 0000 001', 'SERNAP - ADM CENTRAL', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(70, '36 0000 002', 'SERNAP - SISCO REA', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(71, '36 0000 003', 'SERNAP - DINAMARCA', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(72, '36 0000 004', 'SERNAP - VILLA MONTES', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(73, '36 0000 005', 'SERNAP - ENDE', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(74, '36 0000 006', 'SERNAP - ENDE KV 230', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(75, '36 0000 007', 'SERNAP - SISCO', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(76, '36 0000 008', 'SERNAP - FUNDESNAP', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(77, '36 0000 009', 'SERNAP - YPFB AGUARAGUE', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(78, '36 0000 011', 'SERNAP - CARAPARI GOB.', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(79, '36 0000 012', 'SERNAP - TIGO', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(80, '36 0000 014', 'SERNAP - ENDE PPM/PASA', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(81, '36 0000 090', 'SERNAP - FORTALECIMIENTO ASP PACSBIO', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(82, '36 0002 000', 'CONST. MUSEO INTEGRAL KUSAÑA QUETENA GRANDE - RNFA EDUARDO AVAROA', 5, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(83, '37 0000 001', 'VA - COOPERACION CATALANA', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(84, '37 0000 002', 'SALDOS - PROGRAMA RESIDUOS SOLIDOS PAAP', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(85, '37 0000 003', 'VA - CONF. MUNDIAL DE LOS PUEBLOS - TIQUIPAYA', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(86, '37 0000 004', 'VA – FORT. CATALANA RESIDUOS SOLIDOS', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(87, '37 0000 005', 'VA ATEN. DE SERV. CONMEMORACION 50 AÑOS DEL CHE', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(88, '37 0000 006', 'VA VAPSB DAKAR - 2017', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(89, '37 0001 000', 'IMPLEM. PROGRAMA GESTION INTEGRAL DE RESIDUOS SOLIDOS EN BOLIVIA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(90, '37 0002 000', 'IMPLEM. GESTION INTEGRAL DE RESIDUOS SOLIDOS RIBERALTA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(91, '37 0003 000', 'IMPLEM. GESTION INTEGRAL DE RESUDUOS SOLIDOS POTOSI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(92, '37 0004 000', 'IMPLEM. GESTIÓN INTEGRAL DE LOS RESIDUOS SOLIDOS EL ALTO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(93, '37 0005 000', 'IMPLEM. PROGRAMA DE AGUA, SANEAMIENTO, RESIDUOS SOLIDOS Y DRENAJE PLUVIAL NACIONAL', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(94, '37 0006 000', 'IMPLEM. PROGRAMA DE SANEAMIENTO DEL LAGO TITICACA BOLIVIA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(95, '38 0000 001', 'VR - ADMINISTRACION CENTRAL', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(96, '38 0000 002', 'UNIDAD OPERATIVA BOLIVIANA - UOB', 32, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(97, '38 0000 005', 'DEVOLUCIONES PROAGRO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(98, '38 0001 000', 'IMPLEM. PROGRAMA ESTRATEGICO DE RESILIENCIA CLIMATICA, NACIONAL', 26, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(99, '38 0002 000', 'IMPLEM. CENTRO DE GESTION DEL CONOCIMIENTO EN CUENCAS Y RECURSOS HIDRICOS NACIONAL', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(100, '38 0003 000', 'INVEST. CONSTRUCCION DE SISTEMAS DE RIEGO FAMILIAR NACIONAL', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(101, '39 0000 001', 'VAPSB-ADMINISTRACION CENTRAL', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(102, '39 0000 002', 'VA ASIST. TECNICA SIEMBRA DE NUBES - SEQUIA', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(103, '39 0000 003', 'VA-PROGRAMA SAS-PC ICO ESPAÑA', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(104, '39 0000 004', 'VA-UNICEF PLAN DE ACCION 2013-2017', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(105, '39 0000 005', 'VA DEVOLUCIONES PASAP-ASDI', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(106, '39 0000 007', 'VA PLAN DE ACCION ANTE EL FENOMENO DEL NIÑO 2016', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(107, '39 0000 008', 'VA DIAG. PILOTO PLANTAS DE TRATAMIENTO ', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(108, '39 0000 009', 'VA DEVOLCUIONES IVA - PERIAGUA', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(109, '39 0000 010', 'SALDOS - PROGRAMA PERIURBANO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(110, '39 0000 011', 'VA PLAN DE ACCION ANTE EMERGENCIAS SEQUIA', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(111, '39 0000 020', 'UCP ADQ. MATERIALES PROGRAMA IMPERMEABILIZACION DEL CANAL MILLUNI - EL ALTO', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(112, '39 0000 021', 'UCP MMAYA- AMPLIACION DE LA RED DE AGUA POTABLE HUAYHUASI-HUARICANA', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(113, '39 0000 090', 'VA-FORTALECIMIENTO PASAP APS-TGN', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(114, '39 0000 091', 'VA-FORTALECIMIENTO PASAR APS-TGN', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(115, '39 0000 092', 'VA-FORTALECIMIENTO PASAAS APS-TGN', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(116, '39 0000 094', 'UCEP MMAYA PYTO AMP EXTENSIONES MENORES ALC. SANIT EL ALTO', 20, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(117, '39 0001 000', 'IMPLEM. PROGRAMA DE AGUA SANEAMIENTO Y DRENAJE BOLIVIA', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(118, '39 0002 000', 'IMPLEM. PROGRAMA MAS INVERSION PARA EL AGUA (MIAGUA I FASE 2) NACIONAL', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(119, '39 0003 000', 'IMPLEM. PROGRAMA MAS INVERSION PARA EL AGUA MIAGUA 2 NACIONAL', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(120, '39 0004 000', 'IMPLEM. PROGRAMA MÁS INVERSIÓN PARA EL AGUA (MIAGUA III) NACIONAL', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(121, '39 0005 000', 'IMPLEM. PROGRAMA MáS INVERSION PARA EL AGUA FASE IV - NACIONAL', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(122, '39 0007 000', 'FORTAL. LAS COMPETENCIAS DEL SECTOR AGUA Y MEDIO AMBIENTE NACIONAL', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(123, '39 0008 000', 'DESAR. INSTRUMENTOS PLANIFICACIÓN SECTOR AGUA Y SANEAMIENTO BÁSICO - NACIONAL', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(124, '39 0009 000', 'FORTAL. INST. APOYO EXPERTICIA, ESTUDIOS Y ASISTENCIA TECNICA AGUA Y MEDIO AMBIENTE NACIONAL', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(125, '39 0010 000', 'IMPLEM. PROG. DE AGUA Y ALCANTARILLADO PERIURBANO NACIONAL', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(126, '39 0011 000', 'CONST. SIST. DE AGUA POTABLE Y ALCANT. SANIT. - PLAN 3000', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(127, '39 0012 000', 'AMPL. SIST. DE AGUA POTABLE Y ALCANT. SANIT. D-7 EL ALTO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(128, '39 0013 000', 'AMPL. SIST. ALCANTARILLADO SANITARIO DISTRITO 8 - EL ALTO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(129, '39 0014 000', 'CONST. SISTEMA DE ALCANTARILLADO SANITARIO CUATRO CAÑADAS', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(130, '39 0015 000', 'CONST. SISTEMA DE ALCANTARILLADO SANITARIO LA GUARDIA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(131, '39 0016 000', 'CONST. SIST. DE ALCANTARILLADO SANITARIO DISTRITO 14 CBBA.', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(132, '39 0017 000', 'CONST. SIST. AGUA POTABLE CARANAVI FASE I CARANAVI - LA PAZ', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(133, '39 0018 000', 'CONST. SIST ALCANTARILLADO SANITARIO Y PTAR MINERO - SANTA CRUZ', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(134, '39 0019 000', 'CONST. SISTEMA DE ALCANTARILLADO SANITARIO SAN JOSE DE CHIQUITOS - SANTA CRUZ', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(135, '39 0020 000', 'CONST. SISTEMA DE AGUA POTABLE PARA 10 BARRIOS EN TRINIDAD CERCADO, BENI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(136, '39 0021 000', 'CONST. SISTEMA DE ALCANTARILLADO SANITARIO PLAN TRES MIL - FASE II ANDRES IBAÑEZ, SANTA CRUZ', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(137, '39 0022 000', 'CONST. SISTEMA DE ALCANTARILLADO SANITARIO Y PTAR CHIMORE TIRAQUE, COCHABAMBA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(138, '39 0023 000', 'AMPL. SISTEMA DE ALCANTARILLADO SANITARIO Y CONSTRUCCION PTAR PUCARA SACABA, COCHABAMBA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(139, '39 0024 000', 'CONST. SISTEMA DE AGUA POTABLE D-8 Y D-9 CIUDAD DE COCHABAMBA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(140, '39 0025 000', 'AMPL. SISTEMA DE ALCANTARILLADO SANITARIO URBANIZACION MERCEDES B DEL DISTRITO 8 DE EL ALTO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(141, '39 0026 000', 'MEJ. DE LAS CAPACIDADES DE EMAGUA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(142, '39 0027 000', 'CONST. ADUCC 5 PTAP QUILLACOLLO Y ADUCC 2 PTAP COLCAPIRHUA - Z.SUD COCHABAMBA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(143, '39 0028 000', 'CONST. OBRAS COMPLEMENTARIAS EMBALSE DE COMPENSACIÓN ENDE MISICUNI ZONA MOLLE MOLLE QUILLACOLLO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(144, '39 0029 000', 'MEJ. DE LAS CAPACIDADES DEL SENASBA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(145, '39 0031 000', 'IMPLEM. PROGR. DE AGUA Y ALCANATRILLADO PERIURBANO FASE II NACIONAL', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(146, '39 0032 000', 'CONST. SIST. AGUA POTABLE Y MEJ. ALCANTARILLADO SANITARIO COBIJA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(147, '39 0033 000', 'CONST. SIST. AGUA POTABLE Y ALCANTARILLADO SANITARIO RIBERALTA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(148, '39 0034 000', 'AMPL. SISTEMA DE ALCANTARILLADO SANITARIO ZONA SUR SANTA CRUZ', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(149, '39 0035 000', 'MEJ. Y AMPL. SISTEMA DE ALCANTARILLADO SANITARIO ENTRE RIOS COCHABAMBA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(150, '39 0036 000', 'DESAR. PLAN MAESTRO DE AGUA Y ALCANTARILLADO ORURO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(151, '39 0037 000', 'DESAR. PLAN MAESTRO DE AGUA Y ALCANTARILLADO POTOSI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(152, '39 0038 000', 'DESAR. PLAN MAESTRO DE AGUA Y ALCANTARILLADO SUCRE', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(153, '39 0039 000', 'FORTAL. LAS CAPACIDADES DEL SENASBA NACIONAL', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(154, '39 0040 000', 'IMPLEM. RAPIDA SUMINISTRO DE AGUA POTABLE EN EL SISTEMA EL ALTO', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(155, '39 0041 000', 'CONST. TRASVASE PONGO - ESTRELLANI LA PAZ', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(156, '39 0042 000', 'CONST. LINEA DE POZOS OESTE PARA EL SIST. DE AGUA POTABLE TILATA - EL ALTO', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(157, '39 0043 000', 'IMPLEM. IMPLEMENTACION DRAGADO EMBALSE TUNI  LA PAZ-EL ALTO', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(158, '39 0045 000', 'IMPLEM. PROGRAMA MÁS INVERSION PARA EL AGUA FASE IV - NACIONAL', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(159, '39 0046 000', 'FORMUL. DE LA ESTRATEGIA NACIONAL DE TRATAMIENTO DE AGUAS RESIDUALES EN BOLIVIA', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(160, '39 0047 000', 'AMPL. DE LA RED DE AGUA POTABLE PARA LA ZONA LOMAS DE ACHUMANI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(161, '39 0048 000', 'CONST. CAPTACION DE AGUA POTABLE FISCULCO SUCRE', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(162, '39 0049 000', 'MEJ. ADECUACIÓN DEL CENTRO DE GESTIÓN DE GOBIERNO ELECTRÓNICO (PRIMERA FASE) LA PAZ', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(163, '39 0050 000', 'IMPLEM. PROG PARA SERV SOST DE AP Y SAN EN ÁREAS PERIURBANAS – PERIAGUA FASE II NACIONAL', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(164, '40 0000 001', 'SALDOS - PROGRAMA PEQUEÑAS COMUNIDADES', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(165, '40 0001 000', 'APOYO PROG. DE AGUA POT. Y SANEAMIENTO PARA PEQUEÑAS LOCALIDADES NACIONAL', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(166, '40 0002 000', 'CONST. CAPTACIóN DE AGUA DE LLUVIA Y SANEAMIENTO DE LA COMUNIDAD ASTILLERO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(167, '40 0003 000', 'CONST. CAPTACIóN DE AGUA DE LLUVIA Y SANEAMIENTO DE LA COMUNIDAD NOGALES', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(168, '40 0004 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD MILANÉS ALTO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(169, '40 0005 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD CHIUTALUYO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(170, '40 0006 000', 'MEJ. Y AMPLIACION DEL SISTEMA DE AGUA POTABLE Y CONSTRUCCION EN SANEAMIENTO JINCHAPULO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(171, '40 0007 000', 'CONST. CAPTACION DE AGUA DE LLUVIA Y SANEAMIENTO LAGUNA PAMPA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(172, '40 0008 000', 'CONST. CAPTACION DE AGUA DE LLUVIA Y SANEAMIENTO KEWAYLLU KOCHA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(173, '40 0009 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO SANTA ANA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(174, '40 0010 000', 'CONST. CAPTACION DE AGUA DE LLUVIA Y Y SANEAMIENTO AZUL COCHA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(175, '40 0011 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE PRESTO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(176, '40 0012 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE TARVITA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(177, '40 0013 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE CHUMA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(178, '40 0014 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE COLQUIRI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(179, '40 0015 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE INQUISIVI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(180, '40 0016 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE PUCARANI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(181, '40 0017 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE ARQUE', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(182, '40 0018 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE INDEPENDENCIA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(183, '40 0019 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE MOROCHATA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(184, '40 0020 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE TACOPAYA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(185, '40 0021 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE TAPACARI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(186, '40 0022 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE BETANZOS', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(187, '40 0023 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE PUNA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(188, '40 0024 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE TACOBAMBA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(189, '40 0025 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE VITICHI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(190, '40 0026 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE SICA SICA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(191, '40 0028 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE MOJOCOYA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(192, '40 0029 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD DE CHIVIÑA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(193, '40 0030 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD DE CHORO GRANDE I Y II', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(194, '40 0031 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD PAPEL PAMPA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(195, '40 0032 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD SALVIANI I Y II', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(196, '40 0033 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD CHULLPA PAMPA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(197, '40 0034 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD COPAYA ALTO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(198, '40 0035 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO CUESTA CUCHO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(199, '40 0036 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD ESTRELLANI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(200, '40 0037 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD HUANCANI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(201, '40 0038 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD HUANCARANI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(202, '40 0039 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD LEQUE LEQUENI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(203, '40 0040 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD PAIRUMANI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(204, '40 0041 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD PAJCHANTI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(205, '40 0042 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD SAYLAPATA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(206, '40 0043 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD VACAS PAMPA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(207, '40 0044 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD VILLUNI CHIARAQUE', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(208, '40 0045 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD PUTUPAMPA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(209, '40 0046 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD LAGUNANI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(210, '40 0047 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD PULPERAS', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(211, '40 0048 000', 'MEJ. SISTEMA DE AGUA POTABLE EN EL BARRIO JORGE V. ROJAS TARDIO, DISTRITO 1, MUNICIPIO DE PUNATA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(212, '40 0049 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD RETIRO FOMBERA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(213, '40 0050 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD PARANAVI BAJA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(214, '40 0051 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD URIFAYA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(215, '40 0052 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO MACHACAMARCA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(216, '40 0053 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO HUERTA MAYO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(217, '40 0054 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO ORCKO CKOCHAS (COCHA)', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(218, '40 0055 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO PERASANI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(219, '40 0056 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO HUAJCHI BAJO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(220, '40 0057 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD THACO PUJYU (PUJYO)', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(221, '40 0058 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD LA CAÑADA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(222, '40 0059 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD RIO GRANDE (MOJOCOYA)', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(223, '40 0060 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD NAUNACA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(224, '40 0061 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD CHOCHY (Q OCHY)', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(225, '40 0062 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD ARAMASI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(226, '40 0063 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD CAPAC TALA S. SACUCASA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(227, '40 0064 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD DE MOSOJ HUAJTA S. POTRERO', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(228, '40 0065 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD TACO PAMPA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(229, '40 0066 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD QUINUA CHACRA S. TRIGO LOMA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(230, '40 0067 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD EL BAÑADO S. HERRERA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(231, '40 0068 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD RIO GRANDE (TARVITA)', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(232, '40 0070 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD TUJUTA HISKAMARCA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(233, '40 0071 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD CHACURI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(234, '40 0072 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD PUTU PUTUNI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(235, '40 0073 000', 'CONST. SISTEMA DE AGUA POTABLE Y SANEAMIENTO EN LA COMUNIDAD LICO GRANDE', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(236, '40 0074 000', 'CONST. DE SISTEMA DE POZOS CON BOMBA MANUAL Y SANEAMIENTO DE LA COMUNIDAD LUJURA', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(237, '40 0075 000', 'IMPLEM. COSECHANDO AGUA – SEMBRANDO LUZ - POTOSI', 21, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(238, '40 0076 000', 'CONST. SIST. AGUA POTABLE Y SANEAMIENTO MUNICIPIO DE CHAQUI', 19, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(239, '98 0000 001', 'VA-TRANSF. CAP FPS - PASAR', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(240, '98 0000 002', 'VA-TRANSF. CTE  FPS - PASAR', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(241, '98 0000 003', 'VA - TRANSF CTE EMAGUA PASAR', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(242, '98 0000 004', 'VA-TRANSF. CAP. EMAGUA PASAR', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(243, '98 0000 005', 'VA-TRANSF. CAP. EMAGUA-PASAP', 2, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(244, '98 0000 006', 'VA-TRANSF. CAP EMAGUA-SAS PC ICO ESPAÑA', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(245, '98 0000 007', 'VA-TRANSF CAP SENASBA-SAS PC ICO ESPAÑA', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(246, '98 0000 008', 'VA TRANSF. CAP EMAGUA PYTO SIGLO XX', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(247, '98 0000 009', 'VA-TRANSF. CAP. EMAGUA - PASAAS', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(248, '98 0000 010', 'VA-TRANSF. CTE. EMAGUA - PASAAS', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(249, '98 0000 011', 'VA TRANSF CTE EMAGUA PASAP', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(250, '98 0000 012', 'VA-TRANSF. CAP. SENASBA - PASAP', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(251, '98 0000 013', 'VA-TRANSF. CTE. SENASBA - PASAP', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(252, '98 0000 014', 'VA TRANSF CAP FPS PASAP', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(253, '98 0000 015', 'VA TRANSF CAP EMAGUA PYTO CONSTR.SIST.AGUA POTABLE BARRANCAS-BARRIO 27-TARIJA', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(254, '98 0000 016', 'VA TRANSF CAP GAM POTOSI PYTO CONST. REHAB. LA PALCA', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(255, '98 0000 017', 'VA TRANSF CTE FPS APS PASAP', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(256, '98 0000 018', 'VA TRANSF CTE AAPS PASAP', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(257, '98 0000 019', 'VA TRANSF. CAP. EMAGUA PYTO ORIO CHUQUIAGUILLO', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(258, '98 0000 024', 'VA TRANSF CTE SENASBA PASAR', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(259, '98 0000 025', 'VA-TRANSF. CAP. ELAPAS PYTO RAVELO TGN', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(260, '98 0000 027', 'VA TRANSF CAP EMAGUA PYTO PRIMERO DE MAYO', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(261, '98 0000 028', 'VA TRANSF CTE GAM SAN LORENZO - TARIJA PASAP', 2, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(262, '98 0000 071', 'VR TRANSF. CAP. GAD ORURO PYTO SAJAMA-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(263, '98 0000 072', 'VR TRANSF. CAP. GAD ORURO PYTO SULLOMA CARANGUILLAS-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(264, '98 0000 073', 'VR TRANSF. CAP. GAD ORURO PYTO MIRN RIO LAUCA-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(265, '98 0000 074', 'VR TRANSF. CAP. GAD ORURO PYTO MICROCUENCA CARANGUILLAS-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(266, '98 0000 075', 'VR TRANSF. CAP. GAD ORURO PYTO MIRN CARANGAS-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(267, '98 0000 076', 'VR TRANSF. GAD ORURO PREINV. MIC ORURO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(268, '98 0000 077', 'VR TRANSF. GAD LA PAZ PYTO SUBCUENCA RIO JARUMA-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(269, '98 0000 078', 'VR TRANSF. CAP DE POTOSI PYT MIC TAPACARI-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(270, '98 0000 079', 'VR TRANSF. CAP POTOSI PYT MIC QUIVINCHA-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(271, '98 0000 080', 'VR TRANSF. CAP. GAD POTOSI MIC QUINAMARA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(272, '98 0000 081', 'VR TRANSF. CAP. GAD POTOSI MIC CALOJSA-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(273, '98 0000 082', 'VR TRANSF. CAP. GAM VILLA TUNARI ACOND. HIDRAULICO Y DEF. - APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(274, '98 0000 083', 'VR TRANSF. CAP GAM PUCARANI MICROCUENCA SEHUENCA-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(275, '98 0000 084', 'VR TRANSF CAP GAM ACASIO PYTO MICRORIEGO FAMILIAR-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(276, '98 0000 085', 'VR TRANSF CAP GAM HUACARETA PYT APROV. REC. HIDRICOS-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(277, '98 0000 086', 'VR TRANSF CAP GAM SP BUENA VISTA MICRORIEGO FAMILIAR-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(278, '98 0000 087', 'VR TRANSF. CAP OTN RIO PILCOMAYO PYT IMP. SIST MONITOREO RIO GUAD.-APS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(279, '98 0000 088', 'VR TRANSF CAP GAD ORURO PYT MANEJO Y CONSRV. RIO SEVARUYO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(280, '98 0000 089', 'VR TRANSF CAP COCHABAMBA PYT EST. PLAN MAEST.VALLE ALTO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(281, '98 0000 090', 'VR TRANSF CAP GAD COCHABAMBA AMP. Y ACON. HIDRAUL. RIO ROCHA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(282, '98 0000 092', 'VR TRNASF. CAP GAM ARQUE PYT SUBCUENCA WALIA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(283, '98 0000 093', 'VR TRANSF CAP GAM LURIBAY PYT FOREST. MICROCUENCAS LURIBAY', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(284, '98 0000 094', 'VR TRANSF. CAP U. SAN SIMON MIC PEDA. JATUN MAYU', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(285, '98 0000 095', 'VR TRANSF. CAP U. SAN SIMON MIC PEDA. PUCARA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(286, '98 0000 096', 'VR TRANSF CAP COCHABAMBA PYT DES. CAPCI. CUENCA Y AGUA KHORA TIQUIPAYA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(287, '98 0000 097', 'VR TRANSF CAP GAD CHUQUISACA MIC KAINACAS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(288, '98 0000 098', 'VR TRANSF CAP GAD CHUQUISACA MIC SAUCES ZAPALLAR', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(289, '98 0000 099', 'VR TRANSF CAP GAD CHUQUISACA MIC RIO SAN LUCAS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(290, '98 0000 100', 'VR TRANSF CAP GAM YUNCHARA MAN. Y GEST. INT. REC. HIDRICOS EN TAJZARA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(291, '98 0000 101', 'VR TRANSF CAP EMAGUA PYT RIO GRANDE III EN 6 MUN.', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(292, '98 0000 102', 'VR TRANSF CAP EMAGUA PYT MUN EXTREM POBREZA DEP ORURO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(293, '98 0000 103', 'VR TRANSF CAP GAM DE CULPINA MICROCUENCA CABRERIA Y EL MONTE ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(294, '98 0000 104', 'VR TRANSF CAP GAM DE ATOCHA FORESTACION BOSQUE NATIVO ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(295, '98 0000 105', 'VR TRANSF.CAP GAM VILLA SERRANO PYTO CUENCA RIO PESCADO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(296, '98 0000 106', 'VR TRANSF CAP GAM DE BATALLAS MICROCUENCA JACHA JAWARI REUSO DE AGUAS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(297, '98 0000 107', 'VR TRANSF CAP GAM DE TACOPAYA MANEJO CUENCA QOLLPA ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(298, '98 0000 108', 'VR TRANSF CAP GAM LAS CARRERAS MICROCUENCA RIO CHICO Y BOSQUES NATIVOS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(299, '98 0000 109', 'VR TRNASF. CAP GAM TOLEDO PREINVERSION MICROCUENCAS VISCALLANI Y PUJULLI', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(300, '98 0000 110', 'VR TRNASF. CAP GAM OCURI MANEJO CUENCA RIO MARAGUA Y MARCOMA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(301, '98 0000 111', 'VR TRNASF. CAP GAM VILLA HUACAYA PYT FORES MICROCUENCA IMBOCHI', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(302, '98 0000 113', 'VR TRANSF CAP GAM DE CHAYANTA PRE INVER MICROCUENCA HUAÑUMA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(303, '98 0000 114', 'VR TRANSF CAP GAM DE POCOATA PRE INVER RIO CHAYALA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(304, '98 0000 115', 'VR TRANSF CAP GAM VITICHI MANEJO CUENCAS RIO GELCHI ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(305, '98 0000 116', 'VR TRANSF CAP GAM VILLA DE HUACAYA MICROCUENCA MBORORIGUA ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(306, '98 0000 117', 'VR TRANSF CAP GAD ORURO CISTERNAS PARA COSECHA DE AGUA Y CARPAS SOLARES', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(307, '98 0000 118', 'VR TRANSF CAP GAD ORURO BOMBEO FOTOVOLTAICO Y ALERTA HIDROLOGICO LAGO POOPO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(308, '98 0000 119', 'VR TRANSF CAP GAD ORURO - LAGO URU URU-POOPO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(309, '98 0000 120', 'VR TRANSF CAP GAM POJO PROTEC FTE DE AGUA SUBCENTRAL HABANA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(310, '98 0000 121', 'VR TRANSF CAP GAM CHAYANTA MICROCUENCAS HUANUNI, PANACACHI Y QUINTAPAMPA ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(311, '98 0000 122', ' VR TRANSF CAP GAM TORO TORO PYTOS INTEGRALES APROV. REC.HIDRICOS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(312, '98 0000 123', ' VR TRANSF CAP GAM TORO TORO PYTOS INT. COSECHA DE AGUA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(313, '98 0000 124', 'VR TRANSF CAP GAM DE VILLA ALCALA MICROCUENCA DEL RIO NARANJOS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(314, '98 0000 125', 'VR TRANSF CAP GAM DE PUNA MICROCUENCA DEL RIO PUNA ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(315, '98 0000 126', 'VR TRANSF CAP GAM DE CAMARGO MANEJO BOSQUES NATIVOS ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(316, '98 0000 127', 'VR TRANSF CAP GAM DE MIZQUE MICROCUENCA KURI-TUCMA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(317, '98 0000 128', 'VR TRANSF CAP GAM DE ENTRE RIOS CUENCA SUARURO - TARUPAYO ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(318, '98 0000 129', ' VR TRANSF CAP GAD ORURO MANEJO CONSERVACION CUENCA RIO COSAPA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(319, '98 0000 130', 'VR TRANSF CAP EMAGUA PYTO RUMICANCHA - TGN', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(320, '98 0000 132', 'VR TRANSF CAP GAM DE VACAS CUENCA PAREDONES ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(321, '98 0000 133', 'VR TRANSF CAP GAM DE CHALLAPATA CUENCA AZANAQUE', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(322, '98 0000 134', 'VR TRANSF CAP GAM DE S/P DE HUACARETA RIOS ÑACAMIRI Y PARAPETI', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(323, '98 0000 135', 'VR TRANSF CAP GAM DE SANTIVAÑEZ FORESTACION EN MICROCUENCAS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(324, '98 0000 136', 'VR TRANSF CAP GAM DE AIQUILE MICROCUENCA SUB CENTRAL CERCADO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(325, '98 0000 137', 'VR TRANSF CAP GAD SANTA CRUZ  CONST. MEDIDAS NO ESTRUC.RIO GRANDE-PIRAI-CHANE -SURUTU-YAPACANI', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(326, '98 0000 138', 'VR TRANSF CAP GAM CHALLAPATA FORES. EN MICROCUENCA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(327, '98 0000 139', 'VR TRANSF CAP GAD COCHABAMBA PROYEC PREINV MANEJO INTEGRAL DE CUENCAS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(328, '98 0000 140', 'VR TRANSF CAP GAM ALALAY FOREST. REFOREST. MICROCUENCAS PALCA KURI', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(329, '98 0000 142', 'PARC TRANSF. CAP. GAM TARABUCO', 27, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(330, '98 0000 143', 'PARC TRANSF. CAP. GAM YAMPARAEZ', 27, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(331, '98 0000 144', 'PARC TRANSF. CAP. GAM AIQUILE', 27, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(332, '98 0000 146', 'PARC TRANSF. CAP. GAM OMEREQUE', 27, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(333, '98 0000 164', 'VR TRANSF CAP GAM SACACA CONSTR MICRORIEGOS ALTO VENTILLA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(334, '98 0000 166', 'VR TRANSF CAP GAM PADCAYA CUENCAS RIO CAMPANARIO Y RIO GRANDE', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(335, '98 0000 167', 'VR TRANSF CAP GAM GUAYARAMERÍN CUENCA ARROYO LAS ARENAS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(336, '98 0000 169', 'VR TRANSF CAP GAD CHUQUISACA CUENCAS REPRESAS YANA KHAKHA Y CHALLHUA MAYU', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(337, '98 0000 170', 'VR TRANSF CAP GAM YUNCHARÁ FORES. Y PROTEC. BOSQUES NATIVO MICROCUENCA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
+INSERT INTO `catalogo_categorias_prog` (`itemId`, `nombre`, `descripcion`, `unidad_id`, `tipo_finan_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`, `monto_actual`) VALUES
+(338, '98 0000 171', 'VR TRANSF CAP GAM POCOATA CONSERVACION ACUIFERO MICROCUENCA VILLA ALCARAPI ', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(339, '98 0000 172', 'VR TRANSF CAP GAM RAVELO CONT. MICRORIEGO TUERO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(340, '98 0000 173', 'VR TRANSF CAP GAM MONTEAGUDO FOREST. Y REFOREST DE LA MICROCUENCA TABACAL', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(341, '98 0000 174', 'VR TRANSF CAP GAM SANTIAGO DE HUATA - MANEJO INTEG. MICROCUENCA RIO SIQUINI', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(342, '98 0000 177', 'VR TRANSF CAP GAM VILLA VACA GUZMAN FOREST. Y REFOREST. MIC BAICUA - IGUEMBE', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(343, '98 0000 178', 'VR TRANSF CAP GAD LA PAZ MANEJO INTEGRAL SUBCUENCA RIO CHARAZANI', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(344, '98 0000 179', 'VR TRANSF CAP GAM SAN LORENZO PYTO MANEJO Y GESTIÓN INTEGRAL MICROCUENCA CAÑA HUAYCHO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(345, '98 0000 180', 'VR TRANSF CAP GAM TACOPAYA PYT FOREST. MICROCUENCAS TACOPAYA Y SISAQUEÑA MED. SIST. AGROFORESTALES', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(346, '98 0000 181', 'UCEP MI-RIEGO TRANSF CTE EMAGUA PROG. PRESAS', 25, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(347, '98 0000 182', 'VR TRANSF CAP GAM CHAYANTA CONST. COSECHA DE AGUA ATAJ. CABILDO COPANA AYLLU PANACACHI Y COM. PAMPA CHURO', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(348, '98 0000 183', 'VR TRANSF CAP GAM TAPACARI MICROCUENCAS TIQUIRA, HUAYLLUMA Y SUPAYCALLA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(349, '98 0000 184', 'VR TRANSF CAP GAM MONTEAGUDO MANEJO INTEG. MICROCUENCA PUCAMAYU', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(350, '98 0000 185', 'VR TRANSF CAP GAM VILLA VACA GUZMAN MANEJO INTEG. DE LA MICROCUENCA TAPERILLAS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(351, '98 0000 186', 'VR TRANSF CAP GAM VILLA AZURDUY MANEJO INTEG. MICROCUENCA CIMIENTOS', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(352, '98 0000 187', 'VR TRANSF CAP GAM ARAMPAMPA MANEJO INTEG. MICROCUENCAS RIO SANTIAGO Y RIO KICHA KICHA CAINE', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(353, '98 0000 188', 'VR TRANSF CAP GAM TARVITA MANEJO INTEGRAL CUENCA RIO TARVITA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(354, '98 0000 189', 'VR TRANSF CAP UNIV. AUTON. TOMAS FRIAS CAPACIDADES GIRH-MIC PEDADOGICA DE CAYARA-YOCALLA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(355, '98 0000 190', 'VR TRANSF CAP GAM TACOPAYA MANEJO INTEG. MICROCUENCA AQUERANA', 3, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(356, '98 0000 191', 'UCP-CAF TRANSF. CAP. EMAGUA-PROAR AGUA PRODUCTIVA', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(357, '98 0000 192', 'UCP-CAF TRANSF. CAP. EMAGUA-PROAR AGUA GENTE', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(358, '98 0000 193', 'UCP-CAF TRANSF. CAP EMAGUA PAQ.PREINVERSION', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(359, '98 0000 194', 'UCP-CAF TRANSF. CTE. EMAGUA-PROASRED', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(360, '98 0000 195', 'UCP-CAF TRANSF. CAP. EMAGUA-PROASRED', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(361, '98 0000 198', 'UCP-CAF TRANS CAP SENASBA MIAGUA IV', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(362, '98 0000 199', 'UCP-CAF TRANSF CTE EMAGUA PROAR', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(363, '98 0000 200', 'UCP-CAF TRANSF. CAP GAM EL ALTO PROARRED PYTO RIO LARKAJAWIRA', 20, 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(364, '98 0000 201', 'DGP-UGCK TRANSF CAP GAM PUCARANI SIST. COSECHA DE AGUA FASE II', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(365, '98 0000 202', 'DGP-UGCK TRANSF CAP GAM PUERTO PEREZ EDTP CUENCA EN LA ISLA SURIQUI', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(366, '98 0000 204', 'UGCK TRANSF CAP GAM PUERTO PEREZ MICROCUENCA LAGO MENOR COHANA', 15, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(367, '98 0000 251', 'VM TRANSF. CTE. ABT', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(368, '98 0000 252', 'VM TRANSF. CTE. APMT', 4, 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(369, '98 0000 256', 'PPCR TRANSF. CAP. GAD COCHABAMBA', 26, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(370, '98 0000 263', 'VR TRANSF CAP GAM TACOPAYA MANEJO INTEG. MICROCUENCA CORRAL PAMPA CONA CONA', 26, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(371, '98 0000 264', 'VR TRANSF CAP GAM TOTORA MEDIDAS COMPLEMENT. DE RESILIENCIA DEL EMBALSE SIST. RIEGO LAHUACHAMA', 26, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+(372, '98 0000 265', 'UCP-PAAP TRANSF. CAP. SENASBA COMPONENTE DESCOM', 26, 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_convenios`
+--
+
+CREATE TABLE `catalogo_convenios` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `sigla` varchar(20) NOT NULL,
+  `monto` decimal(10,0) NOT NULL,
+  `fecha_firma` date NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `monto_desembolsado` decimal(10,0) DEFAULT NULL,
+  `fecha_desembolso` date DEFAULT NULL,
+  `fecha_adenda` date DEFAULT NULL,
+  `fuente_f_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_entidades`
+--
+
+CREATE TABLE `catalogo_entidades` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) NOT NULL,
+  `codigo_mof` varchar(45) NOT NULL,
+  `mision` varchar(200) DEFAULT NULL,
+  `vision` varchar(200) DEFAULT NULL,
+  `dependencia_id` int(11) DEFAULT NULL,
+  `tipo_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_entidades`
+--
+
+INSERT INTO `catalogo_entidades` (`itemId`, `nombre`, `descripcion`, `codigo_mof`, `mision`, `vision`, `dependencia_id`, `tipo_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 'MMAyA', 'MINISTERIO DE MEDIO AMBIENTE Y AGUA – ADMINISTRACIÓN CENTRAL', '1.0.0.0', 'El Ministerio de Medio Ambiente y Agua en el marco del Plan de Desarrollo Económico y Social, promueve el desarrollo equitativo, reciproco y en armonía con la Madre Tierra, mediante la gestión integra', 'Al 2020 el Ministerio de Medio Ambiente y Agua, fortalecido institucionalmente, en el marco del Plan de Desarrollo Económico y Social, gestiona de manera integral y sustentable los recursos hídricos y', NULL, 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'VAPSB', 'VICEMINISTERIO DE AGUA POTABLE Y SANEAMIENTO BÁSICO', '1.1.0.0', '', '', 1, 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'VRHR', 'VICEMINISTERIO DE RECURSOS HÍDRICOS Y RIEGO', '1.2.0.0', '', '', 1, 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'VMABCCGDF', 'VICEMINISTERIO DE MEDIO AMBIENTE, BIODIVERSIDAD, CAMBIOS CLIMÁTICOS Y GESTIÓN Y DESARROLLO FORESTAL', '1.3.0.0', '', '', 1, 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'SERNAP', 'SERVICIO NACIONAL DE ÁREAS PROTEGIDAS', '1.3.1.4', '', '', 4, 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'DGAPAS', 'Dirección General de Agua Potable y Alcantarillado Sanitario', '1.1.1.0', '', '', 2, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 'DGGIRS', 'Dirección General de Gestión Integral de Residuos Sólidos', '1.1.2.0', '', '', 2, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 'DGR', 'Dirección General de Riego', '1.2.2.0', '', '', 3, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'DGCyRH', 'Dirección General de Cuencas y Recursos Hídricos', '1.2.1.0', '', '', 3, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'DGMACC', 'Dirección General de Medio Ambiente y Cambios Climáticos', '1.3.2.0', '', '', 4, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, 'DGBAP', 'Dirección General de Biodiversidad y Áreas Protegidas', '1.3.1.0', '', '', 4, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, 'DGGDF', 'Dirección General de Gestión y Desarrollo Forestal', '1.3.3.0', '', '', 4, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, 'DGAJ', 'Dirección General de Asuntos Jurídicos', '1.0.1.0', '', '', 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, 'DGAA', 'Dirección General de Asuntos Administrativos', '1.0.2.0', '', '', 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, 'DGP', 'Dirección General de Planificación', '1.0.3.0', '', '', 1, 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, 'UPGF', 'Unidad de Preinversión y Gestión de Financiamiento', '1.1.1.1', '', '', 6, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, 'USEGI', 'Unidad de Desarrollo Sectorial y Gestión de la Información  ', '1.1.1.2', '', '', 6, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, 'USIP', 'Unidad de Infraestructura Sanitaria e Inversión Pública', '1.1.1.3', '', '', 6, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, 'UCP - PAAP', 'UCP - PAAP', '1.1.1.4', '', '', 6, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, 'UCP - CAF', 'UCP – CAF', '1.2.2.5', '', '', 8, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, 'UCP - CASL', 'UCP – COSECHANDO AGUA', '1.1.1.5', '', '', 6, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(22, 'UGR', 'Unidad Gestión de Riego', '1.2.2.1', '', '', 8, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(23, 'UPP', 'Unidad de Programas y Proyectos ', '1.2.2.2', '', '', 8, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(24, 'SIRIC', 'Programa Nacional Riego SIRIC II', '1.2.2.3', '', '', 8, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(25, 'UCP - MI RIEGO', 'UCP - MI RIEGO', '1.2.2.4', '', '', 8, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(26, 'PPRC', 'Programa Piloto de Resilencia Climática', '1.2.2.7', '', '', 8, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(27, 'PARC', 'PARC', '1.2.2.8', '', '', 8, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(28, 'USPP', 'Unidad Gestión de Riesgos Hidrológicos, Proyectos y Temas Estratégicos ', '1.2.1.1', '', '', 9, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(29, 'UTECAR', 'Unidad Planificación Hídrica y Calidad de Aguas', '1.2.1.2', '', '', 9, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(30, 'UGCK', 'Unidad de Gestión Cuenca Katari', '1.2.1.5', '', '', 9, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(31, 'UTP', 'Unidad Técnica de Presas', '1.2.2.6', '', '', 8, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, 'UOB', 'Unidad Operativa Boliviana', '1.2.2.8', '', '', 8, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(33, 'UPCAM', 'Unidad Prevención y Control Ambiental Multisector', '1.3.2.1', '', '', 10, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, 'UPCAM-H', 'Unidad de Prevención y Control Ambiental de Minería e Hidrocarburos  ', '1.3.2.2', '', '', 10, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(35, 'UMAPQUA', 'Unidad Programas Medio Ambiente y Evaluación Plaguicidas Químicos de Uso Agrícola PQUA ', '1.3.2.3', '', '', 10, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, 'CoGO', 'Comisión Gubernamental de Ozono', '1.3.2.4', '', '', 10, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(37, 'PRONACOP\'s', 'PRONACOP\'s', '1.3.2.5', '', '', 10, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, 'UAYCyP', 'Unidad de Gestión y Conservación Ecoregional de la Amazonía, Yungas, Chiquitanía y Pantanal', '1.3.1.1', '', '', 11, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(39, 'UAVyC', 'Unidad de Gestión y Conservación Ecoregional del Altiplano, Valles y Chaco', '1.3.1.2', '', '', 11, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(40, 'EVAs', 'Ecosistemas Verticales', '1.3.1.5', '', '', 11, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(41, 'UAI', 'Unidad de Auditoría Interna', '1.0.0.3', '', '', 1, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(42, 'UNICOM', 'Unidad de Comunicación Social', '1.0.0.4', '', '', 1, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(43, 'UTRA', 'Unidad de Transparencia', '1.0.0.5', '', '', 1, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(44, 'UAJ', 'Unidad de Análisis Jurídico', '1.0.1.1', '', '', 13, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(45, 'UGJ', 'Unidad de Gestión Jurídica', '1.0.1.2', '', '', 13, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(46, 'URJ', 'Unidad de Recursos Jerárquicos', '1.0.1.3', '', '', 13, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(47, 'URRHH', 'Unidad Recursos Humanos', '1.0.2.1', '', '', 14, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(48, 'UF', 'Unidad Financiera ', '1.0.2.2', '', '', 14, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(49, 'UA', 'Unidad Administrativa', '1.0.2.3', '', '', 14, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(50, 'UGPC', 'Unidad de Gestión de Programas y Convenios', '1.0.3.1', '', '', 15, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(51, 'UGII', 'Unidad de Gestión Institucional Integral', '1.0.3.2', '', '', 15, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(52, 'UEE', 'Unidad de Estudios Especiales', '1.0.3.3', '', '', 15, 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_escalas_salariales`
+--
+
+CREATE TABLE `catalogo_escalas_salariales` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `clase` varchar(10) NOT NULL,
+  `categoria` varchar(20) DEFAULT NULL,
+  `nro_items` int(11) DEFAULT NULL,
+  `sueldo_mensual` decimal(10,0) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_escalas_salariales`
+--
+
+INSERT INTO `catalogo_escalas_salariales` (`itemId`, `nombre`, `clase`, `categoria`, `nro_items`, `sueldo_mensual`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 'MINISTRO', '2º', 'SUPERIOR', 1, 20432, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'VICEMINISTROS', '2º', 'SUPERIOR', 3, 19156, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'DIRECTOR GENERAL', '3º', 'EJECUTIVO', 10, 18517, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'JEFE DE UNIDAD I - ASESOR DESPACHO', '4º', 'EJECUTIVO', 1, 17751, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'JEFE DE UNIDAD II - JEFE DE GABINETE', '4º', 'EJECUTIVO', 1, 16346, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'JEFE DE UNIDAD III - ESPECIALISTA I', '4º', 'EJECUTIVO', 5, 16022, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 'JEFE DE UNIDAD IV - ESPECIALISTA II', '4º', 'EJECUTIVO', 22, 15456, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 'RESPONSABLE III - PROFESIONAL II', '5º', 'OPERATIVO', 2, 12995, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'RESPONSABLE IV - PROFESIONAL III', '5º', 'OPERATIVO', 11, 12521, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'PROFESIONAL IV', '5º', 'OPERATIVO', 7, 11844, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, 'PROFESIONAL V', '5º', 'OPERATIVO', 26, 11235, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, 'PROFESIONAL VI', '5º', 'OPERATIVO', 24, 10355, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, 'PROFESIONAL VII - TECNICO I', '5º', 'OPERATIVO', 43, 9746, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, 'PROFESIONAL VIII - TECNICO II', '5º', 'OPERATIVO', 11, 9272, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, 'PROFESIONAL IX - TECNICO III Sec. Ministro', '5º', 'OPERATIVO', 8, 8460, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, 'TECNICO IV', '6º', 'OPERATIVO', 1, 7919, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, 'TECNICO V - Secretaria Viceministro', '6º', 'OPERATIVO', 21, 7038, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, 'TECNICO VI - Sec.Dir.Gral. - Chofer Ministro – Uji', '6º', 'OPERATIVO', 14, 6294, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, 'ADMINISTRATIVO I - Sec. U.-Chofer V.M.-Ujier V.M.', '7º', 'OPERATIVO', 16, 5442, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, 'ADMINISTRATIVO II - Ujier de Dirección General', '7º', 'OPERATIVO', 6, 5008, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, 'ADMINISTRATIVO IV', '7º', 'OPERATIVO', 5, 4128, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(22, 'AUXILIAR I', '8º', 'OPERATIVO', 5, 3654, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_finalidades_funciones`
+--
+
+CREATE TABLE `catalogo_finalidades_funciones` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_finalidades_funciones`
+--
+
+INSERT INTO `catalogo_finalidades_funciones` (`itemId`, `nombre`, `descripcion`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '1.1.1', 'Órganos Ejecutivos y Legislativos', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '4.2.1', 'Agricultura', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '4.7.5', 'Otras Industrias', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '5.3.0', 'Reducción de la contaminación ', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '5.4.0', 'Protección de la diversidad biológica y del paisaje', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '5.6.0', 'Otros servicios de protección del medio ambiente', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '6.3.0', 'Abastecimiento de agua', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '6.6.0', 'Otros servicios de la vivienda y servicios comunitarios', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_flujos`
+--
+
+CREATE TABLE `catalogo_flujos` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(10) DEFAULT NULL,
+  `limite_inferior` int(11) DEFAULT NULL,
+  `limite_superior` int(11) DEFAULT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_flujos`
+--
+
+INSERT INTO `catalogo_flujos` (`itemId`, `nombre`, `limite_inferior`, `limite_superior`, `descripcion`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 'a', 5, 1, 'Creación de proceso', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'b', 1, 1, 'Llenado y edición de formularios', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'c', 1, 2, 'Revisión de formularios', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'd', 2, 1, 'Devolución para edición', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'e', 2, 3, 'Revisión de formularios planificación', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'f', 3, 2, 'Solicitud de corrección a supervisor', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 'g', 3, 4, 'Solicitud de aprobación', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 'h', 4, 2, 'Solicitud de corrección a supervisor', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'i', 4, 4, 'Aprobación e impresión de formularios', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'j', 4, 5, 'Cierre de proceso', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_fuentes_f`
+--
+
+CREATE TABLE `catalogo_fuentes_f` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `sigla` varchar(20) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_fuentes_f`
+--
+
+INSERT INTO `catalogo_fuentes_f` (`itemId`, `nombre`, `descripcion`, `sigla`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '10', 'TESORO GENERAL DE LA NACIÓN ', 'TGN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '41', 'TRANSFERENCIAS T.G.N.', 'TRANSF-TGN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '91', 'PRÉSTAMOS T.G.N. ', 'PREST-TGN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '11', 'T.G.N. OTROS INGRESOS ', 'TGN-OTI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '46', 'TRANSFERENCIAS T.G.N. OTROS INGRESOS ', 'TRANSF-OTI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '96', 'PRÉSTAMOS T.G.N. OTROS INGRESOS ', 'PREST-OTI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '20', 'RECURSOS ESPECÍFICOS ', 'RECESP', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '42', 'TRANSFERENCIAS DE RECURSOS ESPECÍFICOS ', 'TRANS-ESP', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '92', 'PRÉSTAMOS DE RECURSOS ESPECÍFICOS ', 'PREST-ESP', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '70', 'CRÉDITO EXTERNO ', 'CREDEX', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '43', 'TRANSFERENCIAS DE CRÉDITO EXTERNO ', 'TRANSF-CRE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '93', 'PRÉSTAMOS DE CRÉDITO EXTERNO ', 'PREST-CRE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, '80', 'DONACIÓN EXTERNA ', 'DON-EXT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, '44', 'TRANSFERENCIAS DE DONACIÓN EXTERNA ', 'TRANSF-DEXT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, '94', 'PRÉSTAMOS DE DONACIÓN EXTERNA ', 'PREST-DEXT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, '87', 'DONACIÓN INTERNA ', 'DON-INT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, '47', 'TRANSFERENCIA DE DONACIÓN INTERNA ', 'TRANSF-DINT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, '97', 'PRÉSTAMOS DE DONACIÓN INTERNA ', 'PREST-DINT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, '90', 'CRÉDITO INTERNO ', 'CREDINT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, '45', 'TRANSFERENCIAS DE CRÉDITO INTERNO ', 'TRANSF-CREI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, '95', 'PRÉSTAMOS DE CRÉDITO INTERNO ', 'PREST-CREI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_gestiones`
+--
+
+CREATE TABLE `catalogo_gestiones` (
+  `itemId` int(11) NOT NULL,
+  `nombre` year(4) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `en_curso` tinyint(1) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_gestiones`
+--
+
+INSERT INTO `catalogo_gestiones` (`itemId`, `nombre`, `descripcion`, `en_curso`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 2016, 'Año 2016', 0, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 2017, 'Año 2017', 0, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 2018, 'Año 2018', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 2019, 'Año 2019', 0, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 2020, 'Año 2020', 0, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 2021, 'Año 2021', 0, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 2022, 'Año 2022', 0, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 2023, 'Año 2023', 0, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 2024, 'Año 2024', 0, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 2025, 'Año 2025', 0, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_indicadores_cp`
+--
+
+CREATE TABLE `catalogo_indicadores_cp` (
+  `itemId` int(11) NOT NULL,
+  `nombre` int(11) NOT NULL,
+  `descripcion` varchar(250) DEFAULT NULL,
+  `accion_cp_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_indicadores_cp`
+--
+
+INSERT INTO `catalogo_indicadores_cp` (`itemId`, `nombre`, `descripcion`, `accion_cp_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 1, 'Nro. de metros canalizados y convenios suscritos.', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 2, 'Nro. de proyectos de agua potable y saneamiento básico.', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 1, 'Nro. de municipios con autogestión y participación vecinal.', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 1, 'Nro. de instrumentos normativos, capacitación, asistencia técnica y gestión de proyectos.', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 2, 'Nro. de municipios en armonía con la Madre Tierra.', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_indicadores_es`
+--
+
+CREATE TABLE `catalogo_indicadores_es` (
+  `itemId` int(11) NOT NULL,
+  `nombre` int(11) NOT NULL,
+  `descripcion` varchar(250) DEFAULT NULL,
+  `accion_es_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_indicadores_es`
+--
+
+INSERT INTO `catalogo_indicadores_es` (`itemId`, `nombre`, `descripcion`, `accion_es_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 1, 'Nro. de recursos hídricos generados.', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 2, 'Nro. de recursos hídricos recuperados.', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 1, 'Nro. de instrumentos normativos generados.', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_metas`
+--
+
+CREATE TABLE `catalogo_metas` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `pilar_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_metas`
+--
+
+INSERT INTO `catalogo_metas` (`itemId`, `nombre`, `descripcion`, `pilar_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '1', 'El 100% de las bolivianas y los bolivianos cuentan con servicios de agua y alcantarillado sanitario.', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '4', 'Sistemas productivos óptimos: agropecuaria.', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '5', 'Los bosques escenarios integrales de producción y transformación de alimentos y recursos de la biodiversidad.', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '1', 'Reconocimiento internacional de los derechos de la Madre Tierra.', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '2', 'Reconocimiento de mecanismos internacionales no basados en el mercado y promoción de la gestión comunitaria de pueblos indígenas y comunidades locales', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '3', 'Desarrollo del conjunto de las actividades económico -productivas, en el marco del respeto y complementariedad con los derechos de la Madre Tierra.', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '4', 'Sistema Plurinacional de Áreas Protegidas.', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '5', 'Desarrollo de sistemas productivos sustentables en el marco de procesos de gestión territorial.', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '6', 'Incremento de la cobertura boscosa.', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '7', 'Agua y prevención de riesgos por cambio climático: gestión integral.', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '8', 'Aire Puro, ríos sin contaminación y procesamiento de residuos sólidos y líquidos.', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '1', 'Gestión pública transparente, con servidores públicos éticos, competentes y comprometidos que luchan contra la corrupción.', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_objetivos_es`
+--
+
+CREATE TABLE `catalogo_objetivos_es` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) NOT NULL,
+  `objetivo_ges_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_objetivos_ges`
+--
+
+CREATE TABLE `catalogo_objetivos_ges` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) NOT NULL,
+  `gestion_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_organismos_f`
+--
+
+CREATE TABLE `catalogo_organismos_f` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `sigla` varchar(20) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_organismos_f`
+--
+
+INSERT INTO `catalogo_organismos_f` (`itemId`, `nombre`, `descripcion`, `sigla`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '0', 'NC', 'NC', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '111', 'Tesoro General de la Nación', 'TGN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '112', 'Tesoro General de la Nación - Papeles', 'TGN-P', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '113', 'Tesoro General de la Nación - Coparticipación Tributaria', 'TGN-CT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '114', 'Recursos de Contravalor', 'RECON', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '115', 'Donaciones - HIPC II', 'DON-HIPC', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '116', 'T.G.N. - Fondo de Compensación Departamental', 'TGN-FCOMP', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '117', 'T.G.N.-Impuesto Especial a los Hidrocarburos y sus Derivados', 'TGN-IEHD', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '119', 'T.G.N. - Impuesto Directo a los Hidrocarburos', 'TGN - IDH', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '120', 'T.G.N. - Impuesto a la Participación en Juegos', 'TGN - IPJ', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '121', 'T.G.N. - Patentes Petroleras', 'TGN - PPET', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '129', 'Otros Organismos Financiadores del Gobierno', 'OT-GOB', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, '210', 'Rec.Específ. de Municipalidades e Indígena Originario Campes', 'RECESPMUN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, '220', 'Regalías', 'REG', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, '230', 'Otros Recursos Específicos', 'OTPRO', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, '311', 'Asociación Latinoamericana de Integración', 'ALADI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, '312', 'Centro Interamericano de Agricultura Tropical', 'CIAT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, '313', 'Comisión Económica para América Latina', 'CEPAL', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, '314', 'Corporación Andina de Fomento', 'CAF', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, '315', 'Fondo Andino de Reserva', 'FAR', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, '316', 'Instituto Interamericano de Cooperación Agrícola', 'IICA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(22, '317', 'Comunidad Andina de Naciones', 'CAN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(23, '318', 'Organización de los Estados Americanos', 'OEA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(24, '319', 'Organización Latinoamericana de Energía', 'OLADE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(25, '321', 'Organización Panamericana de Salud', 'OPS', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(26, '322', 'Sistema Económico Latinoamericano', 'SELA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(27, '323', 'Fondo de Des.de Pueblos Indígenas de América Lat.y El Caribe', 'FPDPI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(28, '341', 'Centro NN.UU. para los Asentamientos Humanos', 'HABITAT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(29, '342', 'Conferencia de las NN.UU. sobre Comercio y Desarrollo', 'UNCTAD', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(30, '343', 'Departamento de Cooperación Técnica para el Desarrollo', 'DTCD', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(31, '344', 'Fondo de las NN.UU. para la Infancia', 'UNICEF', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, '345', 'Fondo NN.UU. para la Actividad en Materia de Población', 'UNFPA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(33, '346', 'Fondo Internacional de Desarrollo Agrícola', 'FIDA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, '347', 'Inst. de NNUU para Formación Profesional e Investigación', 'UNITAR', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(35, '348', 'Organización de Aviación Civil Internacional', 'OACI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, '349', 'Organización de las NN.UU. para el Desarrollo Industrial', 'ONUDI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(37, '351', 'Org. de las NN.UU. para la Agricultura y la Alimentación', 'FAO', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, '352', 'Org. de las NN.UU. para la Educación, Ciencia y la Cultura', 'UNESCO', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(39, '353', 'Organización Internacional de Energía Atómica', 'OIEA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(40, '354', 'Organización Internacional del Trabajo', 'OIT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(41, '355', 'Organización Mundial de la Salud', 'OMS', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(42, '356', 'Organización Mundial de Meteorología', 'OMM', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(43, '357', 'Programa de las NN.UU. para el Desarrollo', 'PNUD', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(44, '358', 'Programa de NN.UU. para el Medio Ambiente', 'PNUMA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(45, '359', 'Unión Internacional de Telecomunicaciones', 'UIT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(46, '361', 'Unión Postal Universal', 'UPU', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(47, '362', 'Universidad de las Naciones Unidas', 'UNU', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(48, '371', 'Unión Europea', 'UE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(49, '372', 'Consejo de Asistencia Mutua Económica', 'CAME', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(50, '373', 'Organization of the Petroleum Exporting Countries', 'OPEC', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(51, '374', 'Programa Mundial de Alimentos', 'PMA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(52, '375', 'Organización Internacional para las Migraciones', 'OIM', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(53, '376', 'Fondo de NNUU para el Desarrollo y la Capitalización', 'FNUDC', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(54, '377', 'Prog. de las NNUU para la Fiscalización Internal. de Drogas', 'UNDCP', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(55, '378', 'Fondo de las NNUU para el Desarrollo de la Mujer', 'UNIFEM', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(56, '379', 'Fondo Rotativo de las NNUU para la Exploración de Rec. Nat.', 'UNRFNRE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(57, '382', 'Fondo de Ayuda al Equipamiento (España)', 'FAE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(58, '383', 'Fondo de Integración y Desarrollo Bolivia-Argentina', 'FIDAB', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(59, '384', 'Fondo Nórdico para el Desarrollo', 'NFD', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(60, '386', 'Organización Internacional de Maderas Tropicales', 'OIMT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(61, '411', 'Banco Interamericano de Desarrollo', 'BID', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(62, '412', 'Banco Internacional de Reconstrucción y Fomento', 'BIRF', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(63, '413', 'Fondo Financiero para el Desarrollo de la Cuenca del Plata', 'FONPLATA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(64, '414', 'Fondo Monetario Internacional', 'FMI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(65, '415', 'Agencia Internacional de Fomento (BM)', 'AIF', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(66, '416', 'Banco Interamericano de Ahorro - Préstamo', 'BIAPE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(67, '417', 'Banco de Importaciones - Exportaciones Japón', 'EXIMBANK-J', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(68, '418', 'Banco de Importaciones - Exportaciones Corea', 'EXIMBANK-K', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(69, '419', 'Banco de Importaciones - Exportaciones (EE. UU.)', 'EXIMBANK-U', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(70, '420', 'Corporación Financiera Internacional  (BM)', 'CFI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(71, '421', 'Organismo Multilateral de Garantía de Inversiones  (BM)', 'OMGI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(72, '511', 'Agencia Canadiense para el Desarrollo Internacional', 'ACDI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(73, '512', 'Agencia de Cooperación Internacional del Japón', 'JICA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(74, '513', 'Agencia de los EE.UU. para el Desarrollo', 'USAID', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(75, '514', 'Asistencia Internacional Danesa para el Desarrollo', 'DANIDA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(76, '515', 'Agencia  Suiza para el  Desarrollo y la Cooperación', 'COSUDE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(77, '516', 'Instituto Alemán de Crédito para la Reconstrucción', 'KFW', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(78, '517', 'Agencia de Cooperación Técnica de la República Alemana', 'GTZ', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(79, '518', 'Banco de Cooperación Internacional del Japón', 'JBIC', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(80, '519', 'Dir.Gen. de Cooperación Internacional /Coop. Técnica Belga', 'DGCI -CTB', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(81, '520', 'Agencia  Sueca para el Desarrollo Internacional', 'ASDI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(82, '521', 'Corporación Internacional de Desarrollo', 'CID', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(83, '522', 'Fondo Multilateral de Inversiones (BID)', 'FOMIN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(84, '523', 'Agencia Canadiense para el Desarrollo Internacional Regional', 'CIID', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(85, '524', 'Fondo Global del Medio Ambiente (BM)', 'GEF', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(86, '525', 'Instituto de Cooperación Iberoamericana', 'ICI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(87, '526', 'Fondo Institucional de Desarrollo', 'IDF', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(88, '527', 'Agencia Noruega para el Desarrollo Internacional', 'NORAD', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(89, '528', 'Agencia Española de Cooperacion Internacional', 'AECI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(90, '529', 'Corporación de Créditos de Mercaderías (EE.UU.)', 'CCC', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(91, '530', 'Export Development Corporación (CANADA)', 'EDC', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(92, '541', 'República Federal de Alemania', 'ALEM', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(93, '542', 'Argentina', 'ARG', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(94, '543', 'Bélgica', 'BEL', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(95, '544', 'Brasil', 'BRA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(96, '545', 'Canadá', 'CANADA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(97, '546', 'República de Corea', 'COR', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(98, '548', 'República Popular China', 'CHINA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(99, '549', 'República China Nacionalista - Taiwán', 'CH-TAI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(100, '551', 'Dinamarca', 'DIN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(101, '552', 'España', 'ESP', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(102, '553', 'Estados Unidos de América', 'USA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(103, '554', 'Francia', 'FRA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(104, '555', 'Gran Bretaña', 'G-BR', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(105, '556', 'Holanda', 'HOL', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(106, '557', 'Hungría', 'HUN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(107, '558', 'Israel', 'ISR', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(108, '559', 'Italia', 'ITA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(109, '561', 'Japón', 'JAP', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(110, '562', 'Noruega', 'NOR', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(111, '563', 'Perú', 'PERU', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(112, '564', 'Rumania', 'RUM', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(113, '565', 'Suecia', 'SUE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(114, '566', 'Suiza', 'SUI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(115, '567', 'Federación de Rusia', 'RUSIA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(116, '568', 'República Bolivariana de Venezuela', 'VEN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(117, '569', 'Polonia', 'POL', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(118, '571', 'Austria', 'AUST', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(119, '572', 'Sudáfrica', 'SUDAF', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(120, '573', 'Panamá', 'PAN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(121, '574', 'Portugal', 'PORT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(122, '575', 'República de Chile', 'CHI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(123, '576', 'México', 'MEX', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(124, '577', 'República Oriental del Uruguay', 'URU', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(125, '578', 'Paraguay', 'PARA', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(126, '579', 'Filipinas', 'FILIP', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(127, '580', 'Colombia', 'COL', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(128, '581', 'Ecuador', 'ECU', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(129, '582', 'Cuba', 'CU', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(130, '639', 'Otros Gobiernos Extranjeros', 'OT-G-EXT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(131, '641', 'Care', 'CARE', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(132, '642', 'Caritas', 'CARITAS', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(133, '643', 'Plan Internacional', 'PLAN-INTER', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(134, '644', 'Fundación Amigos de la Naturaleza', 'FAN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(135, '669', 'Otros Organismos no Gubernamentales', 'OT-NOGUB', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(136, '671', 'Bancos Privados', 'BAN-PRI', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(137, '672', 'Proveedores', 'PROV', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(138, '719', 'Organismos Financiadores Externos no Determinados', 'ND-EXT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(139, '720', 'Basket Funding', 'BASK-FUN', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(140, '729', 'Otros Organismos Financiadores Externos', 'OT-EXT', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(141, '997', 'Otros Organismos Financiadores Multilaterales', 'OT-MUL', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(142, '998', 'Otros Organismos Financiadores Bilaterales', 'OT-BIL', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_partidas_pres`
+--
+
+CREATE TABLE `catalogo_partidas_pres` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
+  `partida_pres_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_partidas_pres`
+--
+
+INSERT INTO `catalogo_partidas_pres` (`itemId`, `nombre`, `descripcion`, `partida_pres_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '10000', 'SERVICIOS PERSONALES', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '20000', 'SERVICIOS NO PERSONALES', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '30000', 'MATERIALES Y SUMINISTROS', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '40000', 'ACTIVOS REALES', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '50000', 'ACTIVOS FINANCIEROS', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '60000', 'SERVICIO DE LA DEUDA PUBLICA Y DISMINUCION', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '70000', 'TRANSFERENCIAS', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '80000', 'IMPUESTOS, REGALIAS Y TASAS', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '90000', 'OTROS GASTOS', NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '11100', 'Haberes Básicos', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '11200', 'Bono de Antiguedad', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '11210', 'Categorías Magisterio', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, '11220', 'Bono de Antigûedad', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, '11300', 'Bonificaciones', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, '11310', 'Bono de Frontera', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, '11320', 'Remuneraciones Colaterales - Médicas y Trabajadores en Salud', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, '11321', 'Categorías Médicas', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, '11322', 'Escalafón Médico', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, '11323', 'Escalafon de los Trabajadores en Salud', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, '11324', 'Otras Remuneraciones', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, '11330', 'Otras Bonificaciones', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(22, '11400', 'Aguinaldos', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(23, '11500', 'Primas y Bono de Producción', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(24, '11510', 'Primas', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(25, '11520', 'Bono de Producción', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(26, '11600', 'Asignaciones Familiares', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(27, '11700', 'Sueldos', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(28, '11800', 'Dietas', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(29, '11810', 'Dietas de Directorio', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(30, '11820', 'Otras Dietas', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(31, '11900', 'Otros Servicios Personales', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, '11910', 'Horas Extraordinarias', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(33, '11920', 'Vacaciones no Utilizadas', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, '11930', 'Incentivos Económicos', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(35, '11940', 'Suplencias', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, '12100', 'Personal Eventual', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(37, '13100', 'Aporte Patronal al Seguro Social', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, '13110', 'Régimen de Corto Plazo (Salud)', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(39, '13120', 'Prima de Riesgo Profesional - Régimen de Largo Plazo', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(40, '13130', 'Aporte Patonal Fondo Solidario - Régimen de Largo Plazo', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(41, '13131', 'Aporte Patronal Solidario 3%', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(42, '13132', 'Aporte Patronal Minero Solidario 2%', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(43, '13200', 'Aporte Patronal para Vivienda', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(44, '14100', 'Otros', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(45, '15100', 'Incremento Salarial', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(46, '15200', 'Crecimiento Vegetativo', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(47, '15300', 'Creación de Itemes', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(48, '15400', 'Otras Previsiones', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(49, '21100', 'Comunicaciones', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(50, '21200', 'Energía Eléctrica', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(51, '21300', 'Agua', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(52, '21400', 'Telefonia', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(53, '21500', 'Gas Domiciliario', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(54, '21600', 'Internet y Otros', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(55, '22100', 'Pasajes', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(56, '22110', 'Pasajes al Interior del País', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(57, '22120', 'Pasajes al Exterior del País', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(58, '22200', 'Viáticos', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(59, '22210', 'Viáticos por Viajes al Interior del País', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(60, '22220', 'Viáticos por Viajes al Exterior del País', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(61, '22300', 'Fletes y Almacenamiento', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(62, '22400', 'Gastos de Instalación y Retorno', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(63, '22500', 'Seguros', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(64, '22600', 'Transporte de Personal', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(65, '23100', 'Alquiler de Edificios', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(66, '23200', 'Alquiler de Equipos y Maquinarias', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(67, '23300', 'Alquiler de Tierras y Terrenos', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(68, '23400', 'Otros Alquileres', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(69, '24100', 'Mantenimiento y Reparación de Inmuebles y Equipos', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(70, '24110', 'Mantenimiento y Reparación de Inmuebles', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(71, '24120', 'Mantenimiento y Reparación de Vehículos Maquinaria y Equipos', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(72, '24130', 'Mantenimiento y Reparación de Muebles y Enseres', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(73, '24200', 'Mantenimiento y Reparación de Vías de Comunicación', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(74, '24300', 'Otros Gastos por Concepto de Instalación, Mantenimiento y Reparación', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(75, '25100', 'Médicos, Sanitarios y Sociales', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(76, '25120', 'Gastos Especializados por Atención Médica', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(77, '25130', 'Gastos por Afiliación de Estudiantes Universitarios al Seguro Social', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(78, '25200', 'Estudios, Investigaciones, Auditorias Externas y Revalorizaciones', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(79, '25210', 'Consultorías por Producto', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(80, '25220', 'Consultores de Línea', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(81, '25230', 'Auditorias Externas', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(82, '25300', 'Comisiones y Gastos Bancarios', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(83, '25400', 'Lavandería, Limpieza e Higiene', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(84, '25500', 'Publicidad', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(85, '25600', 'Servicios de Imprenta, Fotocopiado y Fotográficos', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(86, '25700', 'Capacitación del Personal', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(87, '25800', 'Estudios e Investigaciones para Proyectos de Inversión No Capitalizables', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(88, '25810', 'Consultorias por Producto', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(89, '25820', 'Consultores de Línea', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(90, '25900', 'Servicios Manuales', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(91, '26200', 'Gastos Judiciales', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(92, '26300', 'Derechos sobre Bienes Intangibles', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(93, '26500', 'Conjueces y Jueces Ciudadanos', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(94, '26600', 'Serv. de Seguridad de los Batallones de Seg. Fís. de la Pol. Nal. Vig. Priv.', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(95, '26610', 'Servicios Públicos', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(96, '26620', 'Servicios Privados', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(97, '26630', 'Servicio por Traslado de Valores', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(98, '26900', 'Otros Servicios No Personales', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(99, '26910', 'Gastos de Representación', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(100, '26920', 'Fallas de Caja', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(101, '26930', 'Pago por Trabajos Dirigidos y Pasantías', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(102, '26940', 'Compensación Costo de Vida', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(103, '26950', 'Aguinaldo Esfuerzo por Bolivia', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(104, '26990', 'Otros', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(105, '27100', 'Serv. por Extracción, Transformación y Conv. de los Rec. Naturales de Propiedad del Estado Plurinac.', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(106, '27110', 'Pago por Costos Incurridos', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(107, '27120', 'Pago por Utilidades', 2, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(108, '31100', 'Alimentos y Bebidas para Personas, Desayuno Escolar y Otras', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(109, '31110', 'Gastos por Refrigerios al personal permanente, eventual y consultores individuales de línea de las I', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(110, '31120', 'Gastos por Alimentación y Otros Similares', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(111, '31130', 'Alimentación Complementaria Escolar', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(112, '31140', 'Alimentación Hospitalaria, Penitenciaria, Aereonaves y Otras Específicas', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(113, '31150', 'Alimentos y Bebidas para la atención de emergencias y desastres naturales', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(114, '31200', 'Alimentos para Animales', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(115, '31300', 'Productos Agrícolas, Pecuarios y Forestales', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(116, '32100', 'Papel', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(117, '32200', 'Productos de Artes Gráficas', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(118, '32300', 'Libros, Manuales y Revistas', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(119, '32400', 'Textos de Enseñanza', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(120, '32500', 'Periódicos y Boletines', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(121, '33100', 'Hilados y Telas', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(122, '33200', 'Confecciones Textiles', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(123, '33300', 'Prendas de Vestir', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(124, '33400', 'Calzados', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(125, '34100', 'Combustibles, Lubricantes,  Derivados y otras Fuentes de Energia', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(126, '34110', 'Combustibles, Lubricantes y Derivados para Consumo', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(127, '34120', 'Combustibles, Lubricantes y Derivados para Comercialización', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(128, '34130', 'Energia Electrica para Comercialización', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(129, '34200', 'Productos Químicos y Farmacéuticos', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(130, '34300', 'Llantas y Neumáticos', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(131, '34400', 'Productos de Cuero y Caucho', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(132, '34500', 'Productos de Minerales no Metálicos y Plásticos', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(133, '34600', 'Productos Metálicos', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(134, '34700', 'Minerales', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(135, '34800', 'Herramientas Menores', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(136, '34900', 'Material y Equipo Militar', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(137, '39100', 'Material de Limpieza', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(138, '39200', 'Material Deportivo y Recreativo', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(139, '39300', 'Utensilios de Cocina y Comedor', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(140, '39400', 'Instrumental Menor Médico-Quirúrgico', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(141, '39500', 'Utiles de Escritorio y Oficina', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(142, '39600', 'Utiles Educacionales, Culturales y de Capacitación', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(143, '39700', 'Utiles y Materiales Eléctricos', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(144, '39800', 'Otros Repuestos y Accesorios', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(145, '39900', 'Otros Materiales y Suministros', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(146, '39910', 'Acuñación de Monedas e Impresión de Billetes', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(147, '39911', 'Acuñación de Monedas', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(148, '39912', 'Impresión de Billetes', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(149, '39990', 'Otros Materiales y Suministros', 3, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(150, '41100', 'Edificios', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(151, '41200', 'Tierras y Terrenos', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(152, '41300', 'Otras Adquisiciones', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(153, '42200', 'Construcciones y Mejoras de Bienes Públicos Nacionales de Dominio Privado', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(154, '42210', 'Construcciones y Mejoras de Viviendas', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(155, '42220', 'Construcciones y Mejoras para Defensa y Seguridad', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(156, '42230', 'Otras Construcciones y Mejoras de Bienes Públicos de Dominio Privado', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(157, '42240', 'Supervisión de Construcciones y Mejoras de Bienes Públicos de Dominio  Privado', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(158, '42300', 'Construcciones y Mejoras de Bienes Nacionales de Dominio Público', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(159, '42310', 'Construcciones y Mejoras de Bienes de Dominio Público', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(160, '42320', 'Supervisión de Construcciones y Mejoras de Bienes de Dominio  Público', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(161, '43100', 'Equipo de Oficina y Muebles', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(162, '43110', 'Equipo de Oficina y Muebles', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(163, '43120', 'Equipo de Computación', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(164, '43200', 'Maquinaria y Equipo de Producción', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(165, '43300', 'Equipo de Transporte, Tracción y Elevación', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(166, '43310', 'Vehículos Livianos para Funciones Administrativas', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(167, '43320', 'Vehículos Livianos para Proyectos de Inversión Pública', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(168, '43330', 'Maquinaria y Equipo de Transporte de Tracción', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(169, '43340', 'Equipo de Elevación', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(170, '43400', 'Equipo Médico y de Laboratorio', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(171, '43500', 'Equipo de Comunicación', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(172, '43600', 'Equipo Educacional y Recreativo', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(173, '43700', 'Otra Maquinaria y Equipo', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(174, '46100', 'Para Construcciones de Bienes Públicos de Dominio Privado', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(175, '46110', 'Consultoría por Producto para Construcciones de Bienes Públicos de Dom. Privado', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(176, '46120', 'Consultoría en Línea para Construcciones de Bienes Públicos de Dom. Privado', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(177, '46200', 'Para Construcciones de Bienes de Dominio Público', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(178, '46210', 'Consultoría por Producto para Construcciones de Bienes Públicos de Dom. Público', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(179, '46220', 'Consultoría de Línea para Construcciones de Bienes Públicos de Dom. Público', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(180, '46300', 'Consultoría para Capacitación, Transf. de Tec. y Organ. para Proc.Prod. en Proy. de Inv. Específicos', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(181, '46310', 'Consultoría por Producto', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(182, '46320', 'Consultoría de Linea', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(183, '49100', 'Activos Intangibles', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(184, '49300', 'Semovientes y Otros Animales', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(185, '49400', 'Activos Museológicos y Culturales', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(186, '49900', 'Otros', 4, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(187, '51100', 'Acciones y Participaciones de Capital en Empresas Privadas Nacionales', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(188, '51200', 'Acciones y Participaciones de Capital en Empresas Públicas Nacionales', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(189, '51300', 'Acciones y Participaciones de Capital en Empresas Públicas Territoriales', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(190, '51310', 'Del Gobierno Autónomo Departamental', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(191, '51320', 'Del Gobierno Autónomo Municipal', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(192, '51330', 'Del Gobierno Indígena Originario Campesino', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(193, '51500', 'Acciones y Participaciones de Capital en Instituciones Públicas Financieras No Bancarias', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(194, '51600', 'Acciones y Participaciones de Capital en Instituciones Públicas Financieras Bancarias', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(195, '51700', 'Acciones y Participaciones de Capital en Organismos Internacionales', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(196, '51800', 'Otras Acciones y Participaciones de Capital en el Exterior', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(197, '51900', 'Inversiones en el Exterior', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(198, '52100', 'Concesión de Préstamos a Corto Plazo a los Órganos del Estado Plurinacional', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(199, '52200', 'Concesión de Préstamos a Corto Plazo a Instituciones Públicas Descentralizadas', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(200, '52400', 'Concesión de Préstamos a Corto Plazo a Entidades Territoriales Autónomas', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(201, '52410', 'Gobierno Autónomo Departamental', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(202, '52420', 'Gobierno Autónomo Municipal', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(203, '52430', 'Gobierno Indígena Originario Campesino', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(204, '52600', 'Concesión de Préstamos a Corto Plazo a Instituciones de Seguridad Social', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(205, '52700', 'Concesión de Préstamos a Corto Plazo a Empresas Públicas Nacionales', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(206, '52800', 'Concesión de Préstamos a Corto Plazo a Empresas Públicas Territoriales', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(207, '52810', 'Del Gobierno Autónomo Departamental', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(208, '52820', 'Del Gobierno Autónomo Municipal', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(209, '52830', 'Del Gobierno Indígena Originario Campesino', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(210, '53100', 'Concesión de Préstamos a Largo Plazo a los Órganos del Estado Plurinacional', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(211, '53200', 'Concesión de Préstamos a Largo Plazo a Instituciones Públicas Descentralizadas', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(212, '53400', 'Concesión de Préstamos a Largo Plazo a Entidades Territoriales Autónomas', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(213, '53410', 'Gobierno Autónomo Departamental', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(214, '53420', 'Gobierno Autónomo Municipal', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(215, '53430', 'Gobierno Indígena Originario Campesino', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(216, '53600', 'Concesión de Préstamos a Largo Plazo a Instituciones de Seguridad Social', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(217, '53700', 'Concesión de Préstamos a Largo Plazo a Empresas Públicas Nacionales', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(218, '53800', 'Concesión de Préstamos a Largo Plazo a Empresas Públicas Territoriales', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(219, '53810', 'Del Gobierno Autónomo Departamental', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(220, '53820', 'Del Gobierno Autónomo Municipal', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(221, '53830', 'Del Gobierno Indígena Originario Campesino', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(222, '54100', 'Concesión de Préstamos a Corto Plazo a Instituciones Públicas Financieras No Bancarias', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(223, '54200', 'Concesión de Préstamos a Corto Plazo a Instituciones Públicas Financieras  Bancarias', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(224, '54300', 'Concesión de Préstamos a Corto Plazo al Sector Privado', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(225, '54400', 'Concesión de Préstamos a Corto Plazo al Exterior', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(226, '54600', 'Concesión de Préstamos a Largo Plazo a Instituciones Públicas Financieras No Bancarias', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(227, '54700', 'Concesión de Préstamos a Largo Plazo a Instituciones Públicas Financieras Bancarias', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(228, '54800', 'Concesión de Préstamos a Largo Plazo al Sector Privado', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(229, '54900', 'Concesión de Préstamos a Largo Plazo al Exterior', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(230, '55100', 'Títulos y Valores a Corto Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(231, '55110', 'Letras del Tesoro', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(232, '55120', 'Bonos del Tesoro', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(233, '55130', 'Otros', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(234, '55200', 'Títulos y Valores a Largo Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(235, '55210', 'Letras del Tesoro', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(236, '55220', 'Bonos del Tesoro', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(237, '55230', 'Otros', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(238, '56100', 'Colocación de Fondos en Fideicomiso', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(239, '56200', 'Concesiones de Recursos de Fideicomisos', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(240, '56300', 'Colocación de Fondos por Servicios Financieros', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(241, '57100', 'Incremento de Caja y Bancos', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(242, '57200', 'Incremento de Inversiones Temporales', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(243, '58100', 'Incremento de Cuentas por Cobrar a Corto Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(244, '58200', 'Incremento de Documentos por Cobrar y Otros Activos Financieros a Corto Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(245, '58210', 'Incremento de Documentos por Cobrar a Corto Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(246, '58220', 'Incremento de Otros Activos Financieros a Corto Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(247, '58300', 'Incremento de Cuentas por Cobrar a Largo Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(248, '58400', 'Incremento de Documentos por Cobrar y Otros Activos Financieros a Largo Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(249, '58410', 'Incremento de Documentos por Cobrar  a Largo Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(250, '58420', 'Incremento de Otros Activos Financieros a Largo Plazo', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(251, '59100', 'Afectaciones al Tesoro General de la Nación', 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(252, '61100', 'Amortización de la Deuda Pública Interna a Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(253, '61200', 'Intereses de la Deuda Pública Interna a Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(254, '61300', 'Comisiones y Otros Gastos de la Deuda Pública Interna a Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(255, '61400', 'Intereses por Mora y Multas de la Deuda Pública Interna a Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(256, '61600', 'Amortización de la Deuda Pública Interna a Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(257, '61700', 'Intereses de la Deuda Pública Interna a Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(258, '61800', 'Comisiones y Otros Gastos de la Deuda Pública Interna a Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(259, '61900', 'Intereses por Mora y Multas de la Deuda Pública Interna a Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(260, '62100', 'Amortización de la Deuda Pública Externa a Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(261, '62200', 'Intereses de la Deuda Pública Externa a Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(262, '62300', 'Comisiones y Otros Gastos de la Deuda Pública Externa a Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(263, '62400', 'Intereses por Mora y Multas de la Deuda Pública Externa a Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(264, '62600', 'Amortización de la Deuda Pública Externa a Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(265, '62700', 'Intereses de la Deuda Pública Externa a Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(266, '62800', 'Comisiones y Otros Gastos de la Deuda Pública Externa a Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(267, '62900', 'Intereses por Mora y Multas de la Deuda Pública Externa a Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(268, '63100', 'Disminución de Cuentas por Pagar a Corto Plazo por Deudas Comerciales con Proveedores', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(269, '63200', 'Disminución de Cuentas por Pagar a Corto Plazo con Contratistas', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(270, '63300', 'Disminución de Cuentas por Pagar a Corto Plazo por Sueldos y Jornales', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(271, '63400', 'Disminución de Cuentas por Pagar a Corto Plazo por Aportes Patronales', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(272, '63500', 'Disminución de Cuentas por Pagar a Corto Plazo por Retenciones', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(273, '63600', 'Disminución de Cuentas por Pagar a Corto Plazo por Impuestos, Regalías y Tasas', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(274, '63700', 'Disminución de Cuentas por Pagar a Corto Plazo por Jubilaciones y Pensiones', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(275, '63800', 'Disminucion de Cuentas por Pagar a Corto Plazo por Intereses', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(276, '63900', 'Disminucion de Otros Pasivos y Otras Cuentas por Pagar a Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(277, '64100', 'Disminución de Cuentas por Pagar a Largo Plazo por Deudas Comerciales', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(278, '64200', 'Disminución de Otras Cuentas por Pagar a Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(279, '65100', 'Gastos Devengados No Pagados por Servicios Personales', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(280, '65200', 'Gastos Deveng.No Pagados por Serv.No Person.,Mat.y Suministros,Activos Reales y Financ.y Serv. Deuda', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(281, '65300', 'Gastos Devengados No Pagados por Transferencias', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(282, '65400', 'Gastos Devengados No Pagados por Retenciones', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(283, '65500', 'Gastos Devengados No Pagados por Intereses Deuda Pública Interna', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(284, '65700', 'Gastos Devengados No Pagados por Comisiones Deuda Pública Interna', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(285, '65800', 'Gastos Devengados No Pagados por Comisiones Deuda Pública Externa', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(286, '65900', 'Otros Gastos Devengados No Pagados', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(287, '66100', 'Gastos Devengados No Pagados por Servicios Personales', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(288, '66200', 'Gastos Devengados No Pagados por Servicios No Pers., Mat. y Sumin., Act.Reales y Fin.y Serv.Deuda', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(289, '66300', 'Gastos Devengados No Pagados por Transferencias', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(290, '66400', 'Gastos Devengados No Pagados por Retenciones', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(291, '66900', 'Otros Gastos No Pagados', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(292, '67100', 'Obligaciones por Afectaciones al Tesoro General de la Nación', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(293, '68200', 'Pago de Beneficios Sociales', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(294, '69100', 'Devolución de Fondos en Fideicomiso de Corto Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(295, '69200', 'Devolución de Fondos en Fideicomiso de Largo Plazo', 6, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(296, '71100', 'Pensiones y Jubilaciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(297, '71200', 'Becas', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(298, '71210', 'Becas de Estudios Otorgadas a los Servidores Públicos', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(299, '71220', 'Becas de Estudios Otorgadas a los Estudiantes Universitarios', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(300, '71230', 'Becas de Estudios Otorgadas a Particulares', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(301, '71300', 'Donaciones, Ayudas Sociales y Premios a Personas', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(302, '71600', 'Subsidios y Donaciones a Personas e Instituciones Privadas sin Fines de Lucro', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(303, '71610', 'A instituciones Privadas sin Fines de Lucro', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(304, '71630', 'Otros de Carácter Social Establecidos por Norma Legal', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(305, '71700', 'Subvenciones Económicas a Empresas', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(306, '71800', 'Pensiones Vitalicias', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(307, '71900', 'Transferencias por las Compras de Control Tributario', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(308, '72200', 'Transf. Corrientes a Instituc. Públicas Descentraliz, Universidades Pub. p/Participación en Tributos', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(309, '72400', 'Transferencias Corrientes al Gobierno Departamental por Participacion en Tributos', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(310, '72410', 'Para Educación', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(311, '72420', 'Otras', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(312, '72500', 'Transf. Corrientes a los Gob. Municipales e Indígena Originario Camp. por Subsidios y Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(313, '72510', 'Para Salud', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(314, '72520', 'Otras', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(315, '73100', 'Transf. Corrientes al Órgano Ejecutivo del Estado Plurinacional  por Subsidios o Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(316, '73200', 'Transf.Corr a  Org.Leg.Jud.y Elec.d/ Est Pluri.,Inst. Púb Desc,.Ent. d/Ctrol. Def y Uni p/ Sub. Subv', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(317, '73300', 'Transferencias Corrientes del Fondo Solidario Nacional', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(318, '73400', 'Transferencias Corrientes a Entidades Territoriales Autónomas por Subsidios o Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(319, '73410', 'Gobierno Autónomo Departamental', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(320, '73420', 'Gobierno Autónomo Municipal', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(321, '73430', 'Gobierno Indígena Originario Campesino', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(322, '73440', 'Gobierno Autónomo Regional', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(323, '73600', 'Transferencias Corrientes a Instituciones de Seguridad Social por Subsidios o Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(324, '73700', 'Transferencias Corrientes a Empresas Públicas Nacionales por Subsidios o Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(325, '73800', 'Transferencias Corrientes a Empresas Públicas de las Entidades Territoriales Autónomas por Subsidios', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(326, '73810', 'Empresas Públicas Departamentales', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(327, '73820', 'Empresas Públicas Municipales', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(328, '73830', 'Empresas Públicas Indígenas Originarias y Campesinas', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(329, '74100', 'Transferencias Corrientes a Instituciones Públicas Financieras No Bancarias', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(330, '74200', 'Transferencias Corrientes a Instituciones Públicas Financieras Bancarias', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(331, '75100', 'Transferencias de Capital a Personas', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(332, '75200', 'Transferencias de Capital a Instituciones Privadas sin Fines de Lucro', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(333, '75210', 'A Instituciones Privadas sin Fines de Lucro', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(334, '75220', 'Otras de Carácter Económico-Productivo', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(335, '75300', 'Transferencias de Capital a Empresas Privadas', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(336, '77100', 'Transferencias de Capital al Órgano Ejecutivo del Estado Plurinacional  por Subsidios o Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(337, '77200', 'Transf. Cap. Org.Leg. Jud.y Elec.d/ Est Pluri.Inst. Púb Desc.Ent. d/Ctrol. Def Univ.p/ Sub. o Subv', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(338, '77400', 'Transf. de Capital a las Entidades Territoriales Autónomas por Subsidios o Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(339, '77410', 'Al Gobierno Autónomo Departamental', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(340, '77440', 'Al Gobierno Autónomo Regional', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(341, '77500', 'Transf. de Capital a los Gob. Municipales e Indígena Originario Campesino p Subsidios o Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(342, '77510', 'Diálogo Nacional 2000', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(343, '77511', 'Para Salud', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(344, '77512', 'Para Educación', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(345, '77513', 'Para Infraestructura', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(346, '77520', 'Por Patentes Petroleras', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(347, '77530', 'Otras', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(348, '77600', 'Transferencias de Capital a Instituciones de Seguridad Social por Subsidios o Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(349, '77700', 'Transferencias de Capital a Empresas Públicas Nacionales por Subsidios o Subvenciones', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(350, '77800', 'Transferencias de Capital a Empresas Públicas de las Entidades Territoriales Autónomas por Subsidios', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(351, '77810', 'A Empresas Públicas Departamentales', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(352, '77820', 'A Empresas Públicas Municipales', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(353, '78100', 'Transferencias de Capital a Instituciones Públicas Financieras No Bancarias', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(354, '78200', 'Transferencias de Capital a Instituciones Públicas Financieras Bancarias', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(355, '79100', 'Transferencias Corrientes a Gobiernos Extranjeros y Organismos Internacionales por Cuotas Regulares', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(356, '79200', 'Transferencias Corrientes a Gob. Extranjeros y Org. Internacionales por Cuotas Extraordinarias', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(357, '79300', 'Otras Transferencias Corrientes al Exterior', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(358, '79310', 'Transferencias al Exterior en Efectivo', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(359, '79320', 'Transferencias al Exterior en Especie', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(360, '79400', 'Transferencias de Capital al Exterior', 7, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(361, '81100', 'Impuesto sobre las Utilidades de las Empresas', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(362, '81200', 'Impuesto a las Transacciones', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(363, '81300', 'Impuesto al Valor Agregado Mercado Interno', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(364, '81400', 'Impuesto al Valor Agregado Importaciones', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(365, '81500', 'Impuesto al Consumo Específico en el  Mercado Interno', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(366, '81600', 'Impuesto a los Consumos Específicos Importaciones', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(367, '81700', 'Impuesto Especial a los Hidrocarburos y sus Derivados Mercado Interno', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(368, '81800', 'Impuesto Especial a los Hidrocarburos y sus Derivados Importación', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(369, '81900', 'Otros Impuestos', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(370, '81910', 'Impuesto por Viajes al Exterior', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(371, '81950', 'Impuesto a la Transmisión Gratuita de Bienes - ITGB', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(372, '81960', 'Impuesto a las Transacciones Financieras - ITF', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(373, '81990', 'Otros', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(374, '82100', 'Gravamen Arancelario', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(375, '83100', 'Impuesto a la Propiedad de Bienes', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(376, '83110', 'Inmuebles', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(377, '83120', 'Vehículos Automotores', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(378, '83200', 'Impuesto a las Transferencias onerosas de bienes inmuebles y vehículos automotores', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(379, '83210', 'Inmuebles', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(380, '83220', 'Vehículos Automotores', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(381, '84100', 'Regalías Mineras', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(382, '84200', 'Regalías por Hidrocarburos', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(383, '84230', '6 % Participación TGN', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(384, '84240', '11 % Sobre Producción por Regalías Departamentales', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(385, '84250', '1 % Sobre Producción para Regalías Compensatoria Departamental', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(386, '84300', 'Regalías Agropecuarias', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(387, '84900', 'Otras Regalías', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(388, '85100', 'Tasas', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(389, '85200', 'Derechos', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(390, '85300', 'Contribuciones por Mejoras', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(391, '85400', 'Multas', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(392, '85500', 'Intereses Penales', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(393, '85900', 'Otros', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(394, '86100', 'Patentes', 8, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(395, '91100', 'Intereses de Instituciones Públicas Financieras No Bancarias', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(396, '91200', 'Intereses de Instituciones Públicas Financieras Bancarias', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(397, '94100', 'Indemnización', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(398, '94200', 'Desahucio', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(399, '94300', 'Otros Beneficios Sociales', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(400, '95100', 'Contingencias Judiciales', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(401, '96100', 'Pérdidas en Operaciones Cambiarias', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(402, '96200', 'Devoluciones', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(403, '96900', 'Otras Pérdidas', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(404, '97100', 'Comisiones por Ventas', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(405, '97200', 'Bonificaciones por Ventas', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(406, '98100', 'Del Sector Público', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(407, '98200', 'Del Sector Privado', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(408, '98300', 'Pago de Dividendos', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(409, '99100', 'Provisiones para Gastos de Capital', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(410, '99200', 'Provisiones para Gastos Corrientes', 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_pdes`
+--
+
+CREATE TABLE `catalogo_pdes` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_pdes`
+--
+
+INSERT INTO `catalogo_pdes` (`itemId`, `nombre`, `descripcion`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 'PDES', 'PLAN DE DESARROLLO ECONOMICO Y SOCIAL 2016-2020', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_pei`
+--
+
+CREATE TABLE `catalogo_pei` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `gestion_ini_id` int(11) NOT NULL,
+  `gestion_fin_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_pei`
+--
+
+INSERT INTO `catalogo_pei` (`itemId`, `nombre`, `descripcion`, `gestion_ini_id`, `gestion_fin_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 'PEI', 'Plan Estratégico Institucional', 1, 5, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_pilares`
+--
+
+CREATE TABLE `catalogo_pilares` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `pdes_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_pilares`
+--
+
+INSERT INTO `catalogo_pilares` (`itemId`, `nombre`, `descripcion`, `pdes_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '2', 'Universalización de los servicios básicos', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '6', 'Soberanía productiva con diversificación desarrollo integral sin la dictadura del mercado capitalista', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '9', 'Soberanía ambiental con desarrollo integral, respetando los derechos de la Madre Tierra', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '11', 'Soberanía y transparencia en la gestión pública ', 1, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_programas`
+--
+
+CREATE TABLE `catalogo_programas` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) NOT NULL,
+  `sector_eco_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_resultados`
+--
+
+CREATE TABLE `catalogo_resultados` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `meta_id` int(11) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_resultados`
+--
+
+INSERT INTO `catalogo_resultados` (`itemId`, `nombre`, `descripcion`, `meta_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '39', 'El 95% de la población urbana cuenta con servicios de agua potable.', 1, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(2, '40', '80% de la población rural cuentan con servicios sostenibles de agua segura.', 1, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(3, '41', 'El 70% de la población urbana cuenta con servicios de alcantarillado y saneamiento.', 1, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(4, '42', 'El 60% de la población rural cuenta con servicios de alcantarillado y saneamiento.', 1, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(5, '163', 'Se ha alcanzado 700 mil Ha de superficie con riego, con participación de las Entidades Territoriales Autónomas y del sector privado con una ampliación', 2, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(6, '166', 'Se ha logrado manejo integral y sustentable de los componentes del bosque en 13 MM de Ha, que garantizan la conservación y protección del bosque, la p', 3, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(7, '167', 'Se ha logrado el manejo en sistemas agroforestales (café, cacao, frutas tropicales, entre otros) en al menos 200 mil Ha de superficie de bosque', 3, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(8, '242', 'Se ha avanzado en el reconocimiento internacional del Vivir Bien en armonía con la Madre Tierra en foros de Naciones Unidas.', 4, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(9, '243', 'Se ha avanzado en la construcción de una declaración universal de armonía con la naturaleza.', 4, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(10, '244', 'Se han reconocido enfoques e instrumentos no basados en los mercados y alternativos al pago por servicios ecosistémicos.', 5, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(11, '245', 'Se ha promovido el reconocimiento de los conocimientos, prácticas, tecnologías y acción colectiva de los pueblos indígenas y comunidades locales.', 5, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(12, '246', 'El desarrollo integral y económico - productivo ha considerado en su planificación la gestión de los sistemas de vida.', 6, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(13, '247', 'Al menos el 30% de las industrias en el país (grandes, medianas y pequeñas) avanzan de forma progresiva en la utilización de tecnologías y procesos in', 6, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(14, '249', 'Se han transformado y restructurado los procesos de gestión ambiental, implementando procedimientos ambientales eficaces y eficientes en concurrencia ', 6, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(15, '250', 'Se ha promovido la gestión de los procesos de remediación y disposición final de pasivos ambientales de alto riesgo (mineros, hidrocarburíferos, agroi', 6, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(16, '251', 'Se ha consolidado el Sistema Plurinacional de Áreas Protegidas fortaleciendo la articulación entre el nivel central del Estado y las Entidades Territo', 7, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(17, '252', 'Se ha avanzado sustancialmente en la erradicación de la extrema pobreza en áreas protegidas', 7, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(18, '253', 'Se han utilizado tecnologías adecuadas y limpias de última generación para minimizar el impacto negativo de actividades hidrocarburíferas dentro de la', 7, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(19, '254', 'Se han consolidado acciones de control, monitoreo y fiscalización en las Áreas Protegidas priorizadas para las actividades hidrocarburíferas, desarrol', 7, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(20, '255', 'Se ha reducido sustancialmente el impacto destructivo y contaminador de sistemas productivos y otros que causan potenciales daños y afectaciones ambie', 8, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(21, '257', 'Se han restaurado y fortalecido sustancialmente las funciones ambientales, en las zonas y sistemas de vida.', 8, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(22, '258', 'Se ha incrementado la capacidad de resiliencia de las zonas y sistemas de vida vinculada al cambio climático, incluyendo acciones de mitigación y adap', 8, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(23, '259', 'Se han promovido emprendimientos de conservación, uso y aprovechamiento sustentable de la diversidad biológica.', 8, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(24, '260', 'Se ha desarrollado un manejo integral y sustentable de bosques y/o componentes de la Madre Tierra, implementando el enfoque conjunto de mitigación y a', 8, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(25, '261', 'Se ha promovido la Gestión Integral de riesgos biológicos/bioseguridad para la conservación de los componentes y funciones ambientales.', 8, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(26, '262', 'Se ha eliminado la deforestación ilegal en todo el territorio del Estado Plurinacional.', 9, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(27, '263', 'Se ha ampliado en más de 750 mil  ha la cobertura forestal, en áreas de restauración, protección y regeneración, ornamentación, sistemas agroforestale', 9, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(28, '264', 'Se han implementado Centros de Producción Forestal para la transferencia tecnología de producción masiva y plantaciones forestales.', 9, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(29, '265', 'Al menos 14 cuencas implementan planes y acciones de gestión integral.', 10, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(30, '266', 'Al menos 225 micro cuencas intervenidas cuentan con acciones en gestión integral de recursos hídricos y manejo integral de cuencas.', 10, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(31, '267', 'Al menos la mitad de sitios con humedales y bofedales (sitios Ramsar) se han incorporado gradualmente a procesos de manejo integral.', 10, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(32, '272', 'Se ha restaurado y reducido significativamente la contaminación de aire, agua y suelos en cuencas y se ha restaurado las zonas de vida con mayor impac', 11, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(33, '273', 'Se ha incrementado y ampliado las zonas verdes, bosques urbanos y espacios públicos.', 11, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(34, '274', 'Se han recuperado cuerpos de agua en al menos 5 cuencas (Rocha, Piraí, Guadalquivir, Katari y Cotagaita).', 11, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(35, '275', 'Se han consolidado procesos de gestión integral de residuos sólidos para el reciclaje, compostaje e industrialización, tratamiento y disposición final', 11, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(36, '276', 'Al menos 80 municipios implementan su gestión integral de residuos sólidos.', 11, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(37, '277', 'Se han construido plantas de tratamiento de aguas residuales (PTAR) en las ciudades con mayor población.', 11, NULL, NULL, '0000-00-00 00:00:00', 'null'),
+(38, '298', 'Se ha implementado un modelo de servicio público inclusivo, intercultural y comprometido con la concreción del Vivir Bien.', 12, NULL, NULL, '0000-00-00 00:00:00', 'null');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_sectores_eco`
+--
+
+CREATE TABLE `catalogo_sectores_eco` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `sigla` varchar(20) NOT NULL,
+  `sector_economico_id` int(11) DEFAULT NULL,
+  `tipo_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_sectores_eco`
+--
+
+INSERT INTO `catalogo_sectores_eco` (`itemId`, `nombre`, `descripcion`, `sigla`, `sector_economico_id`, `tipo_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, '1', 'AGROPECUARIO', 'AGROP', NULL, 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '10', 'SANEAMIENTO BÁSICO', 'SANEA', NULL, 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '12', 'RECURSOS HÍDRICOS', 'RECH', NULL, 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '14', 'ADMINISTRACIÓN GENERAL', 'AGUB', NULL, 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '19', 'MEDIO AMBIENTE', 'MEDAM', NULL, 9, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '5', 'RIEGO', 'RIE', 1, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, '1', 'AGUA POTABLE', 'AGU', 2, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, '2', 'ALCANTARILLADO', 'ALC', 2, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, '3', 'TRATAMIENTO', 'TRS', 2, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, '4', 'MULTIPROGRAMA SANEAMIENTO BÁSICO', 'MSANB', 2, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '5', 'OTROS SANEAMIENTO BÁSICO', 'OTRSB', 2, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '1', 'APROVECHAMIENTO DE RECURSOS HÍDRICOS', 'APR', 3, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, '2', 'MANEJO INTEGRAL DE CUENCAS', 'MIC', 3, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, '3', 'MULTIPROGRAMA RECURSOS HÍDRICOS', 'MHIDR', 3, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, '4', 'OTROS RECURSOS HÍDRICOS', 'OTRHID', 3, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, '5', 'ADMINISTRACIÓN FINANCIERA', 'ADF', 4, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, '7', 'INFORMACIÓN ESTADÍSTICA Y PLANIFICACIÓN', 'EST', 4, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, '1', 'CONSERVACIÓN Y PROTECCIÓN DEL MEDIO AMBIENTE', 'CPM', 5, 10, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, '1', 'CONSTRUCCIÓN DE SISTEMAS DE RIEGO', 'RIE01', 6, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, '2', 'MEJORAMIENTO Y AMPLIACIÓN DE SISTEMA DE RIEGO', 'RIE02', 6, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, '3', 'REHABILITACIÓN DE SISTEMAS DE RIEGO', 'RIE03', 6, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(22, '4', 'OTROS', 'RIE04', 6, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(23, '5', 'MICRORIEGO Y OTROS (ATAJADOS, RESERVORIOS Y PERFORACIÓN DE POZOS)', 'RIE05', 6, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(24, '6', 'DRENAJES', 'RIE06', 6, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(25, '7', 'OTROS RIEGO', 'OTRIE', 6, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(26, '8', 'INVESTIGACIÓN RIEGO', 'RIE08', 6, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(27, '1', 'AGUA POTABLE EN CAPITALES DE DEPARTAMENTO', 'AGU01', 7, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(28, '2', 'AGUA POTABLE EN CIUDADES INTERMEDIAS', 'AGU02', 7, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(29, '3', 'AGUA POTABLE EN POBLADOS RURALES', 'AGU03', 7, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(30, '4', 'PERFORACIÓN DE POZOS PARA AGUA POTABLE', 'AGU04', 7, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(31, '5', 'REHABILITACIÓN Y AMPLIACIÓN DE SISTEMAS DE AGUA', 'AGU05', 7, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, '1', 'ALCANTARILLADO EN CAPITALES DE DEPARTAMENTO', 'ALC01', 8, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(33, '2', 'ALCANTARILLADO EN CIUDADES INTERMEDIAS', 'ALC02', 8, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, '3', 'ALCANTARILLADO EN POBLADOS RURALES', 'ALC03', 8, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(35, '4', 'LETRINIZACIÓN', 'ALC04', 8, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(36, '5', 'ALCANTARILLADO PLUVIAL EN CAPITALES DE DEPARTAMENTO INTERMEDIAS', 'ALC05', 8, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(37, '6', 'ALCANTARILLADO PLUVIAL EN CIUDADES INTERMEDIAS', 'ALC06', 8, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, '7', 'ALCANTARILLADO PLUVIAL EN POBLADOS RURALES', 'ALC07', 8, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(39, '1', 'TRATAMIENTO DE AGUA POTABLE', 'TRS01', 9, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(40, '2', 'TRATAMIENTO DE AGUAS SERVIDAS', 'TRS02', 9, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(41, '3', 'TRATAMIENTO DE RESIDUOS SÓLIDOS', 'TRS03', 9, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(42, '4', 'RECOLECCIÓN Y ELIMINACIÓN DE DESECHOS SÓLIDOS', 'TRS04', 9, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(43, '5', 'REHABILITACIÓN DE PLANTAS DE TRATAMIENTO', 'TRS05', 9, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(44, '1', 'MULTIPROGRAMA', 'MULT08', 10, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(45, '2', 'AGUA POTABLE Y ALCANTARILLADO EN CAPITALES DE DEPARTAMENTO', 'AG-01', 10, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(46, '3', 'AGUA POTABLE Y ALCANTARILLADO EN CIUDADES INTERMEDIAS', 'AG-02', 10, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(47, '4', 'AGUA POTABLE Y ALCANTARILLADO EN POBLADOS RURALES', 'AG-03', 10, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(48, '5', 'AGUA Y LETRINIZACIÓN', 'AG-04', 10, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(49, '6', 'INVESTIGACIÓN SANEAMIENTO BÁSICO', 'AG-05', 10, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(50, '1', 'OTROS', 'OTR09', 11, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(51, '1', 'CONSTRUCCIÓN DE ATAJADOS Y RESERVORIOS', 'APR01', 12, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(52, '2', 'PERFORACIÓN DE POZOS', 'APR02', 12, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(53, '3', 'EXPLORACIÓN DE RECURSOS HÍDRICOS', 'APR03', 12, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(54, '1', 'DEFENSIVOS Y DEFLECTORES FLUVIALES', 'MIC01', 13, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(55, '2', 'CONTROL DE AGUA Y EROSIÓN', 'MIC02', 13, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(56, '3', 'CONTROL DE CÁRCAVAS Y AVENIDAS', 'MIC03', 13, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(57, '4', 'CANALIZACIÓN DE RÍOS', 'MIC04', 13, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(58, '5', 'GESTIÓN Y MANEJO DE CUENCAS', 'MIC05', 13, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(59, '6', 'REMEDIACIÓN DE PASIVOS AMBIENTALES', 'MIC06', 13, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(60, '1', 'MULTIPROGRAMA', 'MULT10', 14, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(61, '2', 'INVESTIGACIÓN RECURSOS HÍDRICOS', 'INVRH', 14, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(62, '1', 'OTROS', 'OTR11', 15, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(63, '1', 'ESTUDIOS DE RECURSOS NATURALES', 'CPMA01', 18, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(64, '2', 'MANEJO DE PARQUES Y ÁREAS PROTEGIDAS', 'CPMA02', 18, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(65, '3', 'BIODIVERSIDAD', 'CPMA03', 18, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(66, '4', 'FORESTACIÓN', 'CPMA04', 18, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(67, '5', 'REFORESTACIÓN', 'CPMA05', 18, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(68, '6', 'CONSERVACIÓN Y CONTROL EROSIÓN DE SUELOS', 'CPMA06', 18, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(69, '7', 'REMEDIACIÓN DE PASIVOS AMBIENTALES', 'CPMA07', 18, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(70, '8', 'OTROS MEDIO AMBIENTE', 'OTR17', 18, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(71, '9', 'INVESTIGACIÓN MEDIO AMBIENTE', 'INVMA', 18, 11, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_tipos`
+--
+
+CREATE TABLE `catalogo_tipos` (
+  `itemId` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  `grupo` varchar(45) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `catalogo_tipos`
+--
+
+INSERT INTO `catalogo_tipos` (`itemId`, `nombre`, `descripcion`, `grupo`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 'MINISTERIO', 'MINISTERIO', 'ENTIDADES', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'VICEMINISTERIO', 'VICEMINISTERIO', 'ENTIDADES', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'DIRECCION', 'DIRECCION', 'ENTIDADES', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'UNIDAD', 'UNIDAD', 'ENTIDADES', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'DESCENTRALIZADA', 'DESCENTRALIZADA', 'ENTIDADES', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'CORRIENTE', 'CORRIENTE', 'FINANCIERAS', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 'INVERSIÓN', 'INVERSIÓN', 'FINANCIERAS', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 'TRANSFERENCIA', 'TRANSFERENCIA', 'FINANCIERAS', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'NIVEL1', 'PRIMER NIVEL', 'SECTORES ECO', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'NIVEL2', 'SEGUNDO NIVEL', 'SECTORES ECO', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, 'NIVEL3', 'TERCER NIVEL', 'SECTORES ECO', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, 'DE LINEA', 'CONSULTORIA DE LINEA', 'CONSULTORES', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, 'POR PRODUCTO', 'CONSULTORIA POR PRODUCTO', 'CONSULTORES', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, 'EXTERNO', 'CONSULTORIA EXTERNA', 'CONSULTORES', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, 'ACTIVO', 'EN FUNCIONAMIENTO', 'ESTADOS', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, 'INACTIVO', 'SIN FUNCIONAMIENTO', 'ESTADOS', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, 'ELIMINADO', 'ELIMINACIÓN LÓGICA', 'ESTADOS', 0, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(18, 'TÉCNICO', 'RESPONSABLE DE LLENADO Y EDICIÓN DE FORMULARIOS', 'ROLES', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(19, 'SUPERVISOR', 'REVISIÓN DE FORM NIVEL UNIDAD', 'ROLES', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(20, 'TÉCNICO PLANIFICACIÓ', 'REVISIÓN DE FORM. EN PLANIFICACIÓN', 'ROLES', 0, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(21, 'APROBADOR', 'APRUEBA FORMULARIOS', 'ROLES', 0, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(22, 'RESPONSABLE PLANIFIC', 'CREA Y CIERRA PROCESOS', 'ROLES', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `certificaciones`
+--
+
+CREATE TABLE `certificaciones` (
+  `itemId` int(11) NOT NULL,
+  `general_id` int(11) DEFAULT NULL,
+  `referencia` varchar(200) DEFAULT NULL,
+  `fecha_solicitud` datetime DEFAULT NULL,
+  `fecha_elaboracion` datetime DEFAULT NULL,
+  `proceso_de` varchar(100) DEFAULT NULL,
+  `monto_poa` decimal(10,0) DEFAULT NULL,
+  `monto_solicitado` decimal(10,0) DEFAULT NULL,
+  `monto_saldo` decimal(10,0) DEFAULT NULL,
+  `proceso_descr` varchar(100) DEFAULT NULL,
+  `fuente_f_id` int(11) DEFAULT NULL,
+  `solicitado_por_id` int(11) DEFAULT NULL,
+  `autorizado_por_id` int(11) DEFAULT NULL,
+  `hoja_ruta` varchar(45) DEFAULT NULL,
+  `documentos_respaldo` varchar(45) DEFAULT NULL,
+  `tipo_actividad` int(11) DEFAULT NULL,
+  `partida_pres_id` int(11) DEFAULT NULL,
+  `resultado` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `certificacion_actividad`
+--
+
+CREATE TABLE `certificacion_actividad` (
+  `itemId` int(11) NOT NULL,
+  `certificación_id` int(11) DEFAULT NULL,
+  `actividad_id` int(11) DEFAULT NULL,
+  `accion_cp_id` int(11) DEFAULT NULL,
+  `accion_esp_id` int(11) DEFAULT NULL,
+  `operacion_id` int(11) DEFAULT NULL,
+  `categoria_prog_id` int(11) DEFAULT NULL,
+  `partida_pres_id` int(11) DEFAULT NULL,
+  `denominacion_partida` varchar(200) DEFAULT NULL,
+  `monto_actividad` decimal(10,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `monto_programado_bienesservicios`
+--
+
+CREATE TABLE `monto_programado_bienesservicios` (
+  `itemId` int(11) NOT NULL,
+  `bien_servicio_id` int(11) NOT NULL,
+  `fuente_f_id` int(11) NOT NULL,
+  `organismo_f_id` int(11) NOT NULL,
+  `costo_unitario` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `costo_referencial` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `unidad_medida` varchar(100) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `monto_programado_bienesservicios`
+--
+
+INSERT INTO `monto_programado_bienesservicios` (`itemId`, `bien_servicio_id`, `fuente_f_id`, `organismo_f_id`, `costo_unitario`, `costo_referencial`, `unidad_medida`, `cantidad`, `fecha_inicio`, `fecha_fin`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 1, 1, 1, 2.00, 46.00, 'mes', 23, '2019-01-01', '2019-12-31', 1, NULL, NULL, NULL),
+(2, 1, 1, 1, 23.00, 276.00, 'mes', 12, '2019-01-01', '2019-12-31', 1, NULL, NULL, NULL),
+(4, 3, 1, 1, 1.00, 4.00, '2', 4, '2019-01-01', '2019-12-31', 1, NULL, NULL, NULL),
+(5, 4, 1, 1, 450.00, 5400.00, 'MES', 12, '2019-01-01', '2019-12-31', 1, NULL, NULL, NULL),
+(6, 2, 1, 1, 50.00, 1700.00, '34', 34, '2019-01-01', '2019-12-31', NULL, 1, NULL, NULL),
+(7, 5, 1, 1, 3.00, 102.00, '2333', 34, '2019-01-01', '2019-12-31', 1, NULL, NULL, NULL),
+(8, 6, 12, 10, 343.00, 2058.00, 'mes', 6, '2019-01-01', '2019-12-31', 1, NULL, NULL, NULL),
+(9, 6, 14, 17, 3.00, 18.00, 'mes', 6, '2019-01-01', '2019-12-31', 1, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `monto_programado_tareas`
+--
+
+CREATE TABLE `monto_programado_tareas` (
+  `itemId` int(11) NOT NULL,
+  `tarea_id` int(11) NOT NULL,
+  `fuente_f_id` int(11) NOT NULL,
+  `organismo_f_id` int(11) NOT NULL,
+  `monto_funcionamiento` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `monto_inversion` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `monto_transferencia` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL,
+  `entidad_beneficiaria_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `monto_programado_tareas`
+--
+
+INSERT INTO `monto_programado_tareas` (`itemId`, `tarea_id`, `fuente_f_id`, `organismo_f_id`, `monto_funcionamiento`, `monto_inversion`, `monto_transferencia`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`, `entidad_beneficiaria_id`) VALUES
+(1, 1, 1, 1, 10.00, 0.00, 0.00, NULL, NULL, NULL, NULL, NULL),
+(2, 2, 1, 1, 0.00, 0.00, 0.00, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `permisos_usuarios_poa`
+--
+
+CREATE TABLE `permisos_usuarios_poa` (
+  `itemId` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tipo_estado_id` int(11) NOT NULL,
+  `unidad_id` int(11) NOT NULL,
+  `tipo_rol_id` int(11) NOT NULL,
+  `general_id` int(11) NOT NULL,
+  `crear` tinyint(1) NOT NULL,
+  `editar` tinyint(1) NOT NULL,
+  `ver` tinyint(1) NOT NULL,
+  `siguiente` tinyint(1) NOT NULL,
+  `devolver` tinyint(1) NOT NULL,
+  `eliminar` tinyint(1) NOT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `permisos_usuarios_poa`
+--
+
+INSERT INTO `permisos_usuarios_poa` (`itemId`, `user_id`, `tipo_estado_id`, `unidad_id`, `tipo_rol_id`, `general_id`, `crear`, `editar`, `ver`, `siguiente`, `devolver`, `eliminar`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 3, 1, 15, 22, 0, 0, 1, 1, 1, 0, 0, NULL, NULL, NULL, NULL),
+(2, 1, 1, 3, 22, 14, 1, 1, 1, 1, 1, 0, 0, NULL, NULL, NULL),
+(3, 1, 1, 13, 22, 15, 1, 1, 1, 1, 1, 0, 0, NULL, NULL, NULL),
+(4, 1, 1, 17, 18, 12, 1, 1, 1, 1, 1, 0, 0, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `resultados`
+--
+
+CREATE TABLE `resultados` (
+  `itemId` int(15) NOT NULL,
+  `tarea_id` int(15) DEFAULT NULL COMMENT 'item de tipo: A. Corto, A. Especifico,Operación o Tarea',
+  `logro1` int(15) NOT NULL DEFAULT '0' COMMENT 'valor logrado en el trimestre 1',
+  `logro2` int(15) NOT NULL DEFAULT '0' COMMENT 'valor logrado en el trimestre 2',
+  `logro3` int(15) NOT NULL DEFAULT '0' COMMENT 'valor logrado en el trimestre 3',
+  `logro4` int(15) NOT NULL DEFAULT '0' COMMENT 'valor logrado en el trimestre 4',
+  `anual` int(15) NOT NULL DEFAULT '0',
+  `porcentaje` int(3) NOT NULL DEFAULT '0',
+  `medio1` varchar(25) DEFAULT NULL COMMENT 'Nombre del documento que respalda lo realizado en el trimestre 1',
+  `medio2` varchar(25) DEFAULT NULL COMMENT 'Nombre del documento que respalda lo realizado en el trimestre 2',
+  `medio3` varchar(25) DEFAULT NULL COMMENT 'Nombre del documento que respalda lo realizado en el trimestre 3',
+  `medio4` varchar(25) DEFAULT NULL COMMENT 'Nombre del documento que respalda lo realizado en el trimestre 4',
+  `observaciones` varchar(25) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SEGUIMIENTOS: Resultados en el transcurso del año.';
+
+--
+-- Volcado de datos para la tabla `resultados`
+--
+
+INSERT INTO `resultados` (`itemId`, `tarea_id`, `logro1`, `logro2`, `logro3`, `logro4`, `anual`, `porcentaje`, `medio1`, `medio2`, `medio3`, `medio4`, `observaciones`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 2, 1, 2, 0, 0, 3, 75, '56', 'mfonfe', NULL, NULL, ' fffe', 1, 1, '2018-07-13 10:37:58', '2018-07-13 15:00:35'),
+(2, 4, 10, 0, 0, 0, 10, 100, 'cd', NULL, NULL, NULL, 'bcjkdbckj', 1, 1, '2018-07-13 10:54:23', '2018-07-13 10:56:07'),
+(3, 3, 1, 1, 0, 0, 2, 50, 'dedd dfd', 'cmkldmfkle', NULL, NULL, 'primer resultado, segundo', 1, 1, '2018-07-13 14:24:54', '2018-07-13 15:03:04'),
+(4, 1, 2, 1, 0, 0, 3, 30, 'nffn\'55 kn', 'gvhgm', NULL, NULL, 'klmdkle', 1, 1, '2018-07-13 14:26:14', '2018-07-17 13:36:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `s0_generales`
+--
+
+CREATE TABLE `s0_generales` (
+  `itemId` int(11) NOT NULL,
+  `entidad_id` int(11) NOT NULL,
+  `gestion_id` int(11) NOT NULL,
+  `fecha_elaboracion` date NOT NULL,
+  `persona_elaboracion_id` int(11) NOT NULL,
+  `persona_revision_id` int(11) DEFAULT NULL,
+  `persona_aprobacion_id` int(11) DEFAULT NULL,
+  `flujo_id` int(11) DEFAULT NULL,
+  `tipo_estado_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT NULL,
+  `dateUpdate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `s0_generales`
+--
+
+INSERT INTO `s0_generales` (`itemId`, `entidad_id`, `gestion_id`, `fecha_elaboracion`, `persona_elaboracion_id`, `persona_revision_id`, `persona_aprobacion_id`, `flujo_id`, `tipo_estado_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 3, 2019, '2018-06-13', 0, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL),
+(2, 1, 2019, '2018-06-15', 0, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL),
+(3, 2, 2019, '2018-06-15', 0, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL),
+(4, 4, 2019, '2018-06-15', 0, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `s1_articulacion_poa`
+--
+
+CREATE TABLE `s1_articulacion_poa` (
+  `itemId` int(11) NOT NULL,
+  `general_id` int(11) NOT NULL,
+  `cat_progra_id` int(11) NOT NULL,
+  `cod_aux_cont` int(11) NOT NULL,
+  `cod_cat_progra` varchar(25) NOT NULL,
+  `gestion` varchar(25) NOT NULL DEFAULT '2018',
+  `pilar_id` int(11) NOT NULL,
+  `meta_id` int(11) NOT NULL,
+  `resultado_id` int(11) NOT NULL,
+  `accion_id` int(11) NOT NULL,
+  `accion_mp_id` int(11) NOT NULL,
+  `accion_cp_id` int(11) NOT NULL,
+  `indicador_cp_id` int(11) NOT NULL,
+  `accion_es_id` int(11) NOT NULL,
+  `indicador_es_id` int(11) NOT NULL,
+  `descripcion` varchar(250) NOT NULL,
+  `monto_programado` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `tipo_estado_id` int(11) NOT NULL DEFAULT '0',
+  `ponderacion` int(11) NOT NULL DEFAULT '0',
+  `monto_actual` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `s1_articulacion_poa`
+--
+
+INSERT INTO `s1_articulacion_poa` (`itemId`, `general_id`, `cat_progra_id`, `cod_aux_cont`, `cod_cat_progra`, `gestion`, `pilar_id`, `meta_id`, `resultado_id`, `accion_id`, `accion_mp_id`, `accion_cp_id`, `indicador_cp_id`, `accion_es_id`, `indicador_es_id`, `descripcion`, `monto_programado`, `tipo_estado_id`, `ponderacion`, `monto_actual`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 2, 2, 1, '00 0000 099', '2018', 1, 1, 2, 4, 2, 3, 3, 1, 1, 'descripcion', 10.00, 1, 10, 0.00, 1, NULL, '2018-07-05 10:29:08', '2018-07-05 16:35:04'),
+(2, 2, 2, 2, '00 0000 099', '2018', 2, 3, 6, 21, 3, 5, 4, 2, 3, 'dekkddkkkdk', 0.00, 1, 0, 0.00, 1, NULL, '2018-07-05 12:02:03', '2018-07-05 16:35:07'),
+(3, 2, 1, 3, '00 0000 001', '2018', 3, 10, 29, 85, 3, 5, 4, 2, 3, 'vmflmvr cmemf', 0.00, 1, 20, 0.00, 1, NULL, '2018-07-05 13:57:51', '2018-07-05 17:06:06'),
+(4, 2, 1, 4, '00 0000 001', '2019', 2, 3, 6, 22, 2, 3, 3, 1, 2, 'deded c dkcnkjs', 0.00, 1, 0, 0.00, 1, NULL, '2018-07-11 11:16:22', '2018-07-11 11:16:22');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `s2_tareas`
+--
+
+CREATE TABLE `s2_tareas` (
+  `itemId` int(11) NOT NULL,
+  `general_id` int(11) NOT NULL,
+  `cat_progra_id` int(11) NOT NULL,
+  `cod_aux_cont` int(11) NOT NULL,
+  `cod_cat_progra_oper_tarea` varchar(25) NOT NULL,
+  `articulacion_poa_id` int(11) NOT NULL,
+  `gestion` varchar(50) NOT NULL DEFAULT '2018',
+  `descripcion` varchar(250) NOT NULL,
+  `monto_programado` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `detalle_indicador` varchar(200) NOT NULL,
+  `meta_gestion` int(11) NOT NULL,
+  `medio_verificacion` varchar(150) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `ponderacion` int(11) DEFAULT '0',
+  `ejecucion_t1` int(11) DEFAULT NULL,
+  `ejecucion_t2` int(11) DEFAULT NULL,
+  `ejecucion_t3` int(11) DEFAULT NULL,
+  `ejecucion_t4` int(11) DEFAULT NULL,
+  `tipo_estado_id` int(11) DEFAULT '1',
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ejecucion_t1_por` int(11) DEFAULT NULL,
+  `ejecucion_t2_por` int(11) DEFAULT NULL,
+  `ejecucion_t3_por` int(11) DEFAULT NULL,
+  `ejecucion_t4_por` int(11) DEFAULT NULL,
+  `monto_actual` decimal(15,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `s2_tareas`
+--
+
+INSERT INTO `s2_tareas` (`itemId`, `general_id`, `cat_progra_id`, `cod_aux_cont`, `cod_cat_progra_oper_tarea`, `articulacion_poa_id`, `gestion`, `descripcion`, `monto_programado`, `detalle_indicador`, `meta_gestion`, `medio_verificacion`, `fecha_inicio`, `fecha_fin`, `ponderacion`, `ejecucion_t1`, `ejecucion_t2`, `ejecucion_t3`, `ejecucion_t4`, `tipo_estado_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`, `ejecucion_t1_por`, `ejecucion_t2_por`, `ejecucion_t3_por`, `ejecucion_t4_por`, `monto_actual`) VALUES
+(1, 2, 2, 1, '00 0000 099 1 1', 1, '2018', 'descdd', 10.00, 'wewew', 20, 'msmxlksmclks', '2019-01-01', '2019-12-31', 10, 5, 5, 5, 5, 1, 1, 1, '2018-07-05 12:11:00', '2018-07-05 23:45:34', 25, 25, 25, 25, NULL),
+(2, 2, 1, 1, '00 0000 001 3', 3, '2018', 'desallorro', 0.00, 'jsndjsnds', 10, 'cndncdjn', '2019-01-01', '2019-12-31', 20, 2, 2, 2, 4, 1, 1, NULL, '2018-07-05 17:06:06', '2018-07-05 17:06:06', 20, 20, 20, 40, NULL),
+(3, 2, 2, 1, '', 2, '2018', 'prueba 3', 0.00, 'dtrdtrdtr', 10, 'sresresr', '2019-01-01', '2019-12-31', 30, 2, 2, 4, 2, 1, 1, 1, '2018-07-05 23:08:18', '2018-07-05 23:32:37', 20, 20, 40, 20, NULL),
+(4, 2, 1, 2, '', 3, '2019', 'nuva gestion', 0.00, 'gestion 2019', 20, 'dlkenkle  jfnjenf', '2019-01-01', '2019-12-31', 30, 10, 5, 5, 0, 1, 1, NULL, '2018-07-11 11:03:34', '2018-07-11 11:03:34', 50, 25, 25, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `s3_rrhh_planta_eventual`
+--
+
+CREATE TABLE `s3_rrhh_planta_eventual` (
+  `itemId` int(11) NOT NULL,
+  `general_id` int(11) NOT NULL,
+  `cat_progra_id` int(11) NOT NULL,
+  `cod_aux_cont` int(11) NOT NULL,
+  `tipo_vinculacion` varchar(50) NOT NULL COMMENT 'tipo de vinculacion:Corto,Especifico,Operacion,Tarea',
+  `cod_id_seleccion` int(11) DEFAULT NULL COMMENT 'id de la vinculacion: A.Corto,AEspecifico,Operacion,Tarea',
+  `cod_seleccion` varchar(25) NOT NULL COMMENT 'codigo de la vinculacion escogida',
+  `gestion` varchar(25) NOT NULL DEFAULT '2018',
+  `partida_pres_id` int(11) DEFAULT NULL,
+  `denominacion_puesto` varchar(50) NOT NULL,
+  `profesion_oficio` varchar(50) DEFAULT NULL,
+  `empleados_existentes` int(11) NOT NULL,
+  `empleados_requeridos` int(11) NOT NULL,
+  `escala_salarial` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `tiempo_destinado_desde` date NOT NULL,
+  `tiempo_destinado_hasta` date NOT NULL,
+  `tiempo_destinado_meses` int(11) NOT NULL,
+  `monto_funcionamiento` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `fuente_f_id` int(11) NOT NULL,
+  `organismo_f_id` int(11) NOT NULL,
+  `observaciones` varchar(50) DEFAULT NULL,
+  `tipo_estado_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `accion_cp_id` int(11) DEFAULT NULL,
+  `accion_es_id` int(11) DEFAULT NULL,
+  `articulacion_poa_id` int(11) DEFAULT NULL,
+  `tarea_id` int(11) DEFAULT NULL,
+  `monto_transferencia` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `monto_inversion` decimal(15,2) NOT NULL DEFAULT '0.00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `s3_rrhh_planta_eventual`
+--
+
+INSERT INTO `s3_rrhh_planta_eventual` (`itemId`, `general_id`, `cat_progra_id`, `cod_aux_cont`, `tipo_vinculacion`, `cod_id_seleccion`, `cod_seleccion`, `gestion`, `partida_pres_id`, `denominacion_puesto`, `profesion_oficio`, `empleados_existentes`, `empleados_requeridos`, `escala_salarial`, `tiempo_destinado_desde`, `tiempo_destinado_hasta`, `tiempo_destinado_meses`, `monto_funcionamiento`, `fuente_f_id`, `organismo_f_id`, `observaciones`, `tipo_estado_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`, `accion_cp_id`, `accion_es_id`, `articulacion_poa_id`, `tarea_id`, `monto_transferencia`, `monto_inversion`) VALUES
+(1, 2, 2, 1, 'Operacion', 2, '2', '2019', 11200, '12', 'ghfhgvhggb', 1, 0, 10355.00, '2019-01-01', '2019-12-31', 12, 124260.00, 11, 10, 'sdsssdsd', 1, 1, 1, '2018-07-05 12:19:12', '2018-07-18 11:06:16', NULL, NULL, NULL, NULL, 0.00, 0.00),
+(2, 2, 2, 2, 'Tarea', 1, '1 1', '2019', 11100, '7', 'ghffhg', 1, 0, 15456.00, '2019-01-01', '2019-12-31', 12, 185472.00, 1, 9, 'cgfhhhgghg', 1, 1, 1, '2018-07-05 12:20:56', '2018-07-18 11:05:49', NULL, NULL, NULL, NULL, 0.00, 0.00),
+(3, 1, 4, 1, 'Especifico', 4, '11 0000 002', '2018', 14, '12', 'kfmrlkmf', 1, 0, 10355.00, '2019-01-01', '2019-12-31', 12, 124260.00, 1, 1, 'ndad', 1, 1, NULL, '2018-07-09 02:56:06', '2018-07-09 02:56:06', NULL, NULL, NULL, NULL, 0.00, 0.00);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `s4_servicios_consultorias`
+--
+
+CREATE TABLE `s4_servicios_consultorias` (
+  `itemId` int(11) NOT NULL,
+  `general_id` int(11) NOT NULL,
+  `cat_progra_id` int(11) NOT NULL,
+  `cod_aux_cont` int(11) NOT NULL,
+  `tarea_cod` varchar(25) NOT NULL,
+  `tarea_id` int(11) DEFAULT NULL,
+  `gestion` varchar(50) DEFAULT '2018',
+  `denominacion_consultoria` varchar(50) NOT NULL,
+  `tipo_contra_consul_id` varchar(50) NOT NULL COMMENT 'valores: Consultoria de Linea, Consultoria por Producto',
+  `modalidad_consul_id` varchar(50) NOT NULL,
+  `tipo_consultoria` varchar(50) NOT NULL COMMENT 'tipo (Linea:Consultoria de Linea, Producto: consultoria por Producto,Externo:Auditorias Externas)',
+  `mes_progra_publica_convo` date NOT NULL,
+  `mes_finalizacion` date NOT NULL,
+  `numero_meses` int(11) NOT NULL,
+  `precio_mensual_referencial` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `precio_total_referencial` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `tipo_monto` varchar(50) NOT NULL DEFAULT 'funcionamiento',
+  `fuente_f_id` int(11) NOT NULL,
+  `organismo_f_id` int(11) NOT NULL,
+  `partida_pres_id` int(11) DEFAULT NULL,
+  `tipo_estado_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `s4_servicios_consultorias`
+--
+
+INSERT INTO `s4_servicios_consultorias` (`itemId`, `general_id`, `cat_progra_id`, `cod_aux_cont`, `tarea_cod`, `tarea_id`, `gestion`, `denominacion_consultoria`, `tipo_contra_consul_id`, `modalidad_consul_id`, `tipo_consultoria`, `mes_progra_publica_convo`, `mes_finalizacion`, `numero_meses`, `precio_mensual_referencial`, `precio_total_referencial`, `tipo_monto`, `fuente_f_id`, `organismo_f_id`, `partida_pres_id`, `tipo_estado_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 2, 2, 1, '1.1', 1, '2019', 'dsfs,fldffm', 'Consultor de Linea', 'mdmdo', 'Producto', '2019-01-01', '2019-12-31', 12, 454.50, 5454.00, 'funcionamiento', 1, 1, 11321, 1, 1, 1, '2018-07-05 12:28:18', '2018-07-18 11:01:46'),
+(2, 2, 2, 2, '2.1', 3, '2019', 'mkldmdlke', 'Consultor de Linea', ' nkjnjkn', 'Producto', '2019-01-01', '2019-12-31', 12, 1851.83, 22222.00, 'inversion', 1, 1, 11322, 1, 1, 1, '2018-07-06 09:13:56', '2018-07-18 11:01:25');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `s5_bienes_servicios`
+--
+
+CREATE TABLE `s5_bienes_servicios` (
+  `itemId` int(11) NOT NULL,
+  `general_id` int(11) NOT NULL,
+  `cat_progra_id` int(11) NOT NULL,
+  `cod_aux_cont` int(11) NOT NULL,
+  `cod_seleccion` varchar(25) NOT NULL,
+  `cod_id_seleccion` varchar(25) NOT NULL,
+  `gestion` varchar(25) NOT NULL DEFAULT '2018',
+  `tipo_vinculacion` varchar(50) NOT NULL,
+  `denominacion_bien_servicio` varchar(50) NOT NULL,
+  `tipo_contra_bienserv_id` varchar(50) NOT NULL,
+  `modalidad_bienserv_id` varchar(50) NOT NULL,
+  `partida_pres_id` int(11) NOT NULL,
+  `precio_referencial_total` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `tipo_monto` varchar(50) NOT NULL DEFAULT 'inversion',
+  `tipo_estado_id` int(11) DEFAULT NULL,
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `s5_bienes_servicios`
+--
+
+INSERT INTO `s5_bienes_servicios` (`itemId`, `general_id`, `cat_progra_id`, `cod_aux_cont`, `cod_seleccion`, `cod_id_seleccion`, `gestion`, `tipo_vinculacion`, `denominacion_bien_servicio`, `tipo_contra_bienserv_id`, `modalidad_bienserv_id`, `partida_pres_id`, `precio_referencial_total`, `tipo_monto`, `tipo_estado_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 2, 2, 1, '2', '2', '2018', 'Operacion', 'agua', 'tampoco', 'no se ', 1, 322.00, 'inversion', 1, 1, NULL, '2018-07-05 12:03:25', '2018-07-11 11:42:51'),
+(2, 2, 2, 1, '2.1', '3', '2019', 'Tarea', 'vgv', 'ctct', 'vyfty', 6, 1700.00, 'funcionamiento', 1, 1, 1, '2018-07-06 08:36:25', '2018-07-11 11:43:23'),
+(3, 2, 1, 3, '4', '4', '2019', 'Operacion', 'demoninado', 'CONTRATACION', 'compras menores', 12, 4.00, 'inversion', 1, 1, NULL, '2018-07-11 11:40:09', '2018-07-11 11:40:09'),
+(4, 2, 1, 4, '3.2', '4', '2019', 'Tarea', 'DDD', '3433', 'DD', 1, 5400.00, 'inversion', 1, 1, NULL, '2018-07-11 11:40:55', '2018-07-11 11:40:55'),
+(5, 2, 1, 5, '00 0000 001', '1', '2019', 'Especifico', 'CMLKDND', 'CKDNCKS', ' CKDNCK DKJENEJK', 14, 102.00, 'funcionamiento', 1, 1, NULL, '2018-07-11 11:45:27', '2018-07-11 11:45:27'),
+(6, 2, 1, 6, '3.1', '2', '2019', 'Tarea', 'bien o servicio', 'material y suministros', 'compras menores', 11320, 2076.00, 'inversion', 1, 1, NULL, '2018-07-18 11:09:20', '2018-07-18 11:09:20');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `s6_transferencias`
+--
+
+CREATE TABLE `s6_transferencias` (
+  `itemId` int(11) NOT NULL,
+  `general_id` int(11) NOT NULL DEFAULT '0',
+  `cat_progra_id` int(11) NOT NULL DEFAULT '0',
+  `partida_id` int(11) NOT NULL DEFAULT '0',
+  `tarea_id` int(11) NOT NULL DEFAULT '0',
+  `cod_aux_cont` int(11) NOT NULL DEFAULT '0',
+  `gestion` varchar(50) NOT NULL DEFAULT '2018',
+  `beneficiario_id` varchar(50) DEFAULT NULL,
+  `fuente_f_id` int(11) NOT NULL DEFAULT '0',
+  `organismo_f_id` int(11) NOT NULL DEFAULT '0',
+  `fecha_programada` date DEFAULT NULL,
+  `monto_programado` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `observaciones` varchar(50) DEFAULT NULL,
+  `tipo_estado_id` int(1) NOT NULL DEFAULT '0',
+  `userCreate` int(11) DEFAULT NULL,
+  `userUpdate` int(11) DEFAULT NULL,
+  `dateCreate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateUpdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `s6_transferencias`
+--
+
+INSERT INTO `s6_transferencias` (`itemId`, `general_id`, `cat_progra_id`, `partida_id`, `tarea_id`, `cod_aux_cont`, `gestion`, `beneficiario_id`, `fuente_f_id`, `organismo_f_id`, `fecha_programada`, `monto_programado`, `observaciones`, `tipo_estado_id`, `userCreate`, `userUpdate`, `dateCreate`, `dateUpdate`) VALUES
+(1, 2, 1, 71630, 2, 1, '2019', 'vghvhgvgh', 15, 17, '2019-01-01', 3444.00, 'recambio de tarea', 1, 1, 1, '2018-07-06 14:22:20', '2018-07-18 11:17:03');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `catalogo_acciones`
+--
+ALTER TABLE `catalogo_acciones`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `acciones_unique` (`nombre`,`resultado_id`),
+  ADD KEY `fk_accion_idx` (`resultado_id`);
+
+--
+-- Indices de la tabla `catalogo_acciones_cp`
+--
+ALTER TABLE `catalogo_acciones_cp`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_accion_mp` (`nombre`,`accion_mp_id`),
+  ADD KEY `fk_accion_cp_accion_mp_idx` (`accion_mp_id`),
+  ADD KEY `fk_accion_cp_gestion_ini_idx` (`gestion_ini_id`),
+  ADD KEY `fk_accion_cp_gestion_fin_idx` (`gestion_fin_id`);
+
+--
+-- Indices de la tabla `catalogo_acciones_es`
+--
+ALTER TABLE `catalogo_acciones_es`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`,`accion_cp_id`),
+  ADD KEY `fk_accion_cp_idx` (`accion_cp_id`),
+  ADD KEY `fk_accion_es_gestion_idx` (`gestion_id`);
+
+--
+-- Indices de la tabla `catalogo_acciones_mp`
+--
+ALTER TABLE `catalogo_acciones_mp`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`,`pei_id`),
+  ADD KEY `fk_pei_idx` (`pei_id`);
+
+--
+-- Indices de la tabla `catalogo_ambitos_tem`
+--
+ALTER TABLE `catalogo_ambitos_tem`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_bienes_servicios`
+--
+ALTER TABLE `catalogo_bienes_servicios`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_categorias_prog`
+--
+ALTER TABLE `catalogo_categorias_prog`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_convenios`
+--
+ALTER TABLE `catalogo_convenios`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  ADD KEY `f_fuente_f_idx` (`fuente_f_id`);
+
+--
+-- Indices de la tabla `catalogo_entidades`
+--
+ALTER TABLE `catalogo_entidades`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  ADD KEY `fk_entidad_idx` (`dependencia_id`),
+  ADD KEY `fk_ent_tipos_idx` (`tipo_id`);
+
+--
+-- Indices de la tabla `catalogo_escalas_salariales`
+--
+ALTER TABLE `catalogo_escalas_salariales`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_finalidades_funciones`
+--
+ALTER TABLE `catalogo_finalidades_funciones`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_flujos`
+--
+ALTER TABLE `catalogo_flujos`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `catalogo_fuentes_f`
+--
+ALTER TABLE `catalogo_fuentes_f`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_gestiones`
+--
+ALTER TABLE `catalogo_gestiones`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_indicadores_cp`
+--
+ALTER TABLE `catalogo_indicadores_cp`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`,`accion_cp_id`),
+  ADD KEY `fk_indicador_cp_accion_cp_idx` (`accion_cp_id`);
+
+--
+-- Indices de la tabla `catalogo_indicadores_es`
+--
+ALTER TABLE `catalogo_indicadores_es`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`,`accion_es_id`),
+  ADD KEY `fk_indicador_es_accion_es_idx` (`accion_es_id`);
+
+--
+-- Indices de la tabla `catalogo_metas`
+--
+ALTER TABLE `catalogo_metas`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `metas_unique` (`nombre`,`pilar_id`),
+  ADD KEY `fk_pilar_idx` (`pilar_id`);
+
+--
+-- Indices de la tabla `catalogo_objetivos_es`
+--
+ALTER TABLE `catalogo_objetivos_es`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  ADD KEY `fk_objetivo_ges_idx` (`objetivo_ges_id`);
+
+--
+-- Indices de la tabla `catalogo_objetivos_ges`
+--
+ALTER TABLE `catalogo_objetivos_ges`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  ADD KEY `fk_gestion_idx` (`gestion_id`);
+
+--
+-- Indices de la tabla `catalogo_organismos_f`
+--
+ALTER TABLE `catalogo_organismos_f`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_partidas_pres`
+--
+ALTER TABLE `catalogo_partidas_pres`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  ADD KEY `fk_partida_pres_idx` (`partida_pres_id`);
+
+--
+-- Indices de la tabla `catalogo_pdes`
+--
+ALTER TABLE `catalogo_pdes`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_pei`
+--
+ALTER TABLE `catalogo_pei`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  ADD KEY `fk_gestion_ini_idx` (`gestion_ini_id`),
+  ADD KEY `fk_gestion_fin_idx` (`gestion_fin_id`);
+
+--
+-- Indices de la tabla `catalogo_pilares`
+--
+ALTER TABLE `catalogo_pilares`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`,`pdes_id`),
+  ADD KEY `fk_pdes_idx` (`pdes_id`);
+
+--
+-- Indices de la tabla `catalogo_programas`
+--
+ALTER TABLE `catalogo_programas`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `catalogo_resultados`
+--
+ALTER TABLE `catalogo_resultados`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `resultados_unique` (`nombre`,`meta_id`),
+  ADD KEY `fk_meta_idx` (`meta_id`);
+
+--
+-- Indices de la tabla `catalogo_sectores_eco`
+--
+ALTER TABLE `catalogo_sectores_eco`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`,`sector_economico_id`);
+
+--
+-- Indices de la tabla `catalogo_tipos`
+--
+ALTER TABLE `catalogo_tipos`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`);
+
+--
+-- Indices de la tabla `certificaciones`
+--
+ALTER TABLE `certificaciones`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `certificacion_actividad`
+--
+ALTER TABLE `certificacion_actividad`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `monto_programado_bienesservicios`
+--
+ALTER TABLE `monto_programado_bienesservicios`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `monto_programado_tareas`
+--
+ALTER TABLE `monto_programado_tareas`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `permisos_usuarios_poa`
+--
+ALTER TABLE `permisos_usuarios_poa`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `resultados`
+--
+ALTER TABLE `resultados`
+  ADD PRIMARY KEY (`itemId`),
+  ADD UNIQUE KEY `Índice 2` (`tarea_id`);
+
+--
+-- Indices de la tabla `s0_generales`
+--
+ALTER TABLE `s0_generales`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `s1_articulacion_poa`
+--
+ALTER TABLE `s1_articulacion_poa`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `s2_tareas`
+--
+ALTER TABLE `s2_tareas`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `s3_rrhh_planta_eventual`
+--
+ALTER TABLE `s3_rrhh_planta_eventual`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `s4_servicios_consultorias`
+--
+ALTER TABLE `s4_servicios_consultorias`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `s5_bienes_servicios`
+--
+ALTER TABLE `s5_bienes_servicios`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- Indices de la tabla `s6_transferencias`
+--
+ALTER TABLE `s6_transferencias`
+  ADD PRIMARY KEY (`itemId`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `catalogo_acciones`
+--
+ALTER TABLE `catalogo_acciones`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_acciones_cp`
+--
+ALTER TABLE `catalogo_acciones_cp`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_acciones_es`
+--
+ALTER TABLE `catalogo_acciones_es`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_acciones_mp`
+--
+ALTER TABLE `catalogo_acciones_mp`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_ambitos_tem`
+--
+ALTER TABLE `catalogo_ambitos_tem`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_bienes_servicios`
+--
+ALTER TABLE `catalogo_bienes_servicios`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_categorias_prog`
+--
+ALTER TABLE `catalogo_categorias_prog`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=373;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_convenios`
+--
+ALTER TABLE `catalogo_convenios`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_entidades`
+--
+ALTER TABLE `catalogo_entidades`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_escalas_salariales`
+--
+ALTER TABLE `catalogo_escalas_salariales`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_finalidades_funciones`
+--
+ALTER TABLE `catalogo_finalidades_funciones`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_flujos`
+--
+ALTER TABLE `catalogo_flujos`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_fuentes_f`
+--
+ALTER TABLE `catalogo_fuentes_f`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_gestiones`
+--
+ALTER TABLE `catalogo_gestiones`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_indicadores_cp`
+--
+ALTER TABLE `catalogo_indicadores_cp`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_indicadores_es`
+--
+ALTER TABLE `catalogo_indicadores_es`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_metas`
+--
+ALTER TABLE `catalogo_metas`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_objetivos_es`
+--
+ALTER TABLE `catalogo_objetivos_es`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_objetivos_ges`
+--
+ALTER TABLE `catalogo_objetivos_ges`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_organismos_f`
+--
+ALTER TABLE `catalogo_organismos_f`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_partidas_pres`
+--
+ALTER TABLE `catalogo_partidas_pres`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=411;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_pdes`
+--
+ALTER TABLE `catalogo_pdes`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_pei`
+--
+ALTER TABLE `catalogo_pei`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_pilares`
+--
+ALTER TABLE `catalogo_pilares`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_programas`
+--
+ALTER TABLE `catalogo_programas`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_resultados`
+--
+ALTER TABLE `catalogo_resultados`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_sectores_eco`
+--
+ALTER TABLE `catalogo_sectores_eco`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_tipos`
+--
+ALTER TABLE `catalogo_tipos`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT de la tabla `monto_programado_bienesservicios`
+--
+ALTER TABLE `monto_programado_bienesservicios`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `monto_programado_tareas`
+--
+ALTER TABLE `monto_programado_tareas`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `permisos_usuarios_poa`
+--
+ALTER TABLE `permisos_usuarios_poa`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `resultados`
+--
+ALTER TABLE `resultados`
+  MODIFY `itemId` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `s0_generales`
+--
+ALTER TABLE `s0_generales`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `s1_articulacion_poa`
+--
+ALTER TABLE `s1_articulacion_poa`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `s2_tareas`
+--
+ALTER TABLE `s2_tareas`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `s3_rrhh_planta_eventual`
+--
+ALTER TABLE `s3_rrhh_planta_eventual`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `s4_servicios_consultorias`
+--
+ALTER TABLE `s4_servicios_consultorias`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `s5_bienes_servicios`
+--
+ALTER TABLE `s5_bienes_servicios`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `s6_transferencias`
+--
+ALTER TABLE `s6_transferencias`
+  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `catalogo_acciones`
+--
+ALTER TABLE `catalogo_acciones`
+  ADD CONSTRAINT `fk_accion` FOREIGN KEY (`resultado_id`) REFERENCES `catalogo_resultados` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_acciones_cp`
+--
+ALTER TABLE `catalogo_acciones_cp`
+  ADD CONSTRAINT `fk_accion_cp_accion_mp` FOREIGN KEY (`accion_mp_id`) REFERENCES `catalogo_acciones_mp` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_accion_cp_gestion_fin` FOREIGN KEY (`gestion_fin_id`) REFERENCES `catalogo_gestiones` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_accion_cp_gestion_ini` FOREIGN KEY (`gestion_ini_id`) REFERENCES `catalogo_gestiones` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_acciones_es`
+--
+ALTER TABLE `catalogo_acciones_es`
+  ADD CONSTRAINT `fk_accion_cp` FOREIGN KEY (`accion_cp_id`) REFERENCES `catalogo_acciones_cp` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_accion_es_gestion` FOREIGN KEY (`gestion_id`) REFERENCES `catalogo_gestiones` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_acciones_mp`
+--
+ALTER TABLE `catalogo_acciones_mp`
+  ADD CONSTRAINT `fk_pei` FOREIGN KEY (`pei_id`) REFERENCES `catalogo_pei` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_convenios`
+--
+ALTER TABLE `catalogo_convenios`
+  ADD CONSTRAINT `f_fuente_f` FOREIGN KEY (`fuente_f_id`) REFERENCES `catalogo_fuentes_f` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_entidades`
+--
+ALTER TABLE `catalogo_entidades`
+  ADD CONSTRAINT `fk_ent_tipos` FOREIGN KEY (`tipo_id`) REFERENCES `catalogo_tipos` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_entidad` FOREIGN KEY (`dependencia_id`) REFERENCES `catalogo_entidades` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_indicadores_cp`
+--
+ALTER TABLE `catalogo_indicadores_cp`
+  ADD CONSTRAINT `fk_indicador_cp_accion_cp` FOREIGN KEY (`accion_cp_id`) REFERENCES `catalogo_acciones_cp` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_indicadores_es`
+--
+ALTER TABLE `catalogo_indicadores_es`
+  ADD CONSTRAINT `fk_indicador_es_accion_es` FOREIGN KEY (`accion_es_id`) REFERENCES `catalogo_acciones_es` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_metas`
+--
+ALTER TABLE `catalogo_metas`
+  ADD CONSTRAINT `fk_pilar` FOREIGN KEY (`pilar_id`) REFERENCES `catalogo_pilares` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_objetivos_es`
+--
+ALTER TABLE `catalogo_objetivos_es`
+  ADD CONSTRAINT `fk_objetivo_ges` FOREIGN KEY (`objetivo_ges_id`) REFERENCES `catalogo_objetivos_ges` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_objetivos_ges`
+--
+ALTER TABLE `catalogo_objetivos_ges`
+  ADD CONSTRAINT `fk_objetivos_gestion` FOREIGN KEY (`gestion_id`) REFERENCES `catalogo_gestiones` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_partidas_pres`
+--
+ALTER TABLE `catalogo_partidas_pres`
+  ADD CONSTRAINT `fk_partida_pres` FOREIGN KEY (`partida_pres_id`) REFERENCES `catalogo_partidas_pres` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_pei`
+--
+ALTER TABLE `catalogo_pei`
+  ADD CONSTRAINT `fk_gestion_fin` FOREIGN KEY (`gestion_fin_id`) REFERENCES `catalogo_gestiones` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_gestion_ini` FOREIGN KEY (`gestion_ini_id`) REFERENCES `catalogo_gestiones` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_pilares`
+--
+ALTER TABLE `catalogo_pilares`
+  ADD CONSTRAINT `fk_pdes` FOREIGN KEY (`pdes_id`) REFERENCES `catalogo_pdes` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `catalogo_resultados`
+--
+ALTER TABLE `catalogo_resultados`
+  ADD CONSTRAINT `fk_meta` FOREIGN KEY (`meta_id`) REFERENCES `catalogo_metas` (`itemId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

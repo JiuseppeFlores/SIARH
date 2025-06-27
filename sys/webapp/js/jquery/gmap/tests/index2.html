@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+ </head>
+
+ <body>
+  
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.cookie.js"></script>
+<script type="text/javascript">
+function success(position){
+	alert("entro");
+	var s = document.querySelector('#status');
+	if (s.className == 'success') {
+		return;
+	}
+	s.innerHTML = "Encontrado!";
+	s.className = 'Success';
+	var mapcanvas = document.createElement('div');
+	mapcanvas.id = 'mapcanvas';
+	mapcanvas.style.height = '100%';
+	mapcanvas.style.width = '100%';
+	document.querySelector('#map').appendChild(mapcanvas);
+	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	var myOptions = {
+		zoom: 15,
+		center: latlng,
+		mapTypeControl: false,
+		navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+	var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+	var marker = new google.maps.Marker({
+				position: latlng, 
+				map: map, 
+				title:"Estas aqui!"
+				});
+	$.cookie("miLatitud", position.coords.latitude); // Grabando la latitud
+	$.cookie("miLongitud", position.coords.longitude); // Grabando la longitud
+}
+
+function error(msg){
+	var s = document.querySelector('#status');
+	s.innerHTML = typeof msg == 'string' ? msg : "fallo";
+	s.className = 'Fallo';
+}
+
+if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(success, error);
+}else{
+	error('No soportado'); 
+}
+
+$(document).ready(function(){
+		$("#check").click(function(){
+			var lat = $.cookie("miLatitud");
+			var lon = $.cookie("miLongitud");
+			alert('Latitud: '+lat);
+			alert('Longitud: '+lon);
+			var url="http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon+"&sensor=false";
+			alert('Google Map API: '+url);
+
+		});
+});
+</script>
+
+<input type='button' id='check' value='Check-out'/>
+<div id="status">Cargando………….</div>
+<div id="map"></div>
+
+ </body>
+</html>

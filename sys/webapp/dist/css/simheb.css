@@ -1,0 +1,11 @@
+.tooltip-variable {
+    font-size: 15px;
+}
+
+.tooltip-value {
+    font-size: 14px;
+}
+
+.highcharts-tooltip-container {
+    z-index: 9998 !important;
+}

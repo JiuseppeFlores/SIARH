@@ -1,0 +1,10 @@
+.idea
+.well-known
+.htaccess
+webapp/test
+webapp/inc/config.php
+analisis
+/webapp/inc/config.php
+.DS_Store
+/vendor
+/vendor2
