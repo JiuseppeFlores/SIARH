@@ -6,3 +6,4 @@
 /logs
 /sys/vendor
 /sys/vendor.zip
+/sys/webapp/inc/*
