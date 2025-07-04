@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-            <!-- <div class="form-group m-form__group row">
+            <div class="form-group m-form__group row">
                 <div class="col-lg-12">
                     <label>Archivo</label>
                     <div class="custom-file">
@@ -100,12 +100,12 @@
                         <label class="custom-file-label" for="archivo_adjunto">Seleccione un archivo</label>
                     </div>
                     {if $type == 'update'}
-                    <p style="background-color: #e5e5e5; padding: 7px;">
-                        <strong>Archivo actual:</strong>&nbsp;{$item.adjunto_nombre}
+                    <p style="background-color: #e5e5e5; padding: 8px 16px;">
+                        Archivo actual:&nbsp;{$item.adjunto_nombre}
                     </p>
                     {/if}
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
