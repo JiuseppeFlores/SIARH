@@ -140,12 +140,20 @@ $(document).on("shown.bs.modal", ".modal", function () {
   const dialogHeight = $dialog.outerHeight();
 
   const left = (windowWidth - dialogWidth) / 2;
-  const top = (windowHeight - dialogHeight) / 2;
-
+  var altura_modal_posicion = (windowHeight - dialogHeight) / 2;
+  console.log("Centrando modal en la pantalla", altura_modal_posicion);
+  if (altura_modal_posicion < 0) {
+    // Asegurar que el modal no se salga de la pantalla
+    console.log(
+      "El modal está fuera de la pantalla, ajustando altura_modal_posicion"
+    );
+    altura_modal_posicion = -1 * ((windowHeight - dialogHeight) / 2);
+    console.log("Nuevo altura_modal_posicion ajustado:", altura_modal_posicion);
+  }
   $dialog.css({
     position: "absolute",
     margin: 0,
-    top: top + "px",
+    top: altura_modal_posicion + "px",
     left: left + "px",
   });
 

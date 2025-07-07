@@ -8,9 +8,9 @@
         <ul class="m-portlet__nav">
             <li class="m-portlet__nav-item">
 
-                {* <button type="button" class="btn btn-secondary btn-block-custom"
+                <button type="button" class="btn btn-secondary btn-block-custom"
                     onclick="javascript:RecuperarDatosQvsT();"><span><i
-                            class="fa fa-chart-area"></i><span>&nbsp;Graficar Q vs T</button>&nbsp; *}
+                            class="fa fa-chart-area"></i><span>&nbsp;Graficar Q vs T</button>&nbsp;
 
                 <button type="button" class="btn btn-primary" id="btn_nuevo_cantidad_submit"
                     onclick="javascript:get_form_cantidad('', 'new');"><span><i class="fa fa-plus"></i><span>&nbsp;Nuevo

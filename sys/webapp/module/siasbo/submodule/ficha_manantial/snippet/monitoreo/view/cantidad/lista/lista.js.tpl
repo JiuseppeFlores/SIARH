@@ -192,16 +192,27 @@
                         orderable: false,
                         render: function(data, type, full, meta) {
                             // var boton = '<span class="dropdown"><a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-ellipsis-h m--font-brand"></i></a><div class="dropdown-menu dropdown-menu-left">{/literal}
+                                
                                 {if $privFace.editar == 1}
+                                    
                                     {literal}' + item_opcion_editar_cantidad(data) + '
+                                        
                                     {/literal}
+                                    
                                 {/if}
+                                
                                 {literal}
+                                    
                                 {/literal}
+                                
                                 {if $privFace.eliminar == 1}
+                                    
                                     {literal}' + item_opcion_eliminar_cantidad(data) + '
+                                        
                                     {/literal}
+                                    
                                 {/if}
+                                
                                 {literal}</div></span>';
                                     // return boton;
 
@@ -217,27 +228,42 @@
 
                                     if (obj_permiso[0].editar == 1) { //permisoedit
                                         botonedit = '{/literal}
+                                            
                                             {if $privFace.editar == 1}
+                                                
                                                 {literal}' + item_opcion_editar_cantidad(data) + '
+                                                    
                                                 {/literal}
+                                                
                                             {/if}
+                                            
                                             {literal}';
                                             }
 
                                             if (obj_permiso[0].eliminar == 1) { //permisodelete
                                                 botondelete = '{/literal}
+                                                    
                                                     {if $privFace.eliminar == 1}
+                                                        
                                                         {literal}' + item_opcion_eliminar_cantidad(data) + '
+                                                            
                                                         {/literal}
+                                                        
                                                     {/if}
+                                                    
                                                     {literal}';
                                                     }
 
                                                     //botonreadonly = '{/literal}
+                                                        
                                                         {if $privFace.eliminar == 1}
+                                                            
                                                             {literal}' + item_opcion_sololeer(data) + '
+                                                                
                                                             {/literal}
+                                                            
                                                         {/if}
+                                                        
                                                         {literal}';
                                                             //table_list.column(0).visible(false); //Solo funciona con false
 
