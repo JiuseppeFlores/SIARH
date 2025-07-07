@@ -237,6 +237,8 @@ class SSP {
 		);
 		$recordsTotal = $resTotalLength[0][0];
 
+// 		echo "<br>1<br>";
+// var_dump($data);
 
 		/*
 		 * Output

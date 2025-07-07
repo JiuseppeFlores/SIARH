@@ -27,13 +27,20 @@ $grilla_tablas_adicionales = array();
  */
 
 //-------------------------------------------------------------
-$field_name = "itemId";
-$grilla_items[]=array(
-    "campo" => $field_name
-,   "field"=> $field_name
-,   "label"=> "Número"
-,   "activo"=> 1
-);
+// $field_name = "itemId";
+// $grilla_items[]=array(
+//     "campo" => $field_name
+// ,   "field"=> $field_name
+// ,   "label"=> "Id"
+// ,   "activo"=> 1
+// );
+// $field_name = "numero";
+// $grilla_items[]=array(
+//     "campo" => "itemId"
+// ,   "field"=> $field_name
+// ,   "label"=> "Número"
+// ,   "activo"=> 1
+// );
 //-------------------------------------------------------------
 $field_name = "estado";
 $grilla_items[]=array(
@@ -120,6 +127,22 @@ $grilla_items[]=array(
         ,   "activo"=> $field_activo
         );
 
+//-------------------------------------------------------------
+$field_name = "dateCreate";
+$grilla_items[]=array(
+    "campo" => $field_name
+,   "field"=> $field_name
+,   "label"=> "Fecha de Creación del Registro"
+,   "activo"=> 1
+);
+
+$field_name = "dateUpdate";
+$grilla_items[]=array(
+    "campo" => $field_name
+,   "field"=> $field_name
+,   "label"=> "Fecha de último ingreso de datos"
+,   "activo"=> 1
+);
 //-------------------------------------------------------------
 /*$field_name = "comunidad";
 $grilla_items[]=array(

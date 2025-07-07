@@ -1,79 +1,83 @@
 {literal}
-<script>
-    var snippet_form_calidad_compuesto = function () {
-        var idficha = '{/literal}{$id}{literal}';
-        var type = '{/literal}{$type}{literal}';
-        var form_calidad_compuesto = $('#form_calidad_compuesto');
-        var btn_calidad_compuesto_submit = $('#btn_calidad_compuesto_submit');
-        var select_get_parametro = $('#calcom_parametroId');
-        var campo_input_calidad_compuesto = $('#form_calidad_compuesto input');
-        
-        var btn_modal_close = $('#btn_modal_close');
-        //== Private Functions
-        var showRequest= function (formData, jqForm, op) {
-            btn_calidad_compuesto_submit.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
-            return true;
-        };
+    <script>
+        var snippet_form_calidad_compuesto = function() {
+            var idficha = '{/literal}{$id}{literal}';
+            var type = '{/literal}{$type}{literal}';
+            var form_calidad_compuesto = $('#form_calidad_compuesto');
+            var btn_calidad_compuesto_submit = $('#btn_calidad_compuesto_submit');
+            var select_get_parametro = $('#calcom_parametroId');
+            var campo_input_calidad_compuesto = $('#form_calidad_compuesto input');
 
-        var showResponse = function (responseText, statusText) {
-            btn_calidad_compuesto_submit.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', false);
-            if(responseText.res ==1) {
-                if(responseText.accion == 'new') {
-                    //swal({type: 'success',title: 'Buen Trabajo! Se guardó todo con éxito!',showConfirmButton: false, timer: 1000});
-                    swal("Creado!", "Se guardó el registro con éxito!", "success");
-                    table_list_calidad_compuesto.draw();
-                    $("#modal_window_compuesto").modal("hide");
-                } else if(responseText.accion == 'update') {
-                    swal("Actualizado!", "Se actualizó el registro con éxito!", "success");
-                    table_list_calidad_compuesto.draw();
-                    $("#modal_window_compuesto").modal("hide");
-                    //swal({type: 'success',title: 'Actualizado! Se actualizó todo con éxito!',showConfirmButton: false, timer: 1000});
+            var btn_modal_close = $('#btn_modal_close');
+            //== Private Functions
+            var showRequest = function(formData, jqForm, op) {
+                btn_calidad_compuesto_submit.addClass('m-loader m-loader--right m-loader--light').attr('disabled',
+                    true);
+                return true;
+            };
+
+            var showResponse = function(responseText, statusText) {
+                btn_calidad_compuesto_submit.removeClass('m-loader m-loader--right m-loader--light').attr(
+                    'disabled', false);
+                if (responseText.res == 1) {
+                    if (responseText.accion == 'new') {
+                        //swal({type: 'success',title: 'Buen Trabajo! Se guardó todo con éxito!',showConfirmButton: false, timer: 1000});
+                        swal("Creado!", "Se guardó el registro con éxito!", "success");
+                        table_list_calidad_compuesto.draw();
+                        $("#modal_window_compuesto").modal("hide");
+                    } else if (responseText.accion == 'update') {
+                        swal("Actualizado!", "Se actualizó el registro con éxito!", "success");
+                        table_list_calidad_compuesto.draw();
+                        $("#modal_window_compuesto").modal("hide");
+                        //swal({type: 'success',title: 'Actualizado! Se actualizó todo con éxito!',showConfirmButton: false, timer: 1000});
+                    } else {
+                        $("#modal_window_compuesto").modal("hide");
+                    }
+                } else if (responseText.res == 2) {
+                    swal("Ocurrió un error!", responseText.msg, "error");
                 } else {
-                    $("#modal_window_compuesto").modal("hide");
+                    swal("ocurrió un error!", responseText.msg, "danger");
                 }
-            } else if(responseText.res ==2) {
-                swal("Ocurrió un error!", responseText.msg, "error");
-            } else {
-                swal("ocurrió un error!", responseText.msg, "danger");
-            }
-        };
+            };
 
-        var get_compuesto = function (id) {
-            var compuestoOpt = $('#calcom_compuestoId').empty();
-            if(id!="") {
-                $.post("{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getCalidadCompuesto{literal}"
+            var get_compuesto = function(id) {
+                var compuestoOpt = $('#calcom_compuestoId').empty();
+                if (id != "") {
+                    $.post("{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getCalidadCompuesto{literal}"
                     , {parametroId: id}
-                    , function (respuesta, textStatus, jqXHR) {
+                    ,
+                    function(respuesta, textStatus, jqXHR) {
                         selOption = $('<option></option>');
                         compuestoOpt.append(selOption.attr("value", "").text("Seleccione compuesto"));
                         for (var clave in respuesta) {
-                            compuestoOpt.append($('<option></option>').attr("value", respuesta[clave].itemId).text(respuesta[clave].nombre));
+                            compuestoOpt.append($('<option></option>').attr("value", respuesta[clave].itemId).text(
+                                respuesta[clave].nombre));
                         }
                         //municipioOpt.trigger('chosen:updated');
-                    }
-                    , 'json');
-            }else{
+                    }, 'json');
+            } else {
                 $('#calcom_parametroId').focus();
             }
         };
 
         var options = {
-            beforeSubmit: showRequest
-            , dataType: 'json'
-            , success: showResponse
-            , data: {
+            beforeSubmit: showRequest,
+            dataType: 'json',
+            success: showResponse,
+            data: {
                 accion: '{/literal}{$subcontrol}_itemupdatesqlCalidadCompuesto{literal}'
-                ,itemId: idficha
-                ,type: type
+                ,
+                itemId: idficha,
+                type: type
             }
         };
 
-        var handle_form_submit = function () {
+        var handle_form_submit = function() {
             form_calidad_compuesto.ajaxForm(options);
         };
 
-        var handle_general_form_submit = function () {
-            btn_calidad_compuesto_submit.click(function (e) {
+        var handle_general_form_submit = function() {
+            btn_calidad_compuesto_submit.click(function(e) {
                 e.preventDefault();
                 var btn = $(this);
                 var form = $(this).closest('form');
@@ -102,12 +106,12 @@
                 if (!form.valid()) {
                     return;
                 }
-                
+
                 form_calidad_compuesto.submit();
             });
         };
 
-        var handle_general_components = function () {
+        var handle_general_components = function() {
             $('#cal_fecha_muestreo').datepicker({
                 todayHighlight: true,
                 orientation: "bottom left",
@@ -129,7 +133,7 @@
         };
 
         var handle_get_components = function() {
-            campo_input_calidad_compuesto.keyup(function () {
+            campo_input_calidad_compuesto.keyup(function() {
                 form_calidad_compuesto.validate();
             });
 
@@ -137,7 +141,7 @@
                 get_compuesto($('#calcom_parametroId').val());
             });
 
-            btn_modal_close.click(function () {
+            btn_modal_close.click(function() {
                 swal({type: 'success', title: 'Cerrando!', showConfirmButton: false, timer: 300});
             });
         };
@@ -145,47 +149,66 @@
         //== Public Functions
         return {
             // public functions
-            init: function () {
+            init: function() {
                 handle_general_form_submit();
                 handle_form_submit();
                 handle_general_components();
                 handle_get_components();
             }
         };
-    } ();
+        }();
 
-    $('#calcom_valor').number(true, 6, '.');
-    $('#calcom_valor').mask('999.999999');
+        // $('#calcom_valor').number(true, 9, '.');
+        // $('#calcom_valor').mask('9999.999999999');
 
-//----------------Permisos--------------------------------------------
+        $('#calcom_valor').on('input', function() {
+            let val = $(this).val();
 
-    function permisos_usuario(){
-        jQuery.ajax({
-            url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=pozo', //&perpozo=pozo
-            //data: data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            //dataType: "json",
-            success: function(data){
-                obj_permiso = JSON.parse(data);
+            // Permitir solo dígitos y un punto decimal
+            if (!/^\d*\.?\d*$/.test(val)) {
+                $(this).val(val.slice(0, -1));
+                return;
+            }
 
-                if (obj_permiso[0].crear == 1){                                
-                    $("#btn_calidad_compuesto_submit").show();
-                }else{
-                    $("#btn_calidad_compuesto_submit").hide();
-                }                 
-            },
+            // Convertir a número
+            let num = parseFloat(val);
+
+            // Validar que esté dentro del rango permitido
+            if (!isNaN(num)) {
+                if (num > 10000) {
+                    $(this).val('9999');
+                } else if (num !== 0 && num < 0.00000001) { $(this).val('0.0000001'); }
+            }
         });
-    }
 
-    //== Class Initialization
-    jQuery(document).ready(function () {
-        permisos_usuario();
-        snippet_form_calidad_compuesto.init();
-        $('[data-toggle="m-tooltip"]').click().tooltip();
-    });
+        //----------------Permisos--------------------------------------------
 
-</script>
+        function permisos_usuario() {
+            jQuery.ajax({
+                url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=pozo', //&perpozo=pozo
+                //data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                //dataType: "json",
+                success: function(data) {
+                    obj_permiso = JSON.parse(data);
+
+                    if (obj_permiso[0].crear == 1) {
+                        $("#btn_calidad_compuesto_submit").show();
+                    } else {
+                        $("#btn_calidad_compuesto_submit").hide();
+                    }
+                },
+            });
+        }
+
+        //== Class Initialization
+        jQuery(document).ready(function() {
+            permisos_usuario();
+            snippet_form_calidad_compuesto.init();
+            $('[data-toggle="m-tooltip"]').click().tooltip();
+        });
+    </script>
 {/literal}

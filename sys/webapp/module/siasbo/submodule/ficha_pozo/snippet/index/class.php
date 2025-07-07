@@ -92,6 +92,7 @@ class Index extends Table {
         /**
          * apartir de aca podemos transformar datos, de acuerdo a requerimiento
          */
+        // var_dump($resultado);
         return $resultado;
     }
 

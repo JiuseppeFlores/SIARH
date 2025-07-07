@@ -128,6 +128,23 @@ $grilla_items[]=array(
 ,   "label"=>"Localidad"
 ,   "activo"=> 1
 );
+
+//-------------------------------------------------------------
+$field_name = "dateCreate";
+$grilla_items[]=array(
+    "campo" => $field_name
+,   "field"=> $field_name
+,   "label"=> "Fecha de Creación del Registro"
+,   "activo"=> 1
+);
+
+$field_name = "dateUpdate";
+$grilla_items[]=array(
+    "campo" => $field_name
+,   "field"=> $field_name
+,   "label"=> "Fecha de último ingreso de datos"
+,   "activo"=> 1
+);
 //-------------------------------------------------------------
 /**
  * Se añade el arreglo de grilla configurada a grilla

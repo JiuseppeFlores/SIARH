@@ -44,7 +44,7 @@
                 <div class="col-lg-6">
                     <label>Altura de la boca de pozo (m)</label>
                     <div class="input-group">
-                        <input class="form-control m-input" type="text" name="item[constructivo_altura]" id="constructivo_altura" placeholder="Ingrese altura de la boca de pozo" value="{$item.constructivo_altura|escape:"html"}" min="0" max="99" step="0.01" data-msg="Campo requerido: 2 enteros y 2 decimales">
+                        <input class="form-control m-input" type="text" name="item[constructivo_altura]" id="constructivo_altura" placeholder="Ingrese altura de la boca de pozo" value="{$item.constructivo_altura|escape:"html"}" min="-999.99" max="999.99" step="0.01" data-msg="Campo requerido: 3 enteros y 2 decimales">
                         <div class="input-group-append">
                             <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Conocido también como ADEME, se mide desde el nivel del suelo hasta la boca de la tubería que sobresale."><i class="flaticon-questions-circular-button"></i>
                             </span>
@@ -67,7 +67,7 @@
                 <div class="col-lg-6">
                     <label>Diámetro de la grava (mm)</label>
                     <div class="input-group">
-                        <input class="form-control m-input" type="text" name="item[constructivo_diametro]" id="constructivo_diametro" placeholder="Ingrese diámetro de la grava" value="{$item.constructivo_diametro|escape:"html"}" min="0" max="99" step="0.01" data-msg="Campo requerido: 2 enteros y 2 decimales">
+                        <input class="form-control m-input" type="text" name="item[constructivo_diametro]" id="constructivo_diametro" placeholder="Ingrese diámetro de la grava" value="{$item.constructivo_diametro|escape:"html"}" data-msg="Campo requerido: Ej: 1 a 4 mm">
                         <div class="input-group-append">
                             <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="La grava es el material con el que se rellenará el pozo, el diámetro de la grava debe ser mayor a la longitud de la ranura del filtro."><i class="flaticon-questions-circular-button"></i>
                             </span>

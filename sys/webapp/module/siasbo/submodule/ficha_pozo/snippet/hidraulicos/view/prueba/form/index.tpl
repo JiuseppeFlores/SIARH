@@ -86,9 +86,9 @@
             </div>
 
             <div class="col-lg-6">
-                <label>Porosidad total m (% de volumen)</label>
+                <label>Porosidad total m  (% de volumen)</label>
                 <div class="input-group">
-                    <input class="form-control m-input" type="text" name="item[porosidad]" id="bp_porosidad" placeholder="Ingrese porosidad total m (% de volumen)" value="{$item.porosidad|escape:"html"}" min="0" max="99" step="0.01" data-msg="Campo requerido. Porosidad debe contener números, 2 enteros y 2 decimales como máximo.">
+                    <input class="form-control m-input" type="text" name="item[porosidad]" id="bp_porosidad" placeholder="Ingrese porosidad total m (% de volumen)" value="{$item.porosidad|escape:"html"}" min="0" max="99" step="0.00001" data-msg="Campo requerido. Porosidad debe contener números, entre el 0.00001 y 100 máximo.">
                     <div class="input-group-append">
                         <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="La porosidad total esta expresado como el volumen de los huecos sobre el volumen total.">
                             <i class="flaticon-questions-circular-button"></i>

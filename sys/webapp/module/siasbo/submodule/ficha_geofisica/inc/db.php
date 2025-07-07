@@ -41,11 +41,11 @@ $dbm_codice->Connect($db_conf["server"],$db_conf["user"] ,$db_conf["password"],$
 */
 
 // Conexión a localhost de prueba
-/*$db_conf["type"]        = "postgres";
+$db_conf["type"]        = "postgres";
 $db_conf["server"]      = "localhost";
 $db_conf["user"]        = "postgres";
-$db_conf["password"]    = "admin";
-$db_conf["database"]    = "bolivia";*/
+$db_conf["password"]    = "123";
+$db_conf["database"]    = "sirh_siasbo";
 
 // Conexión a base de datos de Siasbo (PostgreSql)
 // $db_conf["type"]        = "postgres";
@@ -53,11 +53,6 @@ $db_conf["database"]    = "bolivia";*/
 // $db_conf["user"]        = "siasbo";
 // $db_conf["password"]    = "?/|)tz";
 // $db_conf["database"]    = "sirh_siasbo";
-$db_conf["type"]        = "postgres";
-$db_conf["server"]      = "localhost";
-$db_conf["user"]        = "postgres";
-$db_conf["password"]    = "123";
-$db_conf["database"]    = "sirh_siasbo";
 
 $db_conf_datatable["principal_postgres"] = $db_conf;
 

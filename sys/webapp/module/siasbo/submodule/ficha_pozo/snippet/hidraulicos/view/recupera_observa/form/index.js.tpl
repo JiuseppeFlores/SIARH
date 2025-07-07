@@ -163,7 +163,7 @@
 
     $('#po_nivel_dinamico').number(true, 2, '.');
     $('#po_nivel_dinamico').mask('99.99');
-
+    
     $('#bp_porosidad').number(true, 2, '.');
     $('#bp_porosidad').mask('99.99');
 

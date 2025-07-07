@@ -48,10 +48,16 @@ $db_conf["password"]    = "admin";
 $db_conf["database"]    = "bolivia";*/
 
 // Conexión a base de datos de Siasbo (PostgreSql)
+// $db_conf["type"]        = "postgres";
+// $db_conf["server"]      = "192.168.5.82";
+// $db_conf["user"]        = "siasbo";
+// $db_conf["password"]    = "?/|)tz";
+// $db_conf["database"]    = "sirh_siasbo";
+
 $db_conf["type"]        = "postgres";
-$db_conf["server"]      = "192.168.5.82";
-$db_conf["user"]        = "siasbo";
-$db_conf["password"]    = "?/|)tz";
+$db_conf["server"]      = "localhost";
+$db_conf["user"]        = "postgres";
+$db_conf["password"]    = "123";
 $db_conf["database"]    = "sirh_siasbo";
 
 $db_conf_datatable["principal_postgres"] = $db_conf;

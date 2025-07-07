@@ -53,6 +53,7 @@ $db_conf["database"]    = "bolivia";*/
 // $db_conf["user"]        = "siasbo";
 // $db_conf["password"]    = "?/|)tz";
 // $db_conf["database"]    = "sirh_siasbo";
+
 $db_conf["type"]        = "postgres";
 $db_conf["server"]      = "localhost";
 $db_conf["user"]        = "postgres";

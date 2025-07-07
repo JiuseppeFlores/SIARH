@@ -1,26 +1,30 @@
 <div class="m-portlet__head">
-    <div class="m-portlet__head-caption">
-        <div class="m-portlet__head-title">
-            <h3 class="m-portlet__head-text">Lista datos de columna litológica</h3>
-        </div>
+  <div class="m-portlet__head-caption">
+    <div class="m-portlet__head-title">
+      <h3 class="m-portlet__head-text">Lista datos de columna litológica</h3>
     </div>
-    <div class="m-portlet__head-tools">
-        <ul class="m-portlet__nav">
-            <li class="m-portlet__nav-item">
-                <!--onclick="javascript:graficar_diseno();"-->
-                <!-- javascript:CargarGrafica(); -->
-                <!-- <button type="button" class="btn btn-secondary btn-block-custom" onclick="javascript:DibujarColumnaLitologica();" data-toggle="modal" data-target=".bd-example-modal-lg"><span><i class="fa fa-chart-area"></i><span>&nbsp;Graficar columna litológica</button>&nbsp; -->
-                <button type="button" class="btn btn-secondary btn-block-custom" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="javascript:get_grafica('1');"><span><i class="fa fa-chart-area"></i><span>&nbsp;Graficar columna litológica</button>&nbsp;
-                <button type="button" class="btn btn-primary" id="btn_litologia_submit" onclick="javascript:get_form_litologico('', 'new');"><span><i class="fa fa-plus"></i><span>&nbsp;Nueva columna litológica</span></span>
-                </button>
-            </li>
-            <li class="m-portlet__nav-item"></li>
+  </div>
+  <div class="m-portlet__head-tools">
+    <ul class="m-portlet__nav">
+      <li class="m-portlet__nav-item">
+        <!--onclick="javascript:graficar_diseno();"-->
+        <!-- javascript:CargarGrafica(); -->
+        <!-- <button type="button" class="btn btn-secondary btn-block-custom" onclick="javascript:DibujarColumnaLitologica();" data-toggle="modal" data-target=".bd-example-modal-lg"><span><i class="fa fa-chart-area"></i><span>&nbsp;Graficar columna litológica</button>&nbsp; -->
+        <button type="button" class="btn btn-secondary btn-block-custom" data-toggle="modal"
+          data-target=".bd-example-modal-lg" onclick="javascript:get_grafica('{$id}');"><span><i
+              class="fa fa-chart-area"></i><span>&nbsp;Graficar columna litológica</button>&nbsp;
+        <button type="button" class="btn btn-primary" id="btn_litologia_submit"
+          onclick="javascript:get_form_litologico('', 'new');"><span><i class="fa fa-plus"></i><span>&nbsp;Nueva columna
+              litológica</span></span>
+        </button>
+      </li>
+      <li class="m-portlet__nav-item"></li>
 
-        </ul>
-    </div>
+    </ul>
+  </div>
 
-    <!-- BEGIN MODAL -->
-    <!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+  <!-- BEGIN MODAL -->
+  <!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
       <div class="modal-dialog modal-lg">        
         <div class="modal-content">
           <div class="modal-header">
@@ -39,13 +43,14 @@
         </div>
       </div>
     </div> -->
-    <!-- END MODAL -->
+  <!-- END MODAL -->
 
-    <!--begin::Modal Para Graficas-->
-    <div class="modal fade bd-example-modal-lg" id="modal_litologia" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content" id="modal_litologia_contenido"></div>
-      </div>
+  <!--begin::Modal Para Graficas-->
+  <div class="modal fade bd-example-modal-lg" id="modal_litologia" tabindex="-1" role="dialog" data-backdrop="static"
+    data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" id="modal_litologia_contenido"></div>
     </div>
-    <!--end::Modal Para Graficas-->
+  </div>
+  <!--end::Modal Para Graficas-->
 </div>

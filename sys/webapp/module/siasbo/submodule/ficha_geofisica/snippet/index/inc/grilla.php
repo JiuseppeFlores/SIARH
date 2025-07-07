@@ -111,7 +111,22 @@ $grilla_items[]=array(
         ,   "relacion_id"=> $field_name
         ,   "activo"=> $field_activo
         );
+//-------------------------------------------------------------
+$field_name = "dateCreate";
+$grilla_items[]=array(
+    "campo" => $field_name
+,   "field"=> $field_name
+,   "label"=> "Fecha de Creación del Registro"
+,   "activo"=> 1
+);
 
+$field_name = "dateUpdate";
+$grilla_items[]=array(
+    "campo" => $field_name
+,   "field"=> $field_name
+,   "label"=> "Fecha de último ingreso de datos"
+,   "activo"=> 1
+);
 //-------------------------------------------------------------
 /*$field_name = "comunidad";
 $grilla_items[]=array(

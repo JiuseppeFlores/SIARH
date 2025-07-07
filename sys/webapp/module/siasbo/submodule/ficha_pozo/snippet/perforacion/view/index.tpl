@@ -112,10 +112,10 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <label>Tipo de excavación</label>
+                        <label>Tipo de extracción</label>
                         <div class="input-group" >
                             <select class="form-control m-input select2" name="item[perforacion_excavacionId]" id="perforacion_excavacionId" data-msg="Campo requerido: seleccione una opción">
-                                <option value="">Seleccione tipo de excavación</option>
+                                <option value="">Seleccione tipo de extracción</option>
                                 {html_options options=$cataobj.tipoexcavacion selected=$item.perforacion_excavacionId}
                             </select>
                         </div>                    

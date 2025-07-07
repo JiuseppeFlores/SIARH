@@ -228,6 +228,10 @@ class SSP {
         $bindings = array();
         $db = SSP::sql_connect( $sql_details );
         // Build the SQL query string from the request
+        // var_dump($columns );
+        // echo "<br>";
+        // var_dump($request);
+        // echo "<br>".$request['length']."<br>";
         $limit = SSP::limit( $request, $columns );
         $order = SSP::order( $request, $columns, $joinQuery );
         $where = SSP::filter( $request, $columns, $bindings, $joinQuery );
@@ -288,6 +292,19 @@ class SSP {
 			 FROM   $table "
         );
         $recordsTotal = $resTotalLength[0][0];
+        $numero_listado = intval($request['length']);
+        // echo $query;
+        // echo "<br>3<br>";
+        // print_r($limit);
+        // echo "<br>******<br>";
+        $data_auxi = array();
+        $draw = intval($request['start'])+1;
+        foreach ($data as $index => & $item) {
+            $item['numero'] = $draw + $index;
+            $data_auxi[] = $item;
+        }
+        $data = $data_auxi;
+        // print_r($data);
         /*
          * Output
          */
@@ -295,6 +312,7 @@ class SSP {
             "draw"            => intval( $request['draw'] ),
             "recordsTotal"    => intval( $recordsTotal ),
             "recordsFiltered" => intval( $recordsFiltered ),
+            "sql" => trim( $limit),
             "data"            => SSP::data_output( $columns, $data, $joinQuery )
         );
     }

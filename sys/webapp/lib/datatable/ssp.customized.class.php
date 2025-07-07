@@ -272,8 +272,9 @@ class SSP {
 			 FROM   `$table`"
         );
         $recordsTotal = $resTotalLength[0][0];
-
-
+        // echo $query;
+        // echo "<br>2<br>";
+		// var_dump($data);
         /*
          * Output
          */

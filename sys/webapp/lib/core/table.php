@@ -2744,6 +2744,14 @@ class Table
         ,   "as" => "Actions"
         ,   "activo" => 1
         );
+        $id_add[]=array(
+            "campo" => $id_name
+        ,    "field"=> "numero"
+        ,   "label"=> "Número"
+        ,   "type_field"=>"text"
+        ,   "as" => "numero"
+        ,   "activo" => 1
+        );
         if($position=="left"){
             $grilla = array_merge($id_add,$grilla);
         }else{
@@ -2827,9 +2835,9 @@ class Table
          * y le damos formato de un arreglo para generar el json para datatable
          */
         $campos = $this->get_grilla_list_sbm($grilla,$position,$primaryKey);
-
+        // print_struc($campos);
         $col = $this->get_grilla_tranformar_arreglo_sbm($campos);
-        //print_struc($col);exit;
+        // print_struc($col);
         $joinQuery = "FROM ".$table." AS `i` \n\r";
 
         $tablas_adicionales = $this->grilla_tablas_adicionales["$grilla"];
@@ -2867,7 +2875,7 @@ class Table
         );
 
         $resultado = SSP::simple( $_REQUEST, $sql_details, $table, $primaryKey, $col, $joinQuery, $extraWhere, $groupBy, $having );
-
+        // print_r($resultado);
         return $resultado;
     }
     public function get_grilla_datatable_simple_pg( $db,$grilla,$table, $primaryKey, $extraWhere, $groupBy, $having,$position="left"){
