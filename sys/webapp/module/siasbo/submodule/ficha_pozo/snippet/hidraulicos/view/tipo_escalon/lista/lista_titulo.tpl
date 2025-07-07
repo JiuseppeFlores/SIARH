@@ -8,7 +8,7 @@
         <ul class="m-portlet__nav">
             <li class="m-portlet__nav-item">
                 <!-- <button type="button" class="btn btn-secondary btn-block-custom" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="javascript:CargarGrafica();"><span><i class="fa fa-chart-area"></i><span>&nbsp;Graficar prueba de bombeo</button>&nbsp; -->
-                <button type="button" class="btn btn-secondary btn-block-custom" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="javascript:get_grafica({$pozoId});"><span><i class="fa fa-chart-area"></i><span>&nbsp;Graficar prueba de bombeo</button>&nbsp;
+                <button type="button" class="btn btn-secondary btn-block-custom" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="javascript:get_grafica({$pozoId},{$tipobombeo});"><span><i class="fa fa-chart-area"></i><span>&nbsp;Graficar prueba de bombeo</button>&nbsp;
                 <button type="button" class="btn btn-primary" id="btn_nuevo_escalon_submit" onclick="javascript:get_form_escalon('', 'new', {$tipobombeo});"><span><i class="fa fa-plus"></i><span>&nbsp;Nuevo escalón</span></span>
                 </button>
             </li>

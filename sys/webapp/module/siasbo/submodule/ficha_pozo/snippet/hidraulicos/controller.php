@@ -164,6 +164,7 @@ switch($accion){
 
         $datosEscalon = $subObjItem->get_datos_escalon($id);
         if(count($datosEscalon) > 0){
+            $smarty->assign("tipo",$tipo);
             $smarty->assign("datos",json_encode($datosEscalon));
             //$smarty->assign("subpage",$webm["escalon_sc_index"]);
             $smarty->assign("subpage",$webm["escalon_grafica_sc_index"]);

@@ -149,10 +149,11 @@
         var barChart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: tiempo,
+            //labels: tiempo,
             datasets: [{
               label: 'Escalones',
-              data: abatimiento,
+              //data: abatimiento,
+              data: tiempo.map((t, index) => ({ x: t, y: abatimiento[index] })),
               backgroundColor: [
                 'rgba(42, 127, 255, 0)',                
               ],
@@ -168,10 +169,16 @@
                 },
                 scales: {
                     xAxes: [{
+                        type: 'linear',
+                        position: 'bottom',
                         scaleLabel: {
                             display: true,
                             labelString: 'Tiempo (minutos)'
-                        }
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1,
+                        },
                     }],
                     yAxes: [{
                         stacked: true,

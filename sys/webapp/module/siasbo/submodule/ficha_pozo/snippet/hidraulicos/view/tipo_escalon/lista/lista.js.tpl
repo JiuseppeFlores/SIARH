@@ -201,8 +201,8 @@
     }();
 
     //Grafica de escalones
-    function get_grafica(id) {
-        var url = "{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getItemEscalon{literal}&id="+id;
+    function get_grafica(id,tipo) {
+        var url = "{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getItemEscalon{literal}&id="+id+"&tipo="+tipo;
         
         //$('#window_content_data').html("Cargando...");
         swal({

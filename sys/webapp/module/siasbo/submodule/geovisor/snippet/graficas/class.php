@@ -105,7 +105,7 @@ class Snippet extends Table {
         a.nombre, b.profundidad_desde, b.profundidad_hasta, b.litologia1  
         FROM item a, item_pozo_litologica b  
         WHERE a.itemId=b.pozoId AND b.pozoId = $Id 
-        ORDER BY a.itemId ASC";
+        ORDER BY b.profundidad_desde ASC, b.profundidad_hasta ASC";
 
         $datos = $this->dbm->Execute($sql);
         $datos = $datos->GetRows();
