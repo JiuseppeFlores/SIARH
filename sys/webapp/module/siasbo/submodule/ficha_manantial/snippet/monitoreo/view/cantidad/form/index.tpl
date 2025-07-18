@@ -12,7 +12,7 @@
             <div class="col-lg-6">
                 <label>Fecha</label>
                 <div class="input-group">
-                    <input class="form-control m-input" placeholder="Ingrese fecha" type="text" name="item[fecha]" id="cant_fecha" value="{$item.fecha|date_format:'%d/%m/%Y'|escape:"html"}" maxlength="10" required data-msg="Campo requerido. Ingrese 10 caracteres como máximo.">
+                    <input class="form-control m-input" placeholder="Ingrese fecha" type="text" name="item[fecha]" id="cant_fecha" value="{$item.fecha|date_format:'%d/%m/%Y'|escape:"html"}" maxlength="10" data-msg="Campo requerido. Ingrese 10 caracteres como máximo.">
                     <div class="input-group-append">
                         <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Texto. Ej. Texto">
                             <i class="flaticon-questions-circular-button"></i>
@@ -24,7 +24,7 @@
             <div class="col-lg-6">
                 <label>Caudal (l/s)</label>
                 <div class="input-group">
-                    <input class="form-control m-input" type="text" name="item[caudal]" id="cant_caudal" placeholder="Ingrese caudal" value="{$item.caudal|escape:"html"}" min="0" max="9999" step="0.01" required data-msg="Campo requerido. Caudal debe contener números, 3 enteros y 2 decimales como máximo.">
+                    <input class="form-control m-input" type="text" name="item[caudal]" id="cant_caudal" placeholder="Ingrese caudal" value="{$item.caudal|escape:"html"}" min="0" max="9999" step="0.01" data-msg="Campo requerido. Caudal debe contener números, 3 enteros y 2 decimales como máximo.">
                     <div class="input-group-append">
                         <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Texto. Ej. Texto">
                             <i class="flaticon-questions-circular-button"></i>

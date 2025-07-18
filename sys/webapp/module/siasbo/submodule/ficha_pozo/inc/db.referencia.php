@@ -32,6 +32,7 @@ $db_datos[] = $core->get_alias_campo($db_prefix."constructivo_diseno",$db_prefix
 $db_datos[] = $core->get_alias_campo($db_prefix."constructivo_sello",$db_prefix,"");
 $db_datos[] = $core->get_alias_campo($db_prefix."electrico_parametro",$db_prefix,"");
 $db_datos[] = $core->get_alias_campo($db_prefix."hidra_bombeo",$db_prefix,"");
+$db_datos[] = $core->get_alias_campo($db_prefix."estado_operativo",$db_prefix,"");
 $db_datos[] = $core->get_alias_campo($db_prefix."hidra_bombeo_dato",$db_prefix,"");
 $db_datos[] = $core->get_alias_campo($db_prefix."hidra_observacion",$db_prefix,"");
 $db_datos[] = $core->get_alias_campo($db_prefix."hidra_observacion_dato",$db_prefix,"");
@@ -79,6 +80,8 @@ $db_datos[] = $core->get_alias_campo("pozo_hidra_tipo_bombeo","","");
 $db_datos[] = $core->get_alias_campo("pozo_implementacion_tipo","","");
 
 $db_datos[] = $core->get_alias_campo("pozo_litologico_permeabilidad","","");
+$db_datos[] = $core->get_alias_campo("pozo_estado_operativo","","");
+$db_datos[] = $core->get_alias_campo("pozo_proveedor_energia","","");
 
 $db_datos[] = $core->get_alias_campo("epoca","","");
 

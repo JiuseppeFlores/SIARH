@@ -241,7 +241,7 @@
 
     function RecuperarDatosHidrograma(){
         var url = "{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getItemHidrograma{literal}&pozoId={/literal}{$pozoId}{literal}";
-
+            console.log('url por grafica pozo::',url);
         swal({
             title: 'Cargando tab!',
             text: 'Procesando datos',

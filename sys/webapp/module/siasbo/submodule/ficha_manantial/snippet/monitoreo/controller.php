@@ -72,6 +72,29 @@ switch($accion){
         exit;
         break;
 
+    //Para Graficas
+    case 'getItemCantidad':
+        $datosCantidad = $subObjItem->get_datos_cantidad_qvst($manantialId);
+        echo json_encode($datosCantidad);
+        exit;
+        break;
+
+    case 'getItemCalidad':
+        $datosCantidad = $subObjItem->get_datos_calidad($manantialId);
+        echo json_encode($datosCantidad);
+        exit;
+        break;
+
+    case 'getItemStiff':
+        $calidadId = (int) $calidadId;
+        $fecha = explode('-', $campaniaId);
+        $mes = (int) $fecha[0];
+        $anio = (int) $fecha[1];
+        $datosStiff = $subObjItem->get_datos_stiff($calidadId, $mes, $anio);
+        echo json_encode($datosStiff);
+        exit;
+        break;
+
     /**
      * Acciones monitoreo de calidad
      */
@@ -123,6 +146,8 @@ switch($accion){
     case 'getItemGrillaCalidadCompuesto':
         $smarty->assign("type", $type);
         $smarty->assign("calidadId", $calidadId);
+        $campanias = $subObjItem->get_campanias($manantialId);
+        $smarty->assign("campanias", $campanias);
         $grill_list = $subObjItem->get_grilla_list_sbm("grilla_calidad_compuesto");
         $smarty->assign("grill_list", $grill_list);
         $smarty->assign("subpage", $webm["calidad_compuesto_sc_index"]);
@@ -166,11 +191,11 @@ switch($accion){
         break;
 
     //Para Graficas
-    case 'getItemStiff':
-        $datosStiff = $subObjItem->get_datos_stiff($calidadId);
-        echo json_encode($datosStiff);
-        exit;
-        break;
+    // case 'getItemStiff':
+    //     $datosStiff = $subObjItem->get_datos_stiff($calidadId);
+    //     echo json_encode($datosStiff);
+    //     exit;
+    //     break;
 
     /**
      * Acciones monitoreo isotópico
@@ -275,4 +300,8 @@ switch($accion){
         $core->print_json($res);
         break;
 
+    case 'getCampanias':
+        $respuesta = $subObjItem->get_campanias($manantialId);
+        $core->print_json($respuesta);
+        break;
 }

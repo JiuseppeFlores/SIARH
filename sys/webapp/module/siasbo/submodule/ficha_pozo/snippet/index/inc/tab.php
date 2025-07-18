@@ -93,6 +93,16 @@ $item_tab[]=array(
 
 //-------------------------------------------------------------
 $item_tab[]=array(
+    "label"=>"Seguimiento Operativo"
+,   "id_name"=>"seguimientos"
+,   "sub_control"=>"seguimientos"
+,   "active"=>"0"
+,   "icon" => "fa-tasks"
+,   "new" => 0
+);
+
+//-------------------------------------------------------------
+$item_tab[]=array(
     "label"=>"Monitoreo"
 ,   "id_name"=>"monitoreo"
 ,   "sub_control"=>"monitoreo"

@@ -404,13 +404,14 @@ class Table
     }
     
     function getCatalogListSimple($row){
+        // var_dump($row);
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
         $sql = "select ".$row["id"].",".$row["dato"]." from ".$row["tabla"]." ";
         if($row["where"]!=""){
             $sql.=" where ".$row["where"]." ";
         }
-
         $sql.=" ORDER BY ".$row["orden"]." ".$row["dirOrden"];
+        // echo $sql;
         $info = $this->dbm->Execute($sql);
         $item = $info->GetRows();
 
@@ -466,7 +467,7 @@ class Table
      * @return void
      */
     function addCatalogList($tabla,$nombre,$id,$datoaux,$noutf8,$orden="",$where="",$parent="",$concatena=0){
-        
+        // var_dump('llamando el add',$tabla,$nombre,$id,$datoaux,$noutf8,$orden,$where,$parent,$concatena);
         $dato = array();
         $dato["tabla"] = $tabla;
         $dato["nombre"] = (trim($nombre)=="")?$tabla:trim($nombre);
@@ -480,7 +481,9 @@ class Table
         $dato["where"] = (trim($where)=="")?"":trim($where);
         $dato["parent"] = (trim($parent)=="")?0:trim($parent);
         $dato["concatena"] = (trim($concatena)=="")?0:trim($concatena);
-
+        // echo "<br>";
+        // print_r($dato);
+        // echo "<br>";
         $this->catalogList[] = $dato;
     }
     /**
@@ -2867,6 +2870,8 @@ class Table
         }
         $joinQuery = $joinQuery.$join_extra;
 
+        // var_dump($joinQuery);
+
         $sql_details = array(
             'user' => $db["user"],
             'pass' => $db["password"],
@@ -3845,9 +3850,11 @@ class Table
      *
      */
     function item_update_sbm($itemId,$rec,$tabla,$accion="new",$campo_id="",$where=""){
+        // var_dump('Datos para realiar la actualizacion de seguimiento opretativo:::',$itemId,$rec,$tabla,$accion,$campo_id,$where);
         global $privFace;
         if(count($rec)>0){
             if($accion=="update"){
+                // var_dump('caso 0001');
                 if($itemId!=''){
                     if($privFace["editar"]){
                         $verifica = $this->item_update_verifica_sbm($tabla,$itemId,$campo_id);
@@ -3878,12 +3885,16 @@ class Table
                 }
 
             }else if($accion=="new"){
+                // var_dump('caso 0002');
                 if($privFace["crear"]){
                     $resupdate = $this->dbm->AutoExecute($tabla,$rec);
+                    // var_dump('respuesta update>>',$resupdate);
                     if($resupdate){
+                        // var_dump('caso 0002-1');
                         $res["res"] = 1;
                         $res["id"] = $this->dbm->Insert_ID();
                     }else{
+                        // var_dump('caso 0002-2');
                         $res["res"] = 2;
                         $res["msg"] = "No se logro actualizar la informacion en la B.D.";
                         $res["msgdb"] = $this->dbm->ErrorMsg();
@@ -3893,6 +3904,7 @@ class Table
                     $res["msg"] = "No tiene permisos para crear nuevo registros";
                 }
             }else{
+                // var_dump('caso 0003');
                 $res["res"] = 2;
                 $res["msg"] = "No envio una acción a realizar";
             }

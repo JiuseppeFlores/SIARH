@@ -200,19 +200,43 @@ class Snippet extends Table
         return $datos;
     }
 
-    function get_datos_stiff($Id){
+    function get_datos_stiff($Id, $mes, $anio){
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
         $sql = "SELECT
         a.nombre, c.compuestoId, c.valor  
-        FROM item a, item_pozo_monitor_calidad b, item_pozo_monitor_calidad_dato c  
-        WHERE a.itemId=b.manantialId AND b.itemId=c.calidadId AND c.calidadId = $Id 
+        FROM item a, manantial_monitor_calidad b, manantial_monitor_calidad_dato c  
+        WHERE a.itemId=b.manantialId AND b.itemId=c.calidadId AND c.calidadId = $Id
+        -- AND c.compuestoId IN (54,75,90,93,59,47,94) 
+        AND DATE_FORMAT(b.fecha_muestreo, '%m')= $mes
+        AND DATE_FORMAT(b.fecha_muestreo, '%Y')= $anio
+        GROUP BY c.compuestoId
         ORDER BY c.itemId ASC";
-
+        // echo $sql;
         $datos = $this->dbm->Execute($sql);
         $datos = $datos->GetRows();
 
         return $datos;
     }
+
+    // function get_datos_stiff($Id, $mes, $anio){
+    //     $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
+    //     $sql = "SELECT
+    //     a.nombre, c.compuestoId, c.valor  
+    //     FROM item a, item_pozo_monitor_calidad b, item_pozo_monitor_calidad_dato c  
+    //     WHERE a.itemId=b.pozoId 
+    //     AND b.itemId=c.calidadId 
+    //     AND c.calidadId = ".$Id."
+    //     AND c.compuestoId IN (54,75,90,93,59,47,94) 
+    //     AND DATE_FORMAT(b.fecha_muestreo, '%m')=".$mes."
+    //     AND DATE_FORMAT(b.fecha_muestreo, '%Y')=".$anio." 
+    //     GROUP BY c.compuestoId
+    //     ORDER BY c.itemId ASC";
+
+    //     $datos = $this->dbm->Execute($sql);
+    //     $datos = $datos->GetRows();
+
+    //     return $datos;
+    // }
 
     function get_datos_hidrograma($Id){
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
@@ -241,4 +265,39 @@ class Snippet extends Table
 
         return $datos;
     }
+
+    function get_datos_cantidad_qvst($Id){
+        $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
+        $sql = "SELECT a.nombre, b.fecha, b.caudal, b.observaciones FROM item a, manantial_monitoreo b WHERE a.itemId=b.manantialId AND b.manantialId = $Id ORDER BY b.itemId ASC";
+        $datos = $this->dbm->Execute($sql);
+        $datos = $datos->GetRows();
+        // var_dump($datos);
+        return $datos;
+    }
+
+    function get_datos_calidad($Id){
+        $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
+        $sql = "SELECT a.nombre, c.nombre AS epoca, b.profundidad, b.fecha_analisis AS fecha, b.hora_analisis AS hora FROM item a, manantial_monitor_calidad b, catalogo_epoca c WHERE a.itemId=b.manantialId AND b.epocaId=c.itemId AND b.manantialId = $Id ORDER BY CONCAT(b.fecha_analisis,' ',b.hora_analisis) ASC";
+        // echo $sql;
+        $datos = $this->dbm->Execute($sql);
+        $datos = $datos->GetRows();
+
+        return $datos;
+    }
+
+    function get_campanias($Id) {
+        $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
+        $sql = "SELECT DATE_FORMAT(fecha_muestreo, '%m') AS mes, DATE_FORMAT(fecha_muestreo, '%Y') AS anio FROM manantial_monitor_calidad WHERE manantialId=".$Id." GROUP BY mes, anio ORDER BY anio, mes ASC";
+        // echo $sql;
+        $datos = $this->dbm->Execute($sql);
+        $datos = $datos->GetRows();
+        $campanias = array();
+        // $campanias = array('07-1986' => '07/1986', '08-1986' => '08/1986', '09-1986' => '09/1986', '10-1986' => '10/1986', '11-1986' => '11/1986', '12-1986' => '12/1986','id'=>'MANA:'.$Id);
+        foreach ($datos as $clave => $valor) {
+            $campanias[$valor['mes'].'-'.$valor['anio']] = $valor['mes'].'/'.$valor['anio'];
+        }
+        unset($datos);
+        return $campanias;
+    }
+    
 }

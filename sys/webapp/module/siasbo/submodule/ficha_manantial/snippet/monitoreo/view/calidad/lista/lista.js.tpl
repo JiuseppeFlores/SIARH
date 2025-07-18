@@ -1,6 +1,7 @@
 {literal}
 <script>
     var table_list_calidad;
+    var canvasProfundidad = document.getElementById("lienzo_profundidad");
 
     function item_update_calidad(id) {
         //var url = '{/literal}{$getModule}{literal}&accion=sev_itemUpdate&id='+id+'&type=update';
@@ -44,6 +45,146 @@
             },"json");
     }
 
+    function RecuperarDatosCalidad() {
+        var url = "{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getItemCalidad{literal}&manantialId={/literal}{$manantialId}{literal}";
+        console.log('url recuperado::',url);
+        $('#modal_content').html(" Cargando Tab.. ");
+        swal({
+            title: 'Cargando tab!',
+            text: 'Procesando datos',
+            imageUrl: 'images/loading/loading05.gif',
+            showConfirmButton: false,
+            allowEnterKey: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        });
+
+        $.get(url, function(respuesta) {
+            swal.close();
+            var datos = JSON.parse(respuesta);
+            console.log('datos recuperados caso calidad::',datos);
+        //         //dth = datos;
+            if (VerificarProfundidad(datos) == false){
+                CargarGraficaCalidad(datos);
+                AbrirModalCalidad();
+            }else{
+                swal("Advertencia","No existen datos para mostrar grafica","error");
+            }
+        //         //alert("Nivel estatico"+datos[0].nivel_estatico);
+        });
+    }
+
+    function CargarGraficaCalidad(dtc){
+        console.log('datos recuperados caso calidad::',dtc);
+        var datosfechacalidad = [];
+        var datoscalidad = [];
+        var datoscalidadautorizado = [];
+        var formatofecha;
+        for (var i=0; i<=dtc.length-1; i++){
+            formatofecha = dtc[i].fecha.split("-");
+            datosfechacalidad[i] = dtc[i].epoca+" "+formatofecha[2]+"-"+formatofecha[1]+"-"+formatofecha[0]+" "+dtc[i].hora;
+        }
+        for (var i=0; i<=dtc.length-1; i++){
+            datoscalidad[i] = dtc[i].profundidad;
+        }
+        for (var i=0; i<=dtc.length-1; i++){
+            datoscalidadautorizado[i] = dtc[i].calidadautorizado;
+        }
+        //AbrirModal();
+        var ctx = canvasProfundidad.getContext("2d");
+        var barChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: datosfechacalidad,
+            datasets: [{
+              label: 'Variación del Profundidad vs Tiempo',
+              data: datoscalidad,
+              backgroundColor: [
+                'rgba(27, 79, 114, 0.1)'
+              ],
+              //borderWidth: 5,
+              radius: 1,
+              borderColor: 'rgba(27, 79, 114, 0.5)'              
+            },
+            {
+              label: 'Profundiad',
+              data: datoscalidadautorizado,
+              backgroundColor: [
+                'rgba(255, 255, 255, 0)'
+              ],
+              //borderWidth: 5,
+              radius: 0,
+              borderColor: 'rgba(255, 0, 0, 0.5)'              
+            }]            
+          },
+          options: {
+                showLines: true, // disable for all datasets
+                title: {
+                    display: true,
+                    text: 'Variacion del Profundidad - Nombre Manantial: '+dtc[0].nombre,
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Tiempo (fecha)'
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Profundidad (m)'
+                        },
+                        // ticks: {
+                        //   beginAtZero: false,
+                        // }
+                    }]
+                },
+                elements: {
+                    point: {
+                        //radius: 0,
+                        borderWidth: 8,
+                        borderColor: 'rgba(27, 79, 114, 0.5)',
+                    },
+                    line: {
+                        tension: 0,
+                        borderWidth: 1.9,
+                        borderColor: 'rgba(27, 79, 114, 0.5)',
+                    }
+                }
+            },
+        });        
+    }
+
+    function VerificarProfundidad(datos){
+        var cont = 0;
+        for (var i=0; i<=datos.length-1; i++){
+            if (datos[i].profundidad == "" || datos[i].profundidad == null || datos[i].profundidad == 0  || datos[i].profundidad == "NULL"){
+                cont++;
+            }
+        }
+        
+        if (cont == datos.length){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function GuardarGraficaCalidad(){
+        Canvas2Image.saveAsPNG(canvasProfundidad, canvasProfundidad.width, canvasProfundidad.height, "MonitoreoCalidad");
+    }
+
+    function AbrirModalCalidad(){
+        $('#modalgraficacalidad').modal('show');
+    }
+    
+    function CerrarModalCalidad(){
+        $('#modalgraficacalidad').modal('hide');
+    }
+
+
     function item_opcion_editar_calidad(id) {
         return '<a class="dropdown-item" href="javascript:item_update_calidad(\''+ id +'\');" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Editar"><i class="la flaticon-edit-1 m--font-brand"></i>&nbsp;Editar</a>';
     }
@@ -77,9 +218,30 @@
         });
     }
 
-    function get_calidad_compuesto(id) {
-        var url = "{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getItemGrillaCalidadCompuesto{literal}&calidadId="+id;
+    // function get_calidad_compuesto(id) {
+    //     var url = "{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getItemGrillaCalidadCompuesto{literal}&calidadId="+id;
 
+    //     $('#subwindow_calidad').html(" Cargando Tab.. ");
+    //     swal({
+    //         title: 'Cargando tab!',
+    //         text: 'Procesando datos',
+    //         imageUrl: 'images/loading/loading05.gif',
+    //         showConfirmButton: false,
+    //         allowEnterKey: false,
+    //         allowOutsideClick: false,
+    //         allowEscapeKey: false,
+    //     });
+
+    //     $.get(url, function(respuesta) {
+    //         $('#subwindow_calidad').html(respuesta);
+    //         swal.close();
+    //     });
+    // }
+
+
+    function get_calidad_compuesto(id) {
+        var url = "{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getItemGrillaCalidadCompuesto{literal}&manantialId={/literal}{$manantialId}{literal}&calidadId="+id;
+        // console.log('url calidad compuesto::',url);
         $('#subwindow_calidad').html(" Cargando Tab.. ");
         swal({
             title: 'Cargando tab!',

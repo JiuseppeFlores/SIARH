@@ -138,9 +138,9 @@
 
             <div class="form-group m-form__group row">
                 <div class="col-lg-6">
-                    <label>Profundidad toma de muestra (m.b.b.p.)</label>
+                    <label>Altura toma de muestra</label>
                     <div class="input-group">
-                        <input class="form-control m-input" placeholder="Ingrese profundidad toma muestra" type="text" name="item[profundidad]" id="cal_profundidad" value="{$item.profundidad|escape:"html"}" min="0" max="999" step="0.01" data-msg="Campo requerido. Profundidad debe contener números, 3 enteros y 2 decimales como máximo.">
+                        <input class="form-control m-input" placeholder="Ingrese altura toma muestra" type="text" name="item[profundidad]" id="cal_profundidad" value="{$item.profundidad|escape:"html"}" min="0" max="999" step="0.01" data-msg="Campo requerido. Altura debe contener números, 3 enteros y 2 decimales como máximo.">
                         <div class="input-group-append">
                             <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Texto. Ej. Texto"><i class="flaticon-questions-circular-button"></i>
                             </span>

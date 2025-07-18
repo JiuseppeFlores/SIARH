@@ -406,11 +406,8 @@
 
     function CargarGraficaS(){
         Datos();
-        
         if(cont == 7){
-            //AbrirModalS();
             var ctx = canvasstiff.getContext("2d");
-
             ctx.clearRect(0, 0, canvasstiff.width, canvasstiff.height);  
             DibujarTexto(ctx, canvasstiff.width/2, 29, "Diagrama de Stiff", 19, "center");
             DibujarTexto(ctx, canvasstiff.width/2, 50, "Nombre Pozo: "+dtstiff[0].nombre, 14, "center");
@@ -418,13 +415,10 @@
             DibujarPoligono(ctx, canvasstiff);
             DibujarTextoInformativo(ctx, canvasstiff.width/2, 320, tipocompuesto, 14, "center");            
         }else{
-            //alert("Numero de compuestos insuficientes");
             var ctx = canvasstiff.getContext("2d");
-
             ctx.clearRect(0, 0, canvasstiff.width, canvasstiff.height);  
             swal("Advertencia!", "Número de compuestos insuficientes para generar la gráfica.", "error");
         }
-
         cont = 0;  
     }
 
