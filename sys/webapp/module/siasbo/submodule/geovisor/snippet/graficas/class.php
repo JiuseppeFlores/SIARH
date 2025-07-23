@@ -102,10 +102,19 @@ class Snippet extends Table {
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
 
         $sql = "SELECT
-        a.nombre, b.profundidad_desde, b.profundidad_hasta, b.litologia1  
-        FROM item a, item_pozo_litologica b  
-        WHERE a.itemId=b.pozoId AND b.pozoId = $Id 
-        ORDER BY b.profundidad_desde ASC, b.profundidad_hasta ASC";
+                    a.nombre, 
+                    b.litologia1 AS litologia, b.profundidad_desde, b.profundidad_hasta, 
+                    c.nombre AS litologia1, c.imagen AS imagen1, b.porcentaje1,
+                    d.nombre AS litologia2, d.imagen AS imagen2, b.porcentaje2,
+                    e.nombre AS litologia3, e.imagen AS imagen3, b.porcentaje3,
+                    f.nombre AS litologia4, f.imagen AS imagen4, b.porcentaje4
+                FROM item a, item_pozo_litologica b
+                LEFT JOIN catalogo_pozo_litologico c ON b.litologiaId1 = c.itemId
+                LEFT JOIN catalogo_pozo_litologico d ON b.litologiaId2 = d.itemId
+                LEFT JOIN catalogo_pozo_litologico e ON b.litologiaId3 = e.itemId
+                LEFT JOIN catalogo_pozo_litologico f ON b.litologiaId4 = f.itemId
+                WHERE a.itemId=b.pozoId AND b.pozoId = $Id 
+                ORDER BY b.profundidad_desde ASC, b.profundidad_hasta ASC";
 
         $datos = $this->dbm->Execute($sql);
         $datos = $datos->GetRows();

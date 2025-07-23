@@ -15,6 +15,8 @@
     var litologia = [];
     var dtl;
 
+    var litologias = [];
+
     var posyinicial = 120;
     var unmetro = 10;
     var pt = 0;   
@@ -78,9 +80,29 @@
 
         for (var i = 0; i <= dtl.length-1; i++) {
             profundidades[i] = dtl[i].profundidad_hasta-dtl[i].profundidad_desde;
-            dataaux = dtl[i].litologia1.split(" ");
-            litologia[i] = dataaux[0];
+            if(EsFormatoAnterior(i)){
+                dataaux = dtl[i].litologia.split(" ");
+                litologia[i] = dataaux[0];
+            }else{
+                litologia[i] = dtl[i].litologia1;
+                litologias[i] = [];
+                for(var j = 1 ; j <= 4 ; j++){
+                    if(dtl[i][`litologia${j}`] != null){
+                        litologias[i].push({
+                            nombre: dtl[i][`litologia${j}`],
+                            imagen: dtl[i][`imagen${j}`],
+                            porcentaje: parseFloat(dtl[i][`porcentaje${j}`]),
+                        });
+                    }
+                }
+            }
         };
+    }
+
+    /* Verifica si la litología tiene una estructura anterior
+       a la gestion 2025 */
+    function EsFormatoAnterior(index){
+        return dtl[index].litologia1 == null || dtl[index].litologia1 == 0;
     }
 
     function DibujarColumnaLitologica(){        
@@ -107,7 +129,11 @@
                 DibujarRectanguloFormacion(litologia[i], (canvas.width/2)+71, posyinicial, 140, ((profundidades[i])*unmetro));
                 //Parte Litologia
                 DibujarTexto("Litologia", (canvas.width/2)-70, posyinicial-50, 140, 40, "#384ad7", "#384ad7", "#ffffff");
-                DibujarRectanguloLitologia(litologia[i].toLowerCase()+".png", (canvas.width/2)-70, posyinicial, 140, ((profundidades[i])*unmetro));
+                if(EsFormatoAnterior(i)){
+                    DibujarRectanguloLitologia(litologia[i].toLowerCase()+".png", (canvas.width/2)-70, posyinicial, 140, ((profundidades[i])*unmetro));
+                }else{
+                    DibujarSubRectanguloLitologia(litologias[i], (canvas.width/2)-70, posyinicial, 140, ((profundidades[i])*unmetro));
+                }
                 profundidad = profundidad+((profundidades[i])*unmetro);
             }else{
                 //Parte Profundidad
@@ -121,7 +147,11 @@
                 //Parte Formacion
                 DibujarRectanguloFormacion(litologia[i], (canvas.width/2)+71, posyinicial+profundidad, 140, ((profundidades[i])*unmetro));
                 //Parte Litologica
-                DibujarRectanguloLitologia(litologia[i].toLowerCase()+".png", (canvas.width/2)-70, posyinicial+profundidad, 140, ((profundidades[i])*unmetro));
+                if(EsFormatoAnterior(i)){
+                    DibujarRectanguloLitologia(litologia[i].toLowerCase()+".png", (canvas.width/2)-70, posyinicial+profundidad, 140, ((profundidades[i])*unmetro));
+                }else{
+                    DibujarSubRectanguloLitologia(litologias[i], (canvas.width/2)-70, posyinicial+profundidad, 140, ((profundidades[i])*unmetro));
+                }
                 profundidad = profundidad+((profundidades[i])*unmetro);
             }
             profundidadtotal += profundidades[i];
@@ -168,6 +198,16 @@
 
         contexto.stroke();
         contexto.restore();
+    }
+
+    function DibujarSubRectanguloLitologia(litologia, posX, posY, anchoBloque, altoBloque){
+        var subAltoBloque = 0;
+        var subPosY = posY;
+        for(var i = 0 ; i < litologia.length ; i++){
+            subAltoBloque = (altoBloque * (litologia[i].porcentaje / 100));
+            DibujarRectanguloLitologia(litologia[i].imagen, posX, subPosY, anchoBloque, subAltoBloque);
+            subPosY += (altoBloque * (litologia[i].porcentaje / 100));
+        }
     }
 
     function DibujarTexto(texto, posx, posy, anchobloque, altobloque, colorborde, colorrelleno, colortexto){

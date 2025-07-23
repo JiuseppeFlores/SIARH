@@ -16,6 +16,8 @@ class Subcatalogo extends Table{
     }
     public function conf_catalog_datos_general(){
 
+        $this->addCatalogList($this->tabla["c_pozo_litologico"],"litologia","","","","itemId","","");
+        $this->addCatalogList($this->tabla["c_pozo_litologico_redondez"],"tiporedondez","","","","itemId","","");
         $this->addCatalogList($this->tabla["c_pozo_litologico_permeabilidad"],"tipopermeabilidad","","","","itemId","","");
 
     }
