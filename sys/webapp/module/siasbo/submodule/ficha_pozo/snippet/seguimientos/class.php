@@ -51,6 +51,7 @@ class Snippet extends Table
                  */
                 // var_dump("procesa_datos",$que_form,$this->campos,$rec,$accion);
                 $dato_resultado = $this->procesa_campos_sbm($rec,$this->campos[$que_form],$accion);
+                // var_dump("dato_resultado",$dato_resultado);
                 /**
                  * Si es nuevo el registro, haré que el ID sea igual a la gestion_id
                  */
@@ -147,7 +148,7 @@ class Snippet extends Table
     function get_datos_seguimiento($Id){
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
 
-        $sql = "SELECT a.nombre, b.estadoOperativo, b.proveedorEnergia, b.numeroMedidor,b.indicadorGprs,b.fecha,b.hora FROM item a, item_pozo_estado_operativo b WHERE a.itemId=b.pozoId AND b.pozoId = $Id ORDER BY b.fecha ASC, b.hora ASC";
+        $sql = "SELECT a.nombre, b.estadoOperativo as idEstado, b.proveedorEnergia as idProveedor, b.numeroMedidor, b.indicadorGprs, b.fecha, b.hora, e.nombre as estadoOperativo, p.nombre as proveedorEnergia FROM item a, item_pozo_estado_operativo b, catalogo_pozo_estado_operativo e, catalogo_pozo_proveedor_energia p WHERE a.itemId=b.pozoId AND b.estadoOperativo=e.itemId AND b.proveedorEnergia=p.itemId AND b.pozoId = $Id ORDER BY b.fecha ASC, b.hora ASC";
         // echo $sql;
         $datos = $this->dbm->Execute($sql);
         $datos = $datos->GetRows();

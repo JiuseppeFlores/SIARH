@@ -2833,6 +2833,7 @@ class Table
         return $col;
     }
     public function get_grilla_datatable_simple( $db,$grilla,$table, $primaryKey, $extraWhere, $groupBy, $having,$position="left"){
+        // var_dump("get_grilla_datatable_simple",$db, $grilla, $table, $primaryKey, $extraWhere, $groupBy, $having);
         /**
          * Recojemos todos los campos que mostraremos en la lista
          * y le damos formato de un arreglo para generar el json para datatable
@@ -2933,7 +2934,9 @@ class Table
      *
      */
     public function procesa_campos_sbm($item,$campos,$accion){
-
+        // var_dump('items', $item);
+        // var_dump('campos', $campos);
+        // var_dump('accion', $accion);
         $resultado = array();
         foreach (array_keys($campos) as $clave) {
             if(isset($item[$clave])) {
@@ -3076,6 +3079,7 @@ class Table
 
     function item_update_verifica_sbm($tabla,$itemId,$campo_id){
         $sql = "select ".$campo_id." from ".$tabla." where ".$campo_id."=".$itemId;
+        // echo $sql;
         $resultado = $this->dbm->Execute($sql);
         $resultado = $resultado->GetRows();
         if(count($resultado)==0){
@@ -3090,7 +3094,7 @@ class Table
      */
     function item_delete_sbm($itemId,$campo_id,$tabla,$where=""){
         global $privFace;
-
+        // var_dump($itemId,$campo_id,$tabla,$where);
 
         if($privFace["editar"] and $privFace["eliminar"]){
             if($itemId!=''){
@@ -3887,6 +3891,7 @@ class Table
             }else if($accion=="new"){
                 // var_dump('caso 0002');
                 if($privFace["crear"]){
+                    // var_dump('*************',$tabla,'---------------',$rec);
                     $resupdate = $this->dbm->AutoExecute($tabla,$rec);
                     // var_dump('respuesta update>>',$resupdate);
                     if($resupdate){

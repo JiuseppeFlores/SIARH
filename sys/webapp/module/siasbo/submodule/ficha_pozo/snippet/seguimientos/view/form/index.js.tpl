@@ -56,7 +56,7 @@
             var handle_general_form_submit = function() {
 
                 btn_seguimiento_submit.click(function(e) {
-                    console.log("btn_seguimiento_submit clicked");
+                    // console.log("btn_seguimiento_submit clicked");
                     
                     e.preventDefault();
                     var btn = $(this);
@@ -77,7 +77,7 @@
                             },
                             "item[hora]": {
                                 required: true,
-                                minlength: 3
+                                minlength: 5
                             },
                         }
                     });
@@ -86,6 +86,7 @@
                         return;
                     }
 
+                    // console.log("form is valid, submitting...",form_seguimiento);
                     form_seguimiento.submit();
 
                 });
@@ -100,6 +101,13 @@
                         leftArrow: '<i class="la la-angle-left"></i>',
                         rightArrow: '<i class="la la-angle-right"></i>'
                     }
+                });
+
+                $("#hora").timepicker({
+                    minuteStep: 1,
+                    format: 'HH:mm',
+                    //showSeconds:!0,
+                    showMeridian: 0
                 });
 
                 $('.select2').select2({

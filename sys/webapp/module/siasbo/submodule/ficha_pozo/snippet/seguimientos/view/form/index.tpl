@@ -102,7 +102,7 @@
                 <div class="col-lg-12">
                     <label>Observaciones</label>
                     <div class="input-group">
-                        <textarea class="form-control m-input" name="item[observaciones]" id="observaciones" placeholder="Ingrese observaciones" rows="3" maxlength="150" data-msg="Ingrese 150 caracteres como máximo.">{$item.oper_observaciones|escape:"html"}</textarea>
+                        <textarea class="form-control m-input" name="item[observaciones]" id="observaciones" placeholder="Ingrese observaciones" rows="3" maxlength="150" data-msg="Ingrese 150 caracteres como máximo.">{$item.observaciones|escape:"html"}</textarea>
                     </div>
                 </div>
             </div>

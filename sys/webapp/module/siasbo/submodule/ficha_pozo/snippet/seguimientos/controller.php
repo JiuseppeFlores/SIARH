@@ -36,7 +36,7 @@ switch($accion){
         $smarty->assign("pozoCod", $pozoId);
 
         if($type=="update"){
-            $item = $subObjItem->get_item($id, "seguimiento");
+            $item = $subObjItem->get_item($id, "estado_operativo");
             $smarty->assign("item", $item);
         }
 
@@ -46,12 +46,12 @@ switch($accion){
         break;
 
     case 'itemDelete':
-        $respuesta = $subObjItem->item_delete($id, "seguimiento");
+        $respuesta = $subObjItem->item_delete($id, "estado_operativo");
         $core->print_json($respuesta);
         break;
     
     //Para Graficas
-    case 'getGraficaColumnaSeguimiento':
+    // case 'getGraficaColumnaSeguimiento':
         //echo $tipoId;
         // $datosSeguimiento = $subObjItem->get_datos_Seguimiento($id);
         // echo json_encode($datosSeguimiento);
@@ -68,14 +68,14 @@ switch($accion){
         // }
         // break;
 
-        $datosSeguimiento = $subObjItem->get_datos_seguimiento($id);
-        if(count($datosSeguimiento) > 0){
-            $smarty->assign("subpage",$webm["seguimiento_grafico_sc_index"]);
-        }else{
-            return 0;
-        }        
+        // $datosSeguimiento = $subObjItem->get_datos_seguimiento($id);
+        // if(count($datosSeguimiento) > 0){
+        //     $smarty->assign("subpage",$webm["seguimiento_grafico_sc_index"]);
+        // }else{
+        //     return 0;
+        // }        
         
-        break;
+        // break;
 
     case 'getItemSeguimiento':
         $datosSeguimiento = $subObjItem->get_datos_seguimiento($id);

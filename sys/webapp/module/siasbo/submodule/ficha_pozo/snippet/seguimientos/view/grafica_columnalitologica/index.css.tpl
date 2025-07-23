@@ -1,5 +1,0 @@
-{literal}
-<style>
-
-</style>
-{/literal}

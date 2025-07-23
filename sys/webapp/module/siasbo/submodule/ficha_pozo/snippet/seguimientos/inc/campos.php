@@ -25,7 +25,7 @@ $campos_item["pozoId"]=array(
 ,   "label"=>"pozoId");
 
 $campos_item["fecha"]=array(
-    "tipo"=>"date"
+    "tipo"=>"date_01"
 ,   "label"=>"Fecha");
 
 $campos_item["hora"]=array(

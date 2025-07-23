@@ -94,20 +94,44 @@ $grilla_items[]=array(
 );
 
 $field_name = "estadoOperativo";
+$field_alias = "std";
+$field_activo = 1;
 $grilla_items[]=array(
-    "campo" => $field_name // el campo de la base de datos que recupera
+    "campo" => "nombre" // el campo de la base de datos que recupera
 ,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
 ,   "label"=> "Estado Operativo" //
-,   "activo"=> 1
+,   "as" => "estadoOperativo"
+,   "tabla_alias"=> $field_alias
+,   "activo"=> $field_activo
 );
 
+        $grilla_tablas[] = array(
+            "tabla" => $CFGm->tabla["c_pozo_estado_operativo"]
+        ,   "alias"=> $field_alias
+        ,   "campo_id"=>"itemId"
+        ,   "relacion_id"=> $field_name
+        ,   "activo"=> $field_activo
+        );
+
 $field_name = "proveedorEnergia";
+$field_alias = "nrg";
+$field_activo = 1;
 $grilla_items[]=array(
-    "campo" => $field_name // el campo de la base de datos que recupera
+    "campo" => "nombre" // el campo de la base de datos que recupera
 ,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
 ,   "label"=> "Proveedor de Energia" //
-,   "activo"=> 1
+,   "as" => "proveedorEnergia"
+,   "tabla_alias"=> $field_alias
+,   "activo"=> $field_activo
 );
+
+        $grilla_tablas[] = array(
+            "tabla" => $CFGm->tabla["c_pozo_proveedor_energia"]
+        ,    "alias"=> $field_alias
+        ,   "campo_id"=>"itemId"
+        ,   "relacion_id"=> $field_name
+        ,   "activo"=> $field_activo
+        );
 
 $field_name = "medidorOperativo";
 $grilla_items[]=array(
@@ -144,21 +168,6 @@ $grilla_items[]=array(
 // ,   "tabla_alias"=> $field_alias
 // ,   "activo"=> $field_activo
 // );
-        $grilla_tablas[] = array(
-            "tabla" => $CFGm->tabla["c_pozo_estado_operativo"]
-        ,    "alias"=> $field_alias
-        ,   "campo_id"=>"itemId"
-        ,   "relacion_id"=> $field_name
-        ,   "activo"=> $field_activo
-        );
-
-        $grilla_tablas[] = array(
-            "tabla" => $CFGm->tabla["c_pozo_proveedor_energia"]
-        ,    "alias"=> $field_alias
-        ,   "campo_id"=>"itemId"
-        ,   "relacion_id"=> $field_name
-        ,   "activo"=> $field_activo
-        );
 
 $field_name = "observaciones";
 $grilla_items[]=array(
