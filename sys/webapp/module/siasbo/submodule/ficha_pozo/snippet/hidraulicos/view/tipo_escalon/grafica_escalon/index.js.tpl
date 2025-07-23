@@ -154,9 +154,9 @@
           data: {
             //labels: tiempo,
             datasets: [{
-              label: 'Escalones',
-              //data: abatimiento,
-              data: tiempo.map((t, index) => ({ x: t, y: abatimiento[index] })),
+              label: 'Abatimiento',
+              data: abatimiento,
+              //data: tiempo.map((t, index) => ({ x: t, y: abatimiento[index] })),
               backgroundColor: [
                 'rgba(42, 127, 255, 0)',
               ],
@@ -176,16 +176,16 @@
                 },
                 scales: {
                     xAxes: [{
-                        type: 'linear',
+                        //type: 'linear',
                         position: 'bottom',
                         scaleLabel: {
                             display: true,
                             labelString: 'Tiempo (minutos)'
                         },
-                        ticks: {
-                            beginAtZero: true,
-                            stepSize: 1,
-                        },
+                        // ticks: {
+                        //     beginAtZero: true,
+                        //     stepSize: 1,
+                        // },
                     }],
                     yAxes: [{
                         stacked: true,

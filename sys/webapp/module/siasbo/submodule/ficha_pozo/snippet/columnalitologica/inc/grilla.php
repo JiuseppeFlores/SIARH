@@ -70,13 +70,13 @@ unset($grilla_items); // siempre se borrar la variable para iniciar una nueva co
 unset($grilla_tablas); // siempre se borrar la variable para iniciar una nueva configuración
 */
 
-$field_name = "pozoId";
-$grilla_items[]=array(
-    "campo" => $field_name // el campo de la base de datos que recupera
-,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
-,   "label"=> "Pozo ID" //
-,   "activo"=> 1
-);
+// $field_name = "pozoId";
+// $grilla_items[]=array(
+//     "campo" => $field_name // el campo de la base de datos que recupera
+// ,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
+// ,   "label"=> "Pozo ID" //
+// ,   "activo"=> 1
+// );
 
 $field_name = "profundidad_desde";
 $grilla_items[]=array(
@@ -94,13 +94,24 @@ $grilla_items[]=array(
 ,   "activo"=> 1
 );
 
-$field_name = "litologia1";
+$field_name = "litologiaId1";
+$field_alias = "lito1";
+$field_activo = 1;
 $grilla_items[]=array(
-    "campo" => $field_name // el campo de la base de datos que recupera
-,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
-,   "label"=> "Litología 1" //
-,   "activo"=> 1
+    "campo" => "nombre" // el campo de la base de datos que recupera
+,   "field" => $field_name // se da formato o se configura el nombre del campo resultado
+,   "label" => "Litología 1" //
+,   "as" => $field_name
+,   "tabla_alias" => $field_alias
+,   "activo" => $field_activo
 );
+        $grilla_tablas[] = array(
+            "tabla" => $CFGm->tabla["c_pozo_litologico"]
+        ,   "alias"=> $field_alias
+        ,   "campo_id"=>"itemId"
+        ,   "relacion_id"=> $field_name
+        ,   "activo"=> $field_activo
+        );
 
 $field_name = "porcentaje1";
 $grilla_items[]=array(
@@ -110,13 +121,24 @@ $grilla_items[]=array(
 ,   "activo"=> 1
 );
 
-$field_name = "litologia2";
+$field_name = "litologiaId2";
+$field_alias = "lito2";
+$field_activo = 1;
 $grilla_items[]=array(
-    "campo" => $field_name // el campo de la base de datos que recupera
-,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
-,   "label"=> "Litología 2" //
-,   "activo"=> 1
+    "campo" => "nombre" // el campo de la base de datos que recupera
+,   "field" => $field_name // se da formato o se configura el nombre del campo resultado
+,   "label" => "Litología 1" //
+,   "as" => $field_name
+,   "tabla_alias" => $field_alias
+,   "activo" => $field_activo
 );
+        $grilla_tablas[] = array(
+            "tabla" => $CFGm->tabla["c_pozo_litologico"]
+        ,   "alias"=> $field_alias
+        ,   "campo_id"=>"itemId"
+        ,   "relacion_id"=> $field_name
+        ,   "activo"=> $field_activo
+        );
 
 $field_name = "porcentaje2";
 $grilla_items[]=array(

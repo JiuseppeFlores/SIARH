@@ -110,6 +110,11 @@
                     //dropdownParent: $("#modal_window_litologico")
                 });
 
+                $('.select3').select2({
+                    placeholder: "Seleccionar",
+                    //dropdownParent: $("#modal_window_litologico")
+                });
+
                 $('.summernote').summernote({
                     height: 150
                 });

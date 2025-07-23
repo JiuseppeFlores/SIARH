@@ -79,7 +79,10 @@ $db_datos[] = $core->get_alias_campo("pozo_hidra_tipo_bombeo","","");
 
 $db_datos[] = $core->get_alias_campo("pozo_implementacion_tipo","","");
 
+$db_datos[] = $core->get_alias_campo("pozo_litologico","","");
+$db_datos[] = $core->get_alias_campo("pozo_litologico_redondez","","");
 $db_datos[] = $core->get_alias_campo("pozo_litologico_permeabilidad","","");
+
 $db_datos[] = $core->get_alias_campo("pozo_estado_operativo","","");
 $db_datos[] = $core->get_alias_campo("pozo_proveedor_energia","","");
 
