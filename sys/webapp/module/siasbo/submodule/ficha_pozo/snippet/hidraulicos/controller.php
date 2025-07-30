@@ -162,7 +162,7 @@ switch($accion){
         // exit;
         // break;
 
-        $datosEscalon = $subObjItem->get_datos_escalon($id);
+        $datosEscalon = $subObjItem->get_datos_escalon($id, $tipo);
         if(count($datosEscalon) > 0){
             $smarty->assign("tipo",$tipo);
             $smarty->assign("datos",json_encode($datosEscalon));

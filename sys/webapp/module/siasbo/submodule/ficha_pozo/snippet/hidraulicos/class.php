@@ -197,17 +197,23 @@ class Snippet extends Table
         return $tiempo;
     }        
 
-    function get_datos_escalon($pozoId){
+    function get_datos_escalon($pozoId, $tipoId){
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
         // $sql = "SELECT a.nombre, c.tipo, c.nivel_estatico, d.tiempo, d.nivel_dinamico, d.etapa 
         // FROM item a, item_pozo_hidra b, item_pozo_hidra_bombeo c, item_pozo_hidra_bombeo_dato d 
         // WHERE a.itemId=b.pozoId AND b.itemId=c.pruebabombeoId AND c.itemId=d.tipobombeoId AND d.tipobombeoId = $pozoId 
         // ORDER BY d.itemId ASC";
 
-        $sql = "SELECT a.nombre, c.tipo, c.nivel_estatico, d.tiempo, d.nivel_dinamico, d.etapa  
-        FROM item a, item_pozo_hidra b, item_pozo_hidra_bombeo c, item_pozo_hidra_bombeo_dato d 
-        WHERE a.itemId=b.pozoId AND b.itemId=c.pruebabombeoId AND c.itemId=d.tipobombeoId AND a.itemId = ".$pozoId." 
-        ORDER BY d.itemId ASC";
+        $sql = "SELECT a.nombre, 
+                        c.tipo, c.nivel_estatico, 
+                        d.tiempo, d.nivel_dinamico, d.etapa  
+                FROM item a, item_pozo_hidra b, item_pozo_hidra_bombeo c, item_pozo_hidra_bombeo_dato d 
+                WHERE a.itemId=b.pozoId 
+                    AND b.itemId=c.pruebabombeoId 
+                    AND c.itemId=d.tipobombeoId 
+                    AND a.itemId=$pozoId
+                    AND c.tipo=$tipoId
+                ORDER BY d.etapa ASC, d.tiempo ASC";
 
         $datos = $this->dbm->Execute($sql);
         $datos = $datos->GetRows();
