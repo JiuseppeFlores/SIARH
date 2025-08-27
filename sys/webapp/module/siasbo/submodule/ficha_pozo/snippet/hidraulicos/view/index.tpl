@@ -8,7 +8,7 @@
             <ul class="nav nav-tabs m-tabs-line m-tabs-line--brand" role="tablist">
                 <li class="nav-item m-tabs__item">
                     <a id="nav_prueba" class="nav-link m-tabs__link" data-toggle="tab" href="#window_prueba" role="tab" aria-selected="false">
-                        <i class="la la-check"></i>&nbsp;Prueba bombeo 
+                        <i class="la la-check"></i>&nbsp;General 
                     </a>
                 </li>
                 <li class="nav-item m-tabs__item">

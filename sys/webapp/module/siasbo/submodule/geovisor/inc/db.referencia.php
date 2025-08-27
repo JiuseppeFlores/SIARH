@@ -25,6 +25,7 @@ $db_datos = array();
 $db_datos[] = $core->get_alias_campo("cuenca_estrategica","","");
 $db_datos[] = $core->get_alias_campo("acuifero","","");
 $db_datos[] = $core->get_alias_campo("pozo_general_epsas","","");
+$db_datos[] = $core->get_alias_campo("pozo_hidra_tipo_bombeo","","");
 
 $CFGm->tabla = array_merge($CFGm->tabla,$core->get_tablas_from_array($db_datos,"c",$dbname,"",""));
 unset($db_datos);

@@ -1,9 +1,5 @@
 {literal}
 <script>
-    const TIPO_ESCALONADA = 1;
-    const TIPO_CONTINUA = 2;
-    const TIPO_DESCONOCIDO = 3;
-	
     jQuery(document).ready(function() {
         $('#nav_tipo').hide();
         $('#nav_escalon').hide();

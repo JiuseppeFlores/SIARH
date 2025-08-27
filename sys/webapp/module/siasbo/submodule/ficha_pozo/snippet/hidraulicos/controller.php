@@ -161,12 +161,13 @@ switch($accion){
         // echo json_encode($datosEscalon);
         // exit;
         // break;
-
+        $subObjCatalog->conf_catalog_datos_general();
+        $tiposBombeo = ($subObjCatalog->getCatalogList())['tipo_bombeo'];
         $datosEscalon = $subObjItem->get_datos_escalon($id, $tipo);
         if(count($datosEscalon) > 0){
             $smarty->assign("tipo",$tipo);
             $smarty->assign("datos",json_encode($datosEscalon));
-            //$smarty->assign("subpage",$webm["escalon_sc_index"]);
+            $smarty->assign("tiposBombeo",json_encode($tiposBombeo));
             $smarty->assign("subpage",$webm["escalon_grafica_sc_index"]);
         }else{
             return 0;

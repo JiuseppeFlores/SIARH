@@ -46,6 +46,18 @@ $campos_item["fecha"]=array(
     "tipo"=>"date_01"
 ,   "label"=>"fecha");
 
+$campos_item["nivel_estatico"]=array(
+    "tipo"=>"text"
+,   "label"=>"nivel_estatico");
+
+$campos_item["nivel_dinamico"]=array(
+    "tipo"=>"text"
+,   "label"=>"nivel_dinamico");
+
+$campos_item["caudal"]=array(
+    "tipo"=>"text"
+,   "label"=>"caudal");
+
 $campos_item["conductividad"]=array(
     "tipo"=>"text"
 ,   "label"=>"conductividad");

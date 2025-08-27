@@ -1,3 +1,11 @@
+-- ----------------------------------------------------------
+-- Author: José L. Flores
+-- Function: Adición de campos de informacion extra para las 
+--           columnas litológicas para la subsección 
+--           de "Columna Litológica" de la sección "Pozos"
+-- Request: Hidrogema-Siasbo Requerimiento 2.7
+-- ----------------------------------------------------------
+
 -- ----------------------------
 -- Alter table for item_pozo_litologica
 -- ----------------------------

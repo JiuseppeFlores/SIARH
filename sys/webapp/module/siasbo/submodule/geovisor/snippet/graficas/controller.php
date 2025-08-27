@@ -110,11 +110,17 @@ switch($accion){
         break;
 
     case 'getGraficaEscalon':
-        $datosEscalon = $subObjItem->get_datos_escalon($id);
+        $subObjCatalog->conf_catalog_datos_hidra();
+        $tiposBombeo = ($subObjCatalog->getCatalogList())['tipo_bombeo'];
+
+        $tipo = $subObjItem->get_tipo_escalon_pozo($id);
+        $datosEscalon = $subObjItem->get_datos_escalon($id, $tipo);
 
         if(count($datosEscalon) > 0){
+            $smarty->assign("tipo",$tipo);
             $smarty->assign("datos",json_encode($datosEscalon));
             $smarty->assign("subpage",$webm["escalon_sc_index"]);
+            $smarty->assign("tiposBombeo",json_encode($tiposBombeo));
         }else{
             return 0;
         }

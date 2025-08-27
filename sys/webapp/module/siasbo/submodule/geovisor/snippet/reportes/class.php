@@ -63,12 +63,12 @@ class Snippet extends Table {
 
     function get_datos_pozo_litologia($pozoId) {
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
-        $sql = "SELECT a.itemId, b.nombre, a.profundidad_desde, a.profundidad_hasta, a.litologia1 
-        FROM item_pozo_litologica a, 
-        catalogo_pozo_litologico_permeabilidad b 
-        WHERE a.permeabilidad=b.itemId 
-        AND a.pozoId=".$pozoId." 
-        ORDER BY a.itemId ASC";
+        $sql = "SELECT a.itemId, c.nombre, a.profundidad_desde, a.profundidad_hasta, c.nombre 
+                FROM item_pozo_litologica a
+                LEFT JOIN catalogo_pozo_litologico_permeabilidad b ON a.permeabilidad = b.itemId 
+                LEFT JOIN catalogo_pozo_litologico c ON a.litologiaId1 = c.itemId
+                WHERE a.pozoId = $pozoId
+                ORDER BY a.profundidad_desde ASC, a.profundidad_hasta ASC;";
         $datos = $this->dbm->Execute($sql);
         $datos = $datos->GetRows();
         return $datos;
@@ -123,10 +123,10 @@ class Snippet extends Table {
     function get_datos_pozo_monitoreo_cantidad($pozoId) {
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
         $sql = "SELECT a.itemId, DATE_FORMAT(a.fecha, '%d/%m/%Y') AS fecha, a.caudal, 
-        a.observaciones 
-        FROM item_pozo_monitor a 
-        WHERE a.pozoId=".$pozoId." 
-        ORDER BY a.itemId ASC";
+                        a.nivel_freatico, a.nivel_dinamico, a.nivel_estatico, a.observaciones 
+                FROM item_pozo_monitor a 
+                WHERE a.pozoId = {$pozoId}
+                ORDER BY a.itemId ASC;";
         $datos = $this->dbm->Execute($sql);
         $datos = $datos->GetRows();
         return $datos;
@@ -372,6 +372,9 @@ class Snippet extends Table {
         $monitoreo_cantidad_observacion = array();
         foreach ($datos_monitoreo_cantidad as $clave => $valor) {
             $monitoreo_cantidad_fecha[] = $valor['fecha'];
+            $monitoreo_cantidad_nivel_freatico[] = $valor['nivel_freatico'];
+            $monitoreo_cantidad_nivel_dinamico[] = $valor['nivel_dinamico'];
+            $monitoreo_cantidad_nivel_estatico[] = $valor['nivel_estatico'];
             $monitoreo_cantidad_caudal[] = $valor['caudal'];
             $monitoreo_cantidad_observacion[] = $valor['observaciones'];
         }
@@ -380,6 +383,9 @@ class Snippet extends Table {
         $plantilla->cloneRow('mc.fecha', $tamanio);
         for ($i=0; $i < $tamanio; $i++) {
             $plantilla->setValue('mc.fecha#'.$contador, htmlspecialchars($monitoreo_cantidad_fecha[$i]));
+            $plantilla->setValue('mc.nivel_freatico#'.$contador, htmlspecialchars($monitoreo_cantidad_nivel_freatico[$i]));
+            $plantilla->setValue('mc.nivel_dinamico#'.$contador, htmlspecialchars($monitoreo_cantidad_nivel_dinamico[$i]));
+            $plantilla->setValue('mc.nivel_estatico#'.$contador, htmlspecialchars($monitoreo_cantidad_nivel_estatico[$i]));
             $plantilla->setValue('mc.caudal#'.$contador, htmlspecialchars($monitoreo_cantidad_caudal[$i]));
             $plantilla->setValue('mc.obs#'.$contador, htmlspecialchars($monitoreo_cantidad_observacion[$i]));
             $contador++;

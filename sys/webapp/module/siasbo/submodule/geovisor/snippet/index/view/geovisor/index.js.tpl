@@ -1011,7 +1011,7 @@
 
                                     content += '<a href="?module=siasbo&smodule=ficha_pozo&accion=itemUpdate&type=update&id='+id+'" target="_blank">EDITAR FICHA</a><br>';
 
-                                    content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaPozo&pozoId='+id+'" target="_blank">IMPRIMIR FICHA</a><br>';
+                                    content += '<a href="?module=siasbo&smodule=geovisor&accion=reportes_getFichaPozo&pozoId='+id+'" >IMPRIMIR FICHA</a><br>';
 
                                     if (respuesta[0].calidad == 'Si') {
                                       content += '<a href="#" onclick="graficar_stiff('+id+');">VER GRÁFICA STIFF</a><br>';

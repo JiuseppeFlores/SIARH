@@ -100,7 +100,10 @@
                         scaleLabel: {
                             display: true,
                             labelString: 'Nivel Estatico'
-                        },                        
+                        },
+                        ticks: {
+                            reverse: true,
+                        }
                     }]
                 },
                 elements: {

@@ -18,9 +18,7 @@
                     </select>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group m-form__group row">
             <div class="col-lg-6">
                 <label>Fecha</label>
                 <div class="input-group">
@@ -32,7 +30,47 @@
                     </div>
                 </div>
             </div>
-    
+        </div>
+
+        <div class="form-group m-form__group row">
+            <div class="col-lg-6">
+                <label>Nivel estático (m.b.b.p.)</label>
+                <div class="input-group">
+                    <input class="form-control m-input m-input" placeholder="Ingrese nivel estático" type="text" name="item[nivel_estatico]" id="tbp_nivel_estatico" value="{$item.nivel_estatico|escape:"html"}" min="0" max="99" step="0.01" data-msg="Campo requerido. Nivel estático debe contener números, 2 enteros y 2 decimales como máximo.">
+                    <div class="input-group-append">
+                        <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Es la profundidad desde la superficie del terreno hasta el nivel del agua en el pozo cuando no se esta extrayendo el agua (Dato general)">
+                            <i class="flaticon-questions-circular-button"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <label>Nivel dinámico (m.b.b.p.)</label>
+                <div class="input-group">
+                    <input class="form-control m-input" type="text" name="item[nivel_dinamico]" id="tbp_nivel_dinamico" placeholder="Ingrese nivel dinámico final" value="{$item.nivel_dinamico|escape:"html"}" min="0" max="99" step="0.01" data-msg="Campo requerido. Nivel dinámico debe contener números, 2 enteros y 2 decimales como máximo.">
+                    <div class="input-group-append">
+                        <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Es la profundidad desde la superficie del terreno hasta el nivel del agua mientras se esta bombeando (Dato general)">
+                            <i class="flaticon-questions-circular-button"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group m-form__group row">
+            <div class="col-lg-6" id="campo_caudal">
+                <label>Caudal (l/s)</label>
+                <div class="input-group">
+                    <input class="form-control m-input" type="text" name="item[caudal]" id="tbp_caudal" placeholder="Ingrese caudal" value="{$item.caudal|escape:"html"}" min="0" max="999" step="0.01" data-msg="Campo requerido. Caudal bomba debe contener números, 3 enteros y 2 decimales como máximo.">
+                    <div class="input-group-append">
+                        <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Es la cantidad de agua en litros que fluye por segundo desde el pozo (Dato general)">
+                            <i class="flaticon-questions-circular-button"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-lg-6">
                 <label>Conductividad hidraúlica K (m/día)</label>
                 <div class="input-group">

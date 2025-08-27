@@ -129,57 +129,57 @@ var Logs = {
 //   });
 // });
 
-$(document).on("shown.bs.modal", ".modal", function () {
-  const $dialog = $(this).find(".modal-dialog");
-  const $header = $dialog.find(".modal-header");
+// $(document).on("shown.bs.modal", ".modal", function () {
+//   const $dialog = $(this).find(".modal-dialog");
+//   const $header = $dialog.find(".modal-header");
 
-  // ✅ Centrar el modal
-  const windowWidth = $(window).width();
-  const windowHeight = $(window).height();
-  const dialogWidth = $dialog.outerWidth();
-  const dialogHeight = $dialog.outerHeight();
+//   // ✅ Centrar el modal
+//   const windowWidth = $(window).width();
+//   const windowHeight = $(window).height();
+//   const dialogWidth = $dialog.outerWidth();
+//   const dialogHeight = $dialog.outerHeight();
 
-  const left = (windowWidth - dialogWidth) / 2;
-  var altura_modal_posicion = (windowHeight - dialogHeight) / 2;
-  console.log("Centrando modal en la pantalla", altura_modal_posicion);
-  if (altura_modal_posicion < 0) {
-    // Asegurar que el modal no se salga de la pantalla
-    console.log(
-      "El modal está fuera de la pantalla, ajustando altura_modal_posicion"
-    );
-    altura_modal_posicion = -1 * ((windowHeight - dialogHeight) / 2);
-    console.log("Nuevo altura_modal_posicion ajustado:", altura_modal_posicion);
-  }
-  $dialog.css({
-    position: "absolute",
-    margin: 0,
-    top: altura_modal_posicion + "px",
-    left: left + "px",
-  });
+//   const left = (windowWidth - dialogWidth) / 2;
+//   var altura_modal_posicion = (windowHeight - dialogHeight) / 2;
+//   console.log("Centrando modal en la pantalla", altura_modal_posicion);
+//   if (altura_modal_posicion < 0) {
+//     // Asegurar que el modal no se salga de la pantalla
+//     console.log(
+//       "El modal está fuera de la pantalla, ajustando altura_modal_posicion"
+//     );
+//     altura_modal_posicion = -1 * ((windowHeight - dialogHeight) / 2);
+//     console.log("Nuevo altura_modal_posicion ajustado:", altura_modal_posicion);
+//   }
+//   $dialog.css({
+//     position: "absolute",
+//     margin: 0,
+//     top: altura_modal_posicion + "px",
+//     left: left + "px",
+//   });
 
-  // ✅ Hacer arrastrable el modal desde la cabecera
-  $header.css("cursor", "move");
+//   // ✅ Hacer arrastrable el modal desde la cabecera
+//   $header.css("cursor", "move");
 
-  let isDragging = false;
-  let offset = { x: 0, y: 0 };
+//   let isDragging = false;
+//   let offset = { x: 0, y: 0 };
 
-  $header.off("mousedown").on("mousedown", function (e) {
-    isDragging = true;
-    offset.x = e.clientX - $dialog.offset().left;
-    offset.y = e.clientY - $dialog.offset().top;
+//   $header.off("mousedown").on("mousedown", function (e) {
+//     isDragging = true;
+//     offset.x = e.clientX - $dialog.offset().left;
+//     offset.y = e.clientY - $dialog.offset().top;
 
-    $(document).on("mousemove.modaldrag", function (e) {
-      if (isDragging) {
-        $dialog.offset({
-          top: e.clientY - offset.y,
-          left: e.clientX - offset.x,
-        });
-      }
-    });
+//     $(document).on("mousemove.modaldrag", function (e) {
+//       if (isDragging) {
+//         $dialog.offset({
+//           top: e.clientY - offset.y,
+//           left: e.clientX - offset.x,
+//         });
+//       }
+//     });
 
-    $(document).on("mouseup.modaldrag", function () {
-      isDragging = false;
-      $(document).off(".modaldrag");
-    });
-  });
-});
+//     $(document).on("mouseup.modaldrag", function () {
+//       isDragging = false;
+//       $(document).off(".modaldrag");
+//     });
+//   });
+// });

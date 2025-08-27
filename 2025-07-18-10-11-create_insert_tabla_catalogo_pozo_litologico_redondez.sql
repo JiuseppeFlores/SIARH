@@ -1,3 +1,11 @@
+-- ----------------------------------------------------------
+-- Author: José L. Flores
+-- Function: Creación de un nuevo catalogo para el almacenamiento
+--           de tipos de redondez para la subsección de "Columna Litológica"
+--           de la sección "Pozos"
+-- Request: Hidrogema-Siasbo Requerimiento 2.7
+-- ----------------------------------------------------------
+
 -- ----------------------------
 -- Table structure for catalogo_pozo_litologico_tipo
 -- ----------------------------

@@ -217,13 +217,13 @@ unset($grilla_items);
  * Grilla prueba de bombeo (item_pozo_hidra)
  */
 //-------------------------------------------------------------
-$field_name = "pozoId";
-$grilla_items[]=array(
-    "campo" => $field_name // el campo de la base de datos que recupera
-,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
-,   "label"=>"Pozo ID" //
-,   "activo"=> 1
-);
+// $field_name = "pozoId";
+// $grilla_items[]=array(
+//     "campo" => $field_name // el campo de la base de datos que recupera
+// ,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
+// ,   "label"=>"Pozo ID" //
+// ,   "activo"=> 1
+// );
 
 //-------------------------------------------------------------
 $field_name = "fecha";
@@ -238,20 +238,21 @@ $grilla_items[]=array(
 $field_name = "tipopruebaId";
 $field_alias = "tipru";
 $field_activo = 1;
-$grilla_items[]=array(
+$grilla_items[] = array(
     "campo" => "nombre" // nombre del campo pero de la tabla que relaciona
-,   "field"=> $field_name
-,   "label"=>"Tipo prueba"
+,   "field" => $field_name
+,   "label" =>"Tipo prueba"
 ,   "as" => "tipo_prueba"
-,   "tabla_alias"=> $field_alias
-,   "activo"=> $field_activo
+,   "tabla_alias" => $field_alias
+,   "activo" => $field_activo
 );
+
         $grilla_tablas[] = array(
             "tabla" => $CFGm->tabla["c_pozo_hidra_tipo_prueba"]
-        ,    "alias"=> $field_alias
-        ,   "campo_id"=>"itemId"
-        ,   "relacion_id"=> $field_name
-        ,   "activo"=> $field_activo
+        ,   "alias" => $field_alias
+        ,   "campo_id" => "itemId"
+        ,   "relacion_id" => $field_name
+        ,   "activo" => $field_activo
         );
 
 //-------------------------------------------------------------
@@ -262,6 +263,42 @@ $grilla_items[]=array(
 ,   "label"=> "Tipo prueba ID"
 ,   "activo"=> 1
 );
+
+//-------------------------------------------------------------
+$field_name = "nivel_estatico";
+$grilla_items[] = array(
+    "campo" => $field_name
+,   "field"=> $field_name
+,   "label"=> "Nivel estático (m)"
+,   "activo"=> 1
+);
+
+//-------------------------------------------------------------
+$field_name = "nivel_dinamico";
+$grilla_items[] = array(
+    "campo" => $field_name
+,   "field"=> $field_name
+,   "label"=> "Nivel dinámico (m)"
+,   "activo"=> 1
+);
+
+//-------------------------------------------------------------
+$field_name = "caudal";
+$grilla_items[] = array(
+    "campo" => $field_name
+,   "field" => $field_name
+,   "label" => "Caudal (l/s)"
+,   "activo" => 1
+);
+
+//-------------------------------------------------------------
+// $field_name = "tipopruebaId";
+// $grilla_items[]=array(
+//     "campo" => $field_name
+// ,   "field"=> $field_name
+// ,   "label"=> "Tipo prueba ID"
+// ,   "activo"=> 1
+// );
 
 //-------------------------------------------------------------
 $field_name = "conductividad";

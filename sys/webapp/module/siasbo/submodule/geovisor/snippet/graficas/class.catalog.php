@@ -20,6 +20,12 @@ class Subcatalogo extends Table {
         $this->addCatalogList($this->tabla["c_geofisica_dev_lineabase"],"lineabase","","","","","","");
         $this->addCatalogList($this->tabla["o_departamento"],"departamento","","","","","","");
         $this->addCatalogList($this->tabla["c_geofisica_tomografia_config"],"geo_tomo_config","","","","","","");
+        
+    }
+
+    public function conf_catalog_datos_hidra(){
+
+        $this->addCatalogList($this->tabla["c_pozo_hidra_tipo_bombeo"],"tipo_bombeo","","","","itemId","","");
 
     }
 

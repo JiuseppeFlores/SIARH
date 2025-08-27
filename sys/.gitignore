@@ -8,3 +8,5 @@ analisis
 .DS_Store
 /vendor
 /vendor2
+
+sys/webapp/images

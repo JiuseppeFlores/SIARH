@@ -8,6 +8,11 @@
     var lista = JSON.parse(datos);
     var tipo = '{/literal}{$tipo}{literal}';
 
+    var tiposBombeo = JSON.parse('{/literal}{$tiposBombeo}{literal}');
+    var esEscalonado = (tiposBombeo[tipo]).toLowerCase() === 'escalonado';
+    var esContinuo = (tiposBombeo[tipo]).toLowerCase() === 'continuo';
+    var esDesconocido = (tiposBombeo[tipo]).toLowerCase() === 'desconocido';
+
     // function RecuperarDatosEscalon(){
     //     var url = "{/literal}{$getModule}{literal}&accion={/literal}{$subcontrol}_getItemEscalon{literal}&tipoId={/literal}{$tipoId}{literal}";
 
@@ -36,14 +41,9 @@
 
     function CargarGrafica(de,tipo){
 
-        de = de.filter((object) => object.tipo === tipo);
-        const esEscalonada = tipo == TIPO_ESCALONADA;
-        const esContinua = tipo == TIPO_CONTINUA;
-        const esDesconocido = tipo == TIPO_DESCONOCIDO;
-
-        if(esEscalonada){
+        if(esEscalonado){
             $("#exampleModalLongTitle").text("Prueba de bombeo escalonada");
-        }else if(esContinua){
+        }else if(esContinuo){
             $("#exampleModalLongTitle").text("Prueba de bombeo continua");
         }else if(esDesconocido){
             $("#exampleModalLongTitle").text("Prueba de bombeo desconocido");
@@ -80,7 +80,6 @@
 
             if(de[i].etapa != ""){
                 etap[i] = de[i].etapa;
-
                 coloresPuntos[i] = colores[parseInt(de[i].etapa) - 1];
                 switch (de[i].etapa) {
                   case "1":                
@@ -109,10 +108,9 @@
 
         var ctx = canvas.getContext("2d");
 
-        if(esEscalonada){
+        if(esEscalonado){
             
             var unico = unicos.reduce((mayor, actual) => actual > mayor ? actual : mayor, '');
-
             var gradiente = ctx.createLinearGradient(0, 0, 750, 0);       
 
             switch (unico) {
@@ -173,17 +171,17 @@
         var barChart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: esEscalonada ? acumulados : null,
+            labels: esEscalonado ? acumulados : null,
             datasets: [{
               label: 'Abatimiento',
-              data: esEscalonada ? abatimiento : tiempo.map((t, index) => ({ x: t, y: abatimiento[index] })),
+              data: esEscalonado ? abatimiento : tiempo.map((t, index) => ({ x: t, y: abatimiento[index] })),
               backgroundColor: [
                 'rgba(42, 127, 255, 0)',
               ],
               borderWidth: 5,
-              borderColor: esEscalonada ? coloresPuntos : 'rgba(27, 79, 114, 0.5)', //'rgba(42, 127, 0, 0.5)'
+              borderColor: esEscalonado ? coloresPuntos : 'rgba(27, 79, 114, 0.5)', //'rgba(42, 127, 0, 0.5)'
               pointBackgroundColor: coloresPuntos,
-              pointBorderColor: esEscalonada ? coloresPuntos : 'rgba(27, 79, 114, 0.5)',
+              pointBorderColor: esEscalonado ? coloresPuntos : 'rgba(27, 79, 114, 0.5)',
               fill: false,
               tension: 0.3,
             }]
@@ -192,22 +190,22 @@
                 showLines: true,
                 title: {
                     display: true,
-                    text: esEscalonada 
+                    text: esEscalonado 
                             ? "Prueba de Bombeo Escalonada - Nombre Pozo: "+de[0].nombre 
-                            : esContinua
+                            : esContinuo
                                 ? "Prueba de Bombeo Continua - Nombre Pozo: "+de[0].nombre 
                                 : "Prueba de Bombeo Desconocido - Nombre Pozo: "+de[0].nombre
                 },
                 scales: {
                     xAxes: [{
-                        type: esEscalonada ? 'category' : 'linear',
+                        type: esEscalonado ? 'category' : 'linear',
                         position: 'bottom',
                         scaleLabel: {
                             display: true,
                             labelString: 'Tiempo (minutos)'
                         },
                         ticks: {
-                            beginAtZero: !esEscalonada,
+                            beginAtZero: !esEscalonado,
                             //stepSize: 1,
                         },
                     }],
@@ -224,11 +222,11 @@
     }
 
     function GuardarGrafica(de){
-        if(de[0].tipo == TIPO_ESCALONADA){
+        if(esEscalonado){
             Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height, "PruebaBombeoEscalonada");
-        }else if(de[0].tipo == TIPO_CONTINUA){
+        }else if(esContinuo){
             Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height, "PruebaBombeoContinua");
-        }else if(de[0].tipo == TIPO_DESCONOCIDO){
+        }else if(esDesconocido){
             Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height, "PruebaBombeoDesconocido");
         }         
     }

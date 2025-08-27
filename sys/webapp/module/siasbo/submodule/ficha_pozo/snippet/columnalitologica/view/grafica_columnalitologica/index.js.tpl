@@ -122,13 +122,15 @@
         for (var i=0; i<=profundidades.length-1; i++){
             if(i == 0){             
                 //Parte Profundidad
-                DibujarTexto("Profundidad", (canvas.width/2)-211, posyinicial-50, 140, 40, "#384ad7", "#384ad7", "#ffffff");
+                DibujarTexto("Profundidad", (canvas.width/2)-322, posyinicial-50, 120, 40, "#384ad7", "#384ad7", "#ffffff");
+                //Parte Espesor
+                DibujarTexto("Espesor", (canvas.width/2)-201, posyinicial-50, 130, 40, "#384ad7", "#384ad7", "#ffffff");
                 DibujarRectanguloProfundidad(Redondeo(profundidades[i])+" m.", (canvas.width/2)-100, posyinicial, 5, ((profundidades[i])*unmetro), "#808080", "#ffffff");
                 //Parte Formacion
-                DibujarTexto("Formacion", (canvas.width/2)+71, posyinicial-50, 140, 40, "#384ad7", "#384ad7", "#ffffff");
+                DibujarTexto("Formación", (canvas.width/2)+71, posyinicial-50, 140, 40, "#384ad7", "#384ad7", "#ffffff");
                 DibujarRectanguloFormacion(litologia[i], (canvas.width/2)+71, posyinicial, 140, ((profundidades[i])*unmetro));
                 //Parte Litologia
-                DibujarTexto("Litologia", (canvas.width/2)-70, posyinicial-50, 140, 40, "#384ad7", "#384ad7", "#ffffff");
+                DibujarTexto("Litología", (canvas.width/2)-70, posyinicial-50, 140, 40, "#384ad7", "#384ad7", "#ffffff");
                 if(EsFormatoAnterior(i)){
                     DibujarRectanguloLitologia(litologia[i].toLowerCase()+".png", (canvas.width/2)-70, posyinicial, 140, ((profundidades[i])*unmetro));
                 }else{
