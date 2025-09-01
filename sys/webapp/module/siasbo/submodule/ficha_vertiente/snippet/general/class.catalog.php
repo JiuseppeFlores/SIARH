@@ -18,7 +18,8 @@ class Subcatalogo extends Table{
     public function conf_catalog_datos_general(){
 
         $this->addCatalogList($this->tabla["o_departamento"],"departamento","","","","itemId","","");
-        $this->addCatalogList($this->tabla["c_cuenca"],"cuenca","","","","itemId","","");        
+        $this->addCatalogList($this->tabla["c_cuenca"],"cuenca","","","","itemId","","");
+        $this->addCatalogList($this->tabla["c_tipo_fuente_superficial"],"tipoFuente","","","","itemId","","");
     }
     
 }

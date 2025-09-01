@@ -22,6 +22,9 @@ $db_datos[] = $core->get_alias_campo($db_prefix."tipo",$db_prefix,"");
 $db_datos[] = $core->get_alias_campo($db_prefix."captacion_superficial",$db_prefix,"");
 $db_datos[] = $core->get_alias_campo($db_prefix."archivo_adjunto",$db_prefix,"");
 
+$db_prefix = "item_fuente_";
+$db_datos[] = $core->get_alias_campo($db_prefix."superficial",$db_prefix,"");
+
 $CFGm->tabla = array_merge($CFGm->tabla,$core->get_tablas_from_array($db_datos,"",$dbname,"",""));
 unset($db_datos);
 unset($db_prefix);
@@ -30,6 +33,12 @@ unset($db_prefix);
 $db_datos = array();
 $db_datos[] = $core->get_alias_campo("captacion_usoagua","","");
 $db_datos[] = $core->get_alias_campo("captacion_proposito","","");
+$db_datos[] = $core->get_alias_campo("tipo_fuente_superficial","","");
+
+$db_datos[] = $core->get_alias_campo("fuente_tipo_agua","","");
+$db_datos[] = $core->get_alias_campo("fuente_tipo_agua_flujo","","");
+// $db_datos[] = $core->get_alias_campo("pozo_proveedor_energia","","");
+
 $db_datos[] = $core->get_alias_campo("cuenca","","");
 
 $CFGm->tabla = array_merge($CFGm->tabla,$core->get_tablas_from_array($db_datos,"c",$dbname,"",""));

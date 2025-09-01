@@ -824,6 +824,7 @@
             success: function(data){
                 // obj_permiso = JSON.parse(data);                
                 if(data != "false"){
+                    $('#estado').val('Observado');
                     swal("Información", "Se marco la información como <strong>observado</strong>", "success");
                 }else{
                     swal("Información", "<strong>No</strong> se pudo marcar la información como observado", "success");
@@ -845,6 +846,7 @@
             success: function(data){
                 // obj_permiso = JSON.parse(data);                
                 if(data != "false"){
+                    $('#estado').val('Revisado');
                     swal("Información", "Se marco la información como <strong>revisado</strong>", "success");
                 }else{
                     swal("Información", "<strong>No</strong> se pudo marcar la información como observado", "success");
@@ -876,7 +878,8 @@
 
     var estado;
     function obtener_estado(){
-        var id = "{/literal}{$id}{literal}";        
+        var id = "{/literal}{$id}{literal}";
+        // console.log('Direccion estado::','{/literal}{$getModule}{literal}&accion=general_obtenerEstado&idpozo='+id);        
         jQuery.ajax({
             url: '{/literal}{$getModule}{literal}&accion=general_obtenerEstado&idpozo='+id,
             //data: data,
@@ -889,7 +892,11 @@
                 //alert(data);
                 var obj_permiso = JSON.parse(data);
                 //alert(obj_permiso[0]["estado"]);
-                estado = obj_permiso[0]["estado"];
+                if (Array.isArray(obj_permiso) && obj_permiso.length > 0 && obj_permiso[0].estado !== undefined) {
+                    estado = obj_permiso[0].estado;
+                } else {
+                    estado = null;
+                }
             },
         });        
     }
@@ -897,8 +904,14 @@
 //----------------Permisos--------------------------------------------
 
     function permisos_usuario(){
+        var type = '{/literal}{$type}{literal}';
+        var id = "{/literal}{$id}{literal}";
+        // console.log('Direccion permiso::','{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=geofisica&type='+type);
+        var idUsuarioResponsable = parseInt($('#idUsuarioResponsable').val());
+        // console.log('idUsuarioResponsable:::',idUsuarioResponsable);
+
         jQuery.ajax({
-            url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=geofisica', //&perpozo=pozo
+            url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=geofisica&type='+type+'&id='+id, //&perpozo=pozo
             //data: data,
             cache: false,
             contentType: false,
@@ -906,15 +919,39 @@
             type: 'POST',
             //dataType: "json",
             success: function(data){
+                // console.log('recuperando datos geofisica:::',type,data);
                 obj_permiso = JSON.parse(data);
-
-                if (obj_permiso[0].crear == 1){                                
-                    $("#general_submit").show();
-                }else{
-                    $("#general_submit").hide();
-                    $("#general_observado").show();
-                    $("#general_revisado").show();
-                }                 
+                // 0: root (Acceso a todos los módulos);1: Administrador (Acceso a todos los módulos);2: Usuario Normal (Acceso a modulos configurados); 3: Restringido; Otros
+                switch (parseInt(obj_permiso[0].tipoUsuario)) {
+                    case 2:
+                        if (obj_permiso[0].crear == 1 && obj_permiso[0].usuarioId == idUsuarioResponsable){    
+                            $("#general_submit").show();
+                        }else{
+                            $("#general_submit").hide();
+                        }
+                        $("#general_observado").hide();
+                        $("#general_revisado").hide();
+                        break;
+                    case 3:
+                        $("#general_submit").hide();
+                        $("#general_observado").hide();
+                        $("#general_revisado").hide();
+                        break;
+                    default:
+                        if (obj_permiso[0].crear == 1){                                
+                            $("#general_submit").show();
+                        }else{
+                            $("#general_submit").hide();
+                        }
+                        if (obj_permiso[0].editar == 1 && type == 'update'){
+                            $("#general_observado").show();
+                            $("#general_revisado").show();
+                        }else{
+                            $("#general_observado").hide();
+                            $("#general_revisado").hide();
+                        }
+                        break;
+                }
             },
         });
     }

@@ -85,26 +85,6 @@ $campos_item["tipo"]=array(
     "tipo"=>"text"
 ,   "label"=>"tipo");
 
-$campos_item["latitudUtm1"]=array(
-    "tipo"=>"text"
-,   "label"=>"latitudUtm1");
-
-$campos_item["longitudUtm1"]=array(
-    "tipo"=>"text"
-,   "label"=>"longitudUtm1");
-
-$campos_item["latitudUtm2"]=array(
-    "tipo"=>"text"
-,   "label"=>"latitudUtm2");
-
-$campos_item["longitudUtm2"]=array(
-    "tipo"=>"text"
-,   "label"=>"longitudUtm2");
-
-$campos_item["sev_distancia"]=array(
-    "tipo"=>"text"
-,   "label"=>"sev_distancia");
-
 $grupo = "campos_sev";
 $campos[$grupo]= $campos_item;
 unset($campos_item);

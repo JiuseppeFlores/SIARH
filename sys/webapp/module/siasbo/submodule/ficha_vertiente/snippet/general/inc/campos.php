@@ -101,6 +101,10 @@ $campos_item["estado"]=array(
     "tipo"=>"text"
 ,   "label"=>"estado");
 
+$campos_item["tipoFuenteId"]=array(
+    "tipo"=>"text"
+,   "label"=>"tipoFuenteId");
+
 
 $grupo = "item";
 $campos[$grupo]= $campos_item;
@@ -198,6 +202,10 @@ $campos_item["altitud"]=array(
 $campos_item["estado"]=array(
     "tipo"=>"text"
 ,   "label"=>"estado");
+
+$campos_item["tipoFuenteId"]=array(
+    "tipo"=>"text"
+,   "label"=>"tipoFuenteId");
 
 $grupo = "item_pg";
 $campos[$grupo]= $campos_item;

@@ -7,6 +7,7 @@
         id="general_form">
 
         <input type="hidden" name="item[tipo]" id="tipo" value="4" required>
+        <input type="hidden" id="idUsuarioResponsable" value="{$item.userCreate|escape:"html"}">
 
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
@@ -27,9 +28,9 @@
 
                 <div class="form-group m-form__group row">
                     <div class="col-lg-6">
-                        <label>Código de captación superficial</label>
+                        <label>Código de fuente superficial</label>
                         <div class="input-group">
-                            <input class="form-control m-input" placeholder="Ingrese código de captación superficial"
+                            <input class="form-control m-input" placeholder="Ingrese código de fuente superficial"
                                 type="text" name="item[codigo]" id="codigo" value="{$item.codigo|escape:"html"}"
                                 maxlength="150" data-msg="Campo requerido. Ingrese 150 caracteres como máximo."
                                 {if $type == 'new'}disabled{/if} readonly>
@@ -43,20 +44,32 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <label>Nombre de captación superficial</label>
+                        <label>Nombre de fuente superficial</label>
                         <div class="input-group">
-                            <input class="form-control m-input" placeholder="Ingrese nombre de captación superficial"
+                            <input class="form-control m-input" placeholder="Ingrese nombre de fuente superficial"
                                 type="text" name="item[nombre]" id="nombre" value="{$item.nombre|escape:"html"}"
                                 maxlength="150" required
                                 data-msg="Campo requerido. Ingrese 150 caracteres como máximo.">
                             <div class="input-group-append">
                                 <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title=""
-                                    data-original-title="El dueño y/o institución deberá colocar el nombre de dicha captación."><i
+                                    data-original-title="El dueño y/o institución deberá colocar el nombre de dicha fuente."><i
                                         class="flaticon-questions-circular-button"></i>
                                 </span>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-lg-6">
+                        <label>Tipo de fuente superficial</label>
+                        <div class="input-group">
+                            <select class="form-control m-input select2" name="item[tipoFuenteId]"
+                                id="tipoFuenteId" required data-msg="Campo requerido. Seleccione una opción.">
+                                <option value="">--Seleccione una opción--</option>
+                                {html_options options=$cataobj.tipoFuente selected=$item.tipoFuenteId}
+                            </select>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 

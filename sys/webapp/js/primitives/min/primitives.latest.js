@@ -24463,6 +24463,7 @@ primitives.common.LinkedHashItems = function () {
 
 	function validate(info) {
 		var key, prevKey, nextKey;
+		console.log('verifying linked hash items, Validate', info);
 		for (key in segmentsHash) {
 			if (segmentsHash.hasOwnProperty(key)) {
 				if (!nextKeys.hasOwnProperty(key) || !prevKeys.hasOwnProperty(key)) {

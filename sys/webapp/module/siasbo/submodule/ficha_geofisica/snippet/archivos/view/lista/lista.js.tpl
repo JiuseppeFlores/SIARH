@@ -210,6 +210,7 @@
     var obj_permiso;
 
     function permisos_usuario(){
+        var idUsuarioResponsable = parseInt($('#idUsuarioResponsable').val());
         jQuery.ajax({
             url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=geofisica', //&perpozo=pozo
             //data: data,
@@ -221,11 +222,31 @@
             success: function(data){
                 obj_permiso = JSON.parse(data);
 
-                if (obj_permiso[0].crear == 1){                                
-                    $("#btn_archivo_adjunto").show();
-                }else{
-                    $("#btn_archivo_adjunto").hide();
-                }                 
+                // if (obj_permiso[0].crear == 1){                                
+                //     $("#btn_archivo_adjunto").show();
+                // }else{
+                //     $("#btn_archivo_adjunto").hide();
+                // }      
+                
+                switch (parseInt(obj_permiso[0].tipoUsuario)) {
+                    case 2:
+                        if ((obj_permiso[0].crear == 1 || obj_permiso[0].editar == 1) && obj_permiso[0].usuarioId == idUsuarioResponsable){    
+                            $("#btn_archivo_adjunto").show();
+                        }else{
+                            $("#btn_archivo_adjunto").hide();
+                        }
+                        break;
+                    case 3:
+                        $("#btn_archivo_adjunto").hide();
+                        break;
+                    default:
+                        if (obj_permiso[0].crear == 1 || obj_permiso[0].editar == 1){                                
+                            $("#btn_archivo_adjunto").show();
+                        }else{
+                            $("#btn_archivo_adjunto").hide();
+                        }
+                        break;
+                }
             },
         });
     }

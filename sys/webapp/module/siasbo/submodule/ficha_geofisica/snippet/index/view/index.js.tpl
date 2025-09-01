@@ -32,7 +32,7 @@
             'userCreate': {/literal}{$smarty.session.userv.memberId}{literal} 
         }).then(response => { 
             if(response.status == 201) { 
-                console.log('Log registrado'); 
+                // console.log('Log registrado'); 
             } 
         });
         /**--==== End of APLICACION DE LOGS ====**/

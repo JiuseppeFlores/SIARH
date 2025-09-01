@@ -102,58 +102,6 @@
 
             <div class="form-group m-form__group row">
                 <div class="col-lg-6">
-                    <label>Extremo 1: UTM Este (X)</label>
-                    <div class="input-group">
-                        <input class="form-control m-input" type="text" name="item[latitudUtm1]" id="latitudUtm1" placeholder="Ingrese Extremo 1: UTM Este (X)" value="{$item.latitudUtm1|escape:"html"}" min="0" max="999999" step="0.001" data-msg="Campo requerido. Extremo 1: UTM este (X) debe contener números, 6 enteros y 3 decimales como máximo.">
-                        <div class="input-group-append">
-                            <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Texto. Ej. Texto">
-                                <i class="flaticon-questions-circular-button"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <label>Extremo 1: UTM Norte (Y)</label>
-                    <div class="input-group">
-                        <input class="form-control m-input" type="text" name="item[longitudUtm1]" id="longitudUtm1" placeholder="Ingrese Extremo 1: UTM Norte (Y)" value="{$item.longitudUtm1|escape:"html"}" min="0" max="9999999" step="0.001" data-msg="Campo requerido. Extremo 1: UTM norte (Y) debe contener números, 7 enteros y 3 decimales como máximo.">
-                        <div class="input-group-append">
-                            <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Texto. Ej. Texto">
-                                <i class="flaticon-questions-circular-button"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    <label>Extremo 2: UTM Este (X)</label>
-                    <div class="input-group">
-                        <input class="form-control m-input" type="text" name="item[latitudUtm2]" id="latitudUtm2" placeholder="Ingrese Extremo 2: UTM Este (X)" value="{$item.latitudUtm2|escape:"html"}" min="0" max="999999" step="0.001" data-msg="Campo requerido. Extremo 2: UTM este (X) debe contener números, 6 enteros y 3 decimales como máximo.">
-                        <div class="input-group-append">
-                            <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Texto. Ej. Texto">
-                                <i class="flaticon-questions-circular-button"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <label>Extremo 2: UTM Norte (Y)</label>
-                    <div class="input-group">
-                        <input class="form-control m-input" type="text" name="item[longitudUtm2]" id="longitudUtm2" placeholder="Ingrese Extremo 2: UTM Norte (Y)" value="{$item.longitudUtm2|escape:"html"}" min="0" max="9999999" step="0.001" data-msg="Campo requerido. Extremo 2: UTM norte (Y) debe contener números, 7 enteros y 3 decimales como máximo.">
-                        <div class="input-group-append">
-                            <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Texto. Ej. Texto">
-                                <i class="flaticon-questions-circular-button"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
                     <label>Zona</label>
                     <div class="input-group">
                         <select class="form-control m-input select2" name="item[utmZona]" id="utmZona" required data-msg="Campo requerido. Seleccione una opción.">
@@ -181,18 +129,6 @@
                     <label>Azimut línea base</label>
                     <div class="input-group">
                         <input class="form-control m-input" type="text" name="item[sev_azimut]" id="sev_azimut" placeholder="Ingrese azimut línea base" value="{$item.sev_azimut|escape:"html"}" min="0" max="999" step="0.01" required data-msg="Campo requerido. Azimut línea base debe contener números, 3 enteros y 2 decimales como máximo.">
-                        <div class="input-group-append">
-                            <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Texto. Ej. Texto">
-                                <i class="flaticon-questions-circular-button"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <label>Distancia línea base</label>
-                    <div class="input-group">
-                        <input class="form-control m-input" type="text" name="item[sev_distancia]" id="sev_distancia" placeholder="Ingrese distancia línea base" value="{$item.sev_distancia|escape:"html"}" min="0" max="9999" step="0.01" data-msg="Campo requerido. Distancia línea base debe contener números, 4 enteros y 2 decimales como máximo.">
                         <div class="input-group-append">
                             <span class="input-group-text" data-toggle="m-tooltip" data-placement="top" title="" data-original-title="Texto. Ej. Texto">
                                 <i class="flaticon-questions-circular-button"></i>

@@ -5,6 +5,7 @@
     <!--begin::Form-->
     <form class="m-form m-form--state m-form--fit m-form--label-align-right" method="POST" action="{$getModule}" id="general_form">
         <input type="hidden" name="item[tipo]" id="tipo" value="2" required>
+        <input type="hidden" id="idUsuarioResponsable" value="{$item.userCreate|escape:"html"}">
 
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">

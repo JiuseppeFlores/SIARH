@@ -30,15 +30,22 @@ $item_tab[]=array(
 ,   "new" => 0
 );
 //-------------------------------------------------------------
+// $item_tab[]=array(
+//     "label"=>"Datos de la fuente"
+// ,   "id_name"=>"captacion"
+// ,   "sub_control"=>"captacion"
+// ,   "active"=>"0"
+// ,   "icon" => "fa fa-cogs"
+// ,   "new" => 0
+// );
 $item_tab[]=array(
-    "label"=>"Captación"
-,   "id_name"=>"captacion"
-,   "sub_control"=>"captacion"
+    "label"=>"Datos de la fuente"
+,   "id_name"=>"fuente"
+,   "sub_control"=>"fuente"
 ,   "active"=>"0"
 ,   "icon" => "fa fa-cogs"
 ,   "new" => 0
 );
-
 //-------------------------------------------------------------
 $item_tab[]=array(
     "label"=>"Archivos adjuntos"

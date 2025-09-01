@@ -5,7 +5,7 @@
  * Date: 3/5/2018
  * Time: 15:27
  */
-
+// var_dump($accion);
 switch($accion) {
     /**
      * Página por defecto
@@ -57,7 +57,9 @@ switch($accion) {
 
     //Obtener los permisos para ficha pozo
     case 'obtenerPermisos':
-        $res = $objItem->get_permisos($_SESSION[userv][usuario], $perpozo);
+        $itemIdSubmoduloGeofisica = 282; //Id del submodulo Ficha Geofisica
+        // var_dump($_SESSION[userv][usuario],$itemIdSubmoduloGeofisica);
+        $res = $objItem->get_permisos($_SESSION[userv][usuario], $itemIdSubmoduloGeofisica);
         //$core->print_json($res);
         echo json_encode($res);
         //print_r($res);

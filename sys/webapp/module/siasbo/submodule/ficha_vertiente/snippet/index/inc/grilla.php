@@ -51,6 +51,34 @@ $grilla_items[]=array(
 ,   "activo"=> 1
 );
 //-------------------------------------------------------------
+// $field_name = "tipoFuenteId";
+// $grilla_items[] = array(
+//     "campo" => $field_name
+// ,   "field"=> $field_name
+// ,   "label"=> "Tipo Fuente"
+// ,   "activo"=> 1
+// );
+
+$field_name = "tipoFuenteId";
+$field_alias = "tf";
+$field_activo = 1;
+$grilla_items[]=array(
+    "campo" => "nombre" // el campo de la base de datos que recupera
+,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
+,   "label"=> "Tipo Fuente" //
+,   "as" => "tipoFuenteId"
+,   "tabla_alias"=> $field_alias
+,   "activo"=> $field_activo
+);
+
+        $grilla_tablas[] = array(
+            "tabla" => $CFGm->tabla["c_tipo_fuente_superficial"]
+        ,   "alias"=> $field_alias
+        ,   "campo_id"=>"itemId"
+        ,   "relacion_id"=> $field_name
+        ,   "activo"=> $field_activo
+        );
+//-------------------------------------------------------------
 
 $field_name = "departamentoId";
 $field_alias = "depa";

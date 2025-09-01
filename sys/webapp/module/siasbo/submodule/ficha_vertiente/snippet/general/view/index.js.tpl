@@ -874,7 +874,7 @@
 
     var estado;
     function obtener_estado(){
-        var id = "{/literal}{$id}{literal}";        
+        var id = "{/literal}{$id}{literal}";
         jQuery.ajax({
             url: '{/literal}{$getModule}{literal}&accion=general_obtenerEstado&idpozo='+id,
             //data: data,
@@ -887,7 +887,11 @@
                 //alert(data);
                 var obj_permiso = JSON.parse(data);
                 //alert(obj_permiso[0]["estado"]);
-                estado = obj_permiso[0]["estado"];
+                if (Array.isArray(obj_permiso) && obj_permiso.length > 0 && obj_permiso[0].estado !== undefined) {
+                    estado = obj_permiso[0].estado;
+                } else {
+                    estado = null;
+                }
             },
         });        
     }
@@ -895,8 +899,11 @@
 //----------------Permisos--------------------------------------------
 
     function permisos_usuario(){
+        var type = '{/literal}{$type}{literal}';
+        var id = "{/literal}{$id}{literal}";
+        var idUsuarioResponsable = parseInt($('#idUsuarioResponsable').val());
         jQuery.ajax({
-            url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=captación superficial', //&perpozo=pozo     //ya no es necesario
+            url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=fuenteSuperficial&type='+type+'&id='+id, //&perpozo=pozo     //ya no es necesario
             //data: data,
             cache: false,
             contentType: false,
@@ -906,13 +913,36 @@
             success: function(data){
                 obj_permiso = JSON.parse(data);
 
-                if (obj_permiso[0].crear == 1){                                
-                    $("#general_submit").show();
-                }else{
-                    $("#general_submit").hide();
-                    $("#general_observado").show();
-                    $("#general_revisado").show();
-                }                 
+                switch (parseInt(obj_permiso[0].tipoUsuario)) {
+                    case 2:
+                        if (obj_permiso[0].crear == 1 && obj_permiso[0].usuarioId == idUsuarioResponsable){    
+                            $("#general_submit").show();
+                        }else{
+                            $("#general_submit").hide();
+                        }
+                        $("#general_observado").hide();
+                        $("#general_revisado").hide();
+                        break;
+                    case 3:
+                        $("#general_submit").hide();
+                        $("#general_observado").hide();
+                        $("#general_revisado").hide();
+                        break;
+                    default:
+                        if (obj_permiso[0].crear == 1){                                
+                            $("#general_submit").show();
+                        }else{
+                            $("#general_submit").hide();
+                        }
+                        if (obj_permiso[0].editar == 1 && type == 'update'){
+                            $("#general_observado").show();
+                            $("#general_revisado").show();
+                        }else{
+                            $("#general_observado").hide();
+                            $("#general_revisado").hide();
+                        }
+                        break;
+                }              
             },
         });
     }

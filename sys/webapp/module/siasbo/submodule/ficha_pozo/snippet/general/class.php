@@ -355,6 +355,7 @@ class Snippet extends Table {
     function get_codigo_macrocuenca($macrocuencaId){
         global $dbm_siasbo, $db_conf;
         $dbm_siasbo = ADONewConnection($db_conf["type"]);
+        // var_dump($db_conf,$macrocuencaId);
         $dbm_siasbo->Connect($db_conf["server"],$db_conf["user"] ,$db_conf["password"],$db_conf["database"]) or die("ERROR CONNECT " . $db_conf["database"]);
         $dbm_siasbo->setCharset('utf8');
         $dbm_siasbo->SetFetchMode(ADODB_FETCH_ASSOC);
@@ -362,6 +363,7 @@ class Snippet extends Table {
         FROM macrocuencas 
         WHERE id='.$macrocuencaId.' 
         LIMIT 1';
+        // var_dump($db_conf,$macrocuencaId, $sql);
         $datos = $dbm_siasbo->Execute($sql);
         $datos = $datos->GetRows();
         $dbm_siasbo->Close();

@@ -42,6 +42,7 @@ class Index extends Table {
                   FROM '.$sqlFrom.'
                   WHERE '.$sqlWhere.'
                   '.$sqlGroup;
+                //   var_dump("get_item",$sql);
             $info = $this->dbm->Execute($sql);
             $info = $info->fields;
         }
@@ -95,6 +96,7 @@ class Index extends Table {
          * Resultado de la consulta enviada
          */
         $resultado = $this->get_grilla_datatable_simple($db,$grilla,$table, $primaryKey, $extraWhere, $groupBy, $having);
+        // var_dump('buscando filas::',$resultado);
         /**
          * apartir de aca podemos transformar datos, de acuerdo a requerimiento
          */
@@ -615,16 +617,18 @@ class Index extends Table {
                     'crear' => 1,
                     'editar' => 1,
                     'eliminar' => 1,
-                    'itemId' => 283,
+                    'usuarioId' => 0,
+                    'tipoUsuario' => intval($tipoUsuario),
+                    'itemId' => $itemIdSubmoduloPozo,
                     'nombre' => '4.- Captación superficial'
                     ) 
                 );
         } else {
             $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
-            $sql = "SELECT b.crear, b.editar, b.eliminar, c.itemId, c.nombre 
+            $sql = "SELECT b.crear, b.editar, b.eliminar, c.itemId, c.nombre, a.tipoUsuario, b.usuarioId
             FROM vrhr_snir.core_usuario as a inner join vrhr_snir.core_usuario_permisos as b on a.itemId = b.usuarioId 
             inner join vrhr_snir.core_submodulo as c on b.subModuloId = c.itemId 
-            WHERE a.usuario='".$usuario."' and c.itemId=283";//.$itemIdSubmoduloPozo;
+            WHERE a.usuario='".$usuario."' and c.itemId=$itemIdSubmoduloPozo";//.$itemIdSubmoduloPozo;
             $datos = $this->dbm->Execute($sql);
             $datos = $datos->GetRows();
             return $datos;
@@ -638,5 +642,16 @@ class Index extends Table {
         // $datos = $this->dbm->Execute($sql);
         // $datos = $datos->GetRows();
         // return $datos;
+    }
+
+    function get_datos_fuente($Id){
+        $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
+
+        $sql = "SELECT a.nombre, b.itemId, b.fecha, b.hora, b.fecha, b.hora, e.nombre AS tipoagua FROM item a, item_fuente_tipo_agua b, catalogo_fuente_tipo_agua e WHERE a.itemId=b.pozoId AND b.tipoId=e.itemId AND b.pozoId = $Id ORDER BY b.fecha ASC, b.hora ASC";
+        echo $sql;
+        $datos = $this->dbm->Execute($sql);
+        $datos = $datos->GetRows();
+        var_dump($datos);
+        return $datos;
     }
 }

@@ -57,7 +57,8 @@ switch($accion) {
 
     //Obtener los permisos para ficha pozo
     case 'obtenerPermisos':
-        $res = $objItem->get_permisos($_SESSION[userv][usuario], $perpozo);
+        $itemIdSubmoduloPozo = 283;
+        $res = $objItem->get_permisos($_SESSION[userv][usuario], $itemIdSubmoduloPozo);
         //$core->print_json($res);
         echo json_encode($res);
         //print_r($res);
@@ -381,7 +382,13 @@ switch($accion) {
         }
 
         exit();
-        break;
+    break;
+
+    case 'getItemFuente':
+        $datosSeguimiento = $subObjItem->get_datos_fuente($id);
+        echo json_encode($datosSeguimiento);
+        exit;
+    break;
 
     case 'resetearDatos':
         $_SESSION['codigos'] = NULL;
@@ -395,11 +402,11 @@ switch($accion) {
 
         echo json_encode(array("res"=>true));
         exit;
-        break;
+    break;
         
     case 'codice':
         echo "es una mala llamada de un snippet";
         exit;
-        break;
+    break;
 
 }

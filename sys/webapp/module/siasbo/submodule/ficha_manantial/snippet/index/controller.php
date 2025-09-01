@@ -58,7 +58,10 @@ switch($accion) {
 
     //Obtener los permisos para ficha pozo
     case 'obtenerPermisos':
-        $res = $objItem->get_permisos($_SESSION[userv][usuario], $perpozo);
+        
+        $itemIdSubmoduloManantial = 281;
+        // var_dump('caso de manantiales:::',$_SESSION[userv][usuario],$itemIdSubmoduloManantial);
+        $res = $objItem->get_permisos($_SESSION[userv][usuario], $itemIdSubmoduloManantial);
         //$core->print_json($res);
         echo json_encode($res);
         //print_r($res);

@@ -158,6 +158,7 @@
 //----------------Permisos--------------------------------------------
 
     function permisos_usuario(){
+        var idUsuarioResponsable = parseInt($('#idUsuarioResponsable').val());
         jQuery.ajax({
             url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=geofisica', //&perpozo=pozo
             //data: data,
@@ -169,11 +170,31 @@
             success: function(data){
                 obj_permiso = JSON.parse(data);
 
-                if (obj_permiso[0].crear == 1){                                
-                    $("#btn_vinculo_pozo_submit").show();
-                }else{
-                    $("#btn_vinculo_pozo_submit").hide();
-                }                 
+                // if (obj_permiso[0].crear == 1){                                
+                //     $("#btn_vinculo_pozo_submit").show();
+                // }else{
+                //     $("#btn_vinculo_pozo_submit").hide();
+                // }
+
+                switch (parseInt(obj_permiso[0].tipoUsuario)) {
+                    case 2:
+                        if ((obj_permiso[0].crear == 1 || obj_permiso[0].editar == 1) && obj_permiso[0].usuarioId == idUsuarioResponsable){    
+                            $("#btn_vinculo_pozo_submit").show();
+                        }else{
+                            $("#btn_vinculo_pozo_submit").hide();
+                        }
+                        break;
+                    case 3:
+                        $("#btn_vinculo_pozo_submit").hide();
+                        break;
+                    default:
+                        if (obj_permiso[0].crear == 1 || obj_permiso[0].editar == 1){                                
+                            $("#btn_vinculo_pozo_submit").show();
+                        }else{
+                            $("#btn_vinculo_pozo_submit").hide();
+                        }
+                        break;
+                }
             },
         });
     }

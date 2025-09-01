@@ -495,7 +495,6 @@
                 //alert(data);
                 obj_permiso = JSON.parse(data);
                 //alert(obj_permiso[0].crear+" - "+obj_permiso[0].editar+" - "+obj_permiso[0].eliminar);
-
                 if (obj_permiso[0].crear == 1){                                
                     $("#btn_importar_archivo").show();
                     $("#btn_update").show();

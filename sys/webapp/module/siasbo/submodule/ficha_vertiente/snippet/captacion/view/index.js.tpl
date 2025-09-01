@@ -146,6 +146,7 @@
 //----------------Permisos--------------------------------------------
 
     function permisos_usuario(){
+        var idUsuarioResponsable = parseInt($('#idUsuarioResponsable').val());
         jQuery.ajax({
             url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=captación superficial', //&perpozo=pozo
             //data: data,

@@ -846,27 +846,30 @@ class Index extends Table {
     }
 
     //Permisos de usuario
-    function get_permisos($usuario, $itemIdSubmoduloPozo){ //$tiposubmodulo
+    function get_permisos($usuario, $itemIdSubmoduloGeofisica){ //$tiposubmodulo
         $tipoUsuario = $_SESSION["userv"]["tipoUsuario"];
+        // var_dump($_SESSION["userv"]);
         //if ($usuario === 'admin') {
         if ($tipoUsuario == "0" || $tipoUsuario == "1"){
-            return array(array(
+            $datos = array(array(
                     'crear' => 1,
                     'editar' => 1,
                     'eliminar' => 1,
-                    'itemId' => 282,
+                    'usuarioId' => 0,
+                    'tipoUsuario' => intval($tipoUsuario),
+                    'itemId' => $itemIdSubmoduloGeofisica,
                     'nombre' => '3.- Geofísica'
                     ) 
                 );
         } else {
             $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
-            $sql = "SELECT b.crear, b.editar, b.eliminar, c.itemId, c.nombre 
+            $sql = "SELECT b.crear, b.editar, b.eliminar, c.itemId, c.nombre, a.tipoUsuario, b.usuarioId
             FROM vrhr_snir.core_usuario as a inner join vrhr_snir.core_usuario_permisos as b on a.itemId = b.usuarioId 
             inner join vrhr_snir.core_submodulo as c on b.subModuloId = c.itemId 
-            WHERE a.usuario='".$usuario."' and c.itemId=282";//.$itemIdSubmoduloPozo;
+            WHERE a.usuario='".$usuario."' and c.itemId=$itemIdSubmoduloGeofisica";//.$itemIdSubmoduloPozo;
             $datos = $this->dbm->Execute($sql);
             $datos = $datos->GetRows();
-            return $datos;
+            // return $datos;
         }
         // $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
         // $sql = "SELECT b.crear, b.editar, b.eliminar, c.itemId, c.nombre 
@@ -875,6 +878,7 @@ class Index extends Table {
         // WHERE a.usuario='".$usuario."' and c.nombre='".$tiposubmodulo."'";
         // $datos = $this->dbm->Execute($sql);
         // $datos = $datos->GetRows();
-        // return $datos;
+        // var_dump($datos);
+        return $datos;
     }
 }

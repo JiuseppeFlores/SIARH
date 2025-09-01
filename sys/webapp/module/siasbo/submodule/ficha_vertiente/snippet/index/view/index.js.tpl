@@ -25,8 +25,8 @@
         Logs.create({
             'sistema_id': 7,
             'recurso_id': 2,
-            'nombre': "Captación superficial", 
-            'descripcion': 'Ingreso al módulo Captación superficial', 
+            'nombre': "Fuente superficial", 
+            'descripcion': 'Ingreso al módulo Fuente superficial', 
             'base_datos': 'mmaya_siasbo',
             'userCreate': {/literal}{$smarty.session.userv.memberId}{literal} 
         }).then(response => { 

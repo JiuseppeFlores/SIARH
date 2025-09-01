@@ -132,54 +132,126 @@ var Logs = {
 // $(document).on("shown.bs.modal", ".modal", function () {
 //   const $dialog = $(this).find(".modal-dialog");
 //   const $header = $dialog.find(".modal-header");
-
-//   // ✅ Centrar el modal
-//   const windowWidth = $(window).width();
-//   const windowHeight = $(window).height();
-//   const dialogWidth = $dialog.outerWidth();
-//   const dialogHeight = $dialog.outerHeight();
-
-//   const left = (windowWidth - dialogWidth) / 2;
-//   var altura_modal_posicion = (windowHeight - dialogHeight) / 2;
-//   console.log("Centrando modal en la pantalla", altura_modal_posicion);
-//   if (altura_modal_posicion < 0) {
-//     // Asegurar que el modal no se salga de la pantalla
-//     console.log(
-//       "El modal está fuera de la pantalla, ajustando altura_modal_posicion"
-//     );
-//     altura_modal_posicion = -1 * ((windowHeight - dialogHeight) / 2);
-//     console.log("Nuevo altura_modal_posicion ajustado:", altura_modal_posicion);
+//   // Solo calcular la posición si no fue movido manualmente antes
+//   if (!$dialog.data("manuallyMoved")) {
+//     const windowWidth = $(window).width();
+//     const windowHeight = $(window).height();
+//     const dialogWidth = $dialog.outerWidth();
+//     const dialogHeight = $dialog.outerHeight();
+//     const left = (windowWidth - dialogWidth) / 2;
+//     let top = (windowHeight - dialogHeight) / 2;
+//     if (top < 0) {
+//       top = 10; // Fallback si el modal es muy alto
+//     }
+//     $dialog.css({
+//       position: "absolute",
+//       margin: 0,
+//       top: top + "px",
+//       left: left + "px"
+//     });
 //   }
+//   // Evitar redimensionamiento automático
 //   $dialog.css({
-//     position: "absolute",
-//     margin: 0,
-//     top: altura_modal_posicion + "px",
-//     left: left + "px",
+//     width: $dialog.width(),
+//     height: $dialog.height()
 //   });
-
-//   // ✅ Hacer arrastrable el modal desde la cabecera
+//   // Hacer arrastrable
 //   $header.css("cursor", "move");
-
 //   let isDragging = false;
 //   let offset = { x: 0, y: 0 };
-
 //   $header.off("mousedown").on("mousedown", function (e) {
 //     isDragging = true;
 //     offset.x = e.clientX - $dialog.offset().left;
 //     offset.y = e.clientY - $dialog.offset().top;
-
+//     // Marcar que se movió manualmente
+//     $dialog.data("manuallyMoved", true);
 //     $(document).on("mousemove.modaldrag", function (e) {
 //       if (isDragging) {
 //         $dialog.offset({
 //           top: e.clientY - offset.y,
-//           left: e.clientX - offset.x,
+//           left: e.clientX - offset.x
 //         });
 //       }
 //     });
-
 //     $(document).on("mouseup.modaldrag", function () {
 //       isDragging = false;
 //       $(document).off(".modaldrag");
 //     });
 //   });
 // });
+
+
+// Almacena las posiciones de modales por ID
+const modalPositions = {};
+
+$(document).on("shown.bs.modal", ".modal", function () {
+  const $modal = $(this);
+  const $dialog = $modal.find(".modal-dialog");
+  const $header = $dialog.find(".modal-header");
+
+  const modalId = $modal.attr("id");
+
+  // Si ya se movió antes, usa la posición guardada
+  if (modalPositions[modalId]) {
+    $dialog.css({
+      position: "absolute",
+      margin: 0,
+      top: modalPositions[modalId].top + "px",
+      left: modalPositions[modalId].left + "px"
+    });
+  } else {
+    // Primera vez: centrar
+    const windowWidth = $(window).width();
+    const windowHeight = $(window).height();
+    const dialogWidth = $dialog.outerWidth();
+    const dialogHeight = $dialog.outerHeight();
+    const left = (windowWidth - dialogWidth) / 2;
+    let top = (windowHeight - dialogHeight) / 2;
+    if (top < 0) top = 10;
+
+    $dialog.css({
+      position: "absolute",
+      margin: 0,
+      top: top + "px",
+      left: left + "px"
+    });
+
+    // Guardar posición inicial
+    modalPositions[modalId] = { top: top, left: left };
+  }
+
+  // Fijar el tamaño actual para evitar redimensionamiento
+  $dialog.css({
+    width: $dialog.width(),
+    height: $dialog.height()
+  });
+
+  // Hacer arrastrable
+  $header.css("cursor", "move");
+
+  let isDragging = false;
+  let offset = { x: 0, y: 0 };
+
+  $header.off("mousedown").on("mousedown", function (e) {
+    isDragging = true;
+    offset.x = e.clientX - $dialog.offset().left;
+    offset.y = e.clientY - $dialog.offset().top;
+
+    $(document).on("mousemove.modaldrag", function (e) {
+      if (isDragging) {
+        const newTop = e.clientY - offset.y;
+        const newLeft = e.clientX - offset.x;
+
+        $dialog.offset({ top: newTop, left: newLeft });
+
+        // Guardar nueva posición
+        modalPositions[modalId] = { top: newTop, left: newLeft };
+      }
+    });
+
+    $(document).on("mouseup.modaldrag", function () {
+      isDragging = false;
+      $(document).off(".modaldrag");
+    });
+  });
+});

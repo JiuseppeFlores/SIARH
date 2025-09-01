@@ -32,6 +32,4 @@ class Catalogo extends Table{
      *
      * @return void
      */
-
-
 }

@@ -226,28 +226,28 @@ switch($accion) {
         break;
 
     case 'setObservado':
-        $res = $subObjItem->set_observado($idpozo);
+        $res = $subObjItem->set_observado(intval($idpozo));
         //$core->print_json($res);
         echo json_encode($res);
         exit;
         break;
 
     case 'setRevisado':
-        $res = $subObjItem->set_revisado($idpozo);
+        $res = $subObjItem->set_revisado(intval($idpozo));
         //$core->print_json($res);
         echo json_encode($res);
         exit;
         break;
 
     case 'setRegistrado':
-        $res = $subObjItem->set_registrado($idpozo);
+        $res = $subObjItem->set_registrado(intval($idpozo));
         //$core->print_json($res);
         echo json_encode($res);
         exit;
         break;
 
     case 'obtenerEstado':
-        $res = $subObjItem->obtener_estado($idpozo);
+        $res = $subObjItem->obtener_estado(intval($idpozo));
         //$core->print_json($res);
         echo json_encode($res);
         exit;

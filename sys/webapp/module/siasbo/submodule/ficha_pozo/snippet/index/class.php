@@ -2963,22 +2963,23 @@ class Index extends Table {
     function get_permisos($usuario, $itemIdSubmoduloPozo){
 
         $tipoUsuario = $_SESSION["userv"]["tipoUsuario"];
-
-        //if ($usuario === 'admin') {
+               //if ($usuario === 'admin') {
         if ($tipoUsuario == "0" || $tipoUsuario == "1"){
 
             return array(array(
-                    'crear' => 1,
+                    'crear' =>1,
                     'editar' => 1,
                     'eliminar' => 1,
-                    'itemId' => 279,
+                    'usuarioId' => 0,
+                    'tipoUsuario' => intval($tipoUsuario),
+                    'itemId' => $itemIdSubmoduloPozo,
                     'nombre' => '1.- Pozos'
                     ) 
                 );
         } else {
             //$this->dbm->debug = true;
             $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
-            $sql = "SELECT b.crear, b.editar, b.eliminar, c.itemId, c.nombre 
+            $sql = "SELECT b.crear, b.editar, b.eliminar, c.itemId, c.nombre, a.tipoUsuario, b.usuarioId
             FROM vrhr_snir.core_usuario as a inner join vrhr_snir.core_usuario_permisos as b on a.itemId = b.usuarioId 
             inner join vrhr_snir.core_submodulo as c on b.subModuloId = c.itemId 
             WHERE a.usuario='".$usuario."' and c.itemId=".$itemIdSubmoduloPozo;

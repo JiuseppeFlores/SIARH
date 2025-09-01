@@ -1,7 +1,7 @@
 <div class="m-portlet__head">
     <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
-            <h3 class="m-portlet__head-text">Lista de captaciones superficiales</h3>
+            <h3 class="m-portlet__head-text">Lista de fuente superficiales</h3>
         </div>
     </div>
     <div class="m-portlet__head-tools">
@@ -11,7 +11,7 @@
                     <span><i class="fa fa-file"></i><span>&nbsp;Importar datos</span></span>
                 </button>&nbsp;
                 <a href="#" class="btn btn-focus m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air" id="btn_update" rel="new">
-                    <span><i class="fa fa-plus"></i><span>&nbsp;Nueva captación superficial</span></span>
+                    <span><i class="fa fa-plus"></i><span>&nbsp;Nueva fuente superficial</span></span>
                 </a>
             </li>
             <li class="m-portlet__nav-item"></li>
