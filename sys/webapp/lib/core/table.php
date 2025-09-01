@@ -2742,7 +2742,7 @@ class Table
         $id_add[]=array(
             "campo" => $id_name
         ,    "field"=> "Actions"
-        ,   "label"=> "Accion"
+        ,   "label"=> "Acción"
         ,   "type_field"=>"text"
         ,   "as" => "Actions"
         ,   "activo" => 1

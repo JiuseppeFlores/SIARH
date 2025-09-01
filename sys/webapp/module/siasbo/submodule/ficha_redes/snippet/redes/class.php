@@ -145,6 +145,31 @@ class Snippet extends Table
         return $res;
     }
 
+    function item_delete_red($id) {
+        // $campo_id = "itemId";
+        // $res = $this->item_delete_sbm($id, $campo_id, $this->tabla[$mitabla]);
+        $sql_update_red_item = "UPDATE item SET redMonitoreoId = NULL WHERE itemId = $id;";
+        $datos = $this->dbm->Execute($sql_update_red_item);
+
+        if ($datos) {
+            // ✅ La consulta se ejecutó correctamente
+            $filas_afectadas = $this->dbm->Affected_Rows();
+            if ($filas_afectadas > 0) {
+                $res['msm'] = "Actualización correcta, filas modificadas: " . $filas_afectadas;
+                $res['res'] = 1;
+            } else {
+                $res['msm'] = "No se actualizó ninguna fila (puede que itemId no exista o ya estaba NULL).";
+                $res['res'] = 2;
+            }
+        } else {
+            // ❌ Hubo un error en la ejecución
+            $res['msm'] = "Error en la actualización: " . $this->dbm->ErrorMsg();
+            $res['res'] = 0;
+        }
+
+        return $res;
+    }
+
     function get_datos_seguimiento($Id){
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
 

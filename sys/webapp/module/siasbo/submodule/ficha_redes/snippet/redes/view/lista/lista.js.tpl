@@ -8,17 +8,17 @@
         get_form_seguimiento(id, "update");
     }
 
-    function item_delete_seguimiento(id) {
+    function item_delete_redes(id) {
         swal({
-            title: 'Está seguro de borrar el registro?',
-            text: "Recuerde que el registro se eliminará permanentemente. ID="+id+", ",
+            title: 'Está seguro de borrar el Item de la Red?',
+            text: "Recuerde que el item no estara relacionado a la red de monitoreo. ID="+id+", ",
             type: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Si, eliminar!!!',
             cancelButtonText: "No, cancelar"
         }).then(function(result) {
             if (result.value) {
-                itemDeleteActionseguimiento(id);
+                itemDeleteActionRed(id);
             }
         });
     }
@@ -27,10 +27,10 @@
         alert("Imprime el dato:"+id);
     }
 
-    function itemDeleteActionseguimiento(id) {
+    function itemDeleteActionRed(id) {
         randomnumber=Math.floor(Math.random()*11);
         $.get( "{/literal}{$getModule}{literal}",
-            {accion:"seguimientos_itemDelete", random:randomnumber, id:id},
+            {accion:"redes_itemDeleteRed", random:randomnumber, id:id},
             function(res){
                 if(res.res == 1){
                     swal('Eliminado!','El registro fue eliminado con éxito.','success');
@@ -49,7 +49,7 @@
     }
 
     function item_opcion_eliminar_seguimiento(id) {        
-        return '<a class="dropdown-item" href="javascript:item_delete_seguimiento(\''+ id +'\');" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Eliminar"><i class="la flaticon-delete-2 m--font-brand"></i>&nbsp;Eliminar</a>';
+        return '<a class="dropdown-item" href="javascript:item_delete_redes(\''+ id +'\');" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Eliminar"><i class="la flaticon-delete-2 m--font-brand"></i>&nbsp;Eliminar</a>';
     }
 
     function get_form_seguimiento(id, type) {
@@ -149,39 +149,41 @@
                     {/foreach}
                     {literal}
                 ],
-                // columnDefs: [
-                //     {
-                //         targets: 0,
-                //         title: 'Acción',
-                //         orderable: false,
-                //         render: function(data, type, full, meta) {
-                //             // var boton = '<span class="dropdown"><a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-left">{/literal}{if $privFace.editar == 1}{literal}' + item_opcion_editar_seguimiento(data) + '{/literal}{/if}{literal}{/literal}{if $privFace.eliminar == 1}{literal}' + item_opcion_eliminar_seguimiento(data) + '{/literal}{/if}{literal}</div></span>';
-                //             // return boton;
+                columnDefs: [
+                    {
+                        targets: 0,
+                        title: 'Acción',
+                        orderable: false,
+                        render: function(data, type, full, meta) {
+                            // var boton = '<span class="dropdown"><a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-left">{/literal}{if $privFace.editar == 1}{literal}' + item_opcion_editar_seguimiento(data) + '{/literal}{/if}{literal}{/literal}{if $privFace.eliminar == 1}{literal}' + item_opcion_eliminar_seguimiento(data) + '{/literal}{/if}{literal}</div></span>';
+                            // return boton;
 
-                //             var boton = '<span class="dropdown"><a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-left">';
+                            var boton = '<span class="dropdown"><a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-left">';
 
-                //             // var permisoedit = 1;
-                //             // var permisodelete = 1;
-                //             // var permisoreadonly = 1;
-                //             var botonedit = "";
-                //             var botondelete = ""; 
-                //             //var botonreadonly = "";               
+                            // var boton = '<a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"><i class="fa fa-tint"></i></a>';
 
-                //             if (obj_permiso[0].editar == 1){ //permisoedit
-                //                 botonedit = '{/literal}{if $privFace.editar == 1}{literal}' + item_opcion_editar_seguimiento(data) + '{/literal}{/if}{literal}';
-                //             }
+                            // var permisoedit = 1;
+                            // var permisodelete = 1;
+                            // var permisoreadonly = 1;
+                            var botonedit = "";
+                            var botondelete = ""; 
+                            //var botonreadonly = "";               
 
-                //             if (obj_permiso[0].eliminar == 1){ //permisodelete
-                //                 botondelete = '{/literal}{if $privFace.eliminar == 1}{literal}' + item_opcion_eliminar_seguimiento(data) + '{/literal}{/if}{literal}';
-                //             }
+                            if (obj_permiso[0].editar == 1 && false){ //permisoedit
+                                botonedit = '{/literal}{if $privFace.editar == 1}{literal}' + item_opcion_editar_seguimiento(data) + '{/literal}{/if}{literal}';
+                            }
+
+                            if (obj_permiso[0].eliminar == 1){ //permisodelete
+                                botondelete = '{/literal}{if $privFace.eliminar == 1}{literal}' + item_opcion_eliminar_seguimiento(data) + '{/literal}{/if}{literal}';
+                            }
                             
-                //             //botonreadonly = '{/literal}{if $privFace.eliminar == 1}{literal}' + item_opcion_sololeer(data) + '{/literal}{/if}{literal}';
-                //             //table_list.column(0).visible(false); //Solo funciona con false
+                            //botonreadonly = '{/literal}{if $privFace.eliminar == 1}{literal}' + item_opcion_sololeer(data) + '{/literal}{/if}{literal}';
+                            //table_list.column(0).visible(false); //Solo funciona con false
                             
-                //             return boton+botonedit+botondelete+'</div></span>'; //+botonreadonly;
-                //         }
-                //     },
-                // ],
+                            return boton+botonedit+botondelete+'</div></span>'; //+botonreadonly;
+                        }
+                    },
+                ],
             });
         };
 

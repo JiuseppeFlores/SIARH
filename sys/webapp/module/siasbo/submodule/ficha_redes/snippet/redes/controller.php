@@ -46,10 +46,14 @@ switch($accion){
         break;
 
     case 'itemDelete':
-        $respuesta = $subObjItem->item_delete($id, "estado_operativo");
+        $respuesta = $subObjItem->item_delete($id);
         $core->print_json($respuesta);
         break;
     
+    case 'itemDeleteRed':
+        $respuesta = $subObjItem->item_delete_red($id);
+        $core->print_json($respuesta);
+        break;
     //Para Graficas
     // case 'getGraficaColumnaSeguimiento':
         //echo $tipoId;
