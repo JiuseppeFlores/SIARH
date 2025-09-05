@@ -76,32 +76,48 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <label>Propósito de pozo</label>
-                    <div class="checkbox">
-                        <div class="container">
-                            {assign var="contador" value=1}
-                            {assign var="total" value=$cataobj.proposito_pozo|@count}
-                            {foreach from=$cataobj.proposito_pozo key=clave item=valor}
-                            {if $contador == 1}
-                            <div class="row">
-                            {/if}
-                                <div class="col-lg-6">
-                                    <label class="m-checkbox">
-                                        <input type="checkbox" value="{$clave|escape:"html"}" name="item[propositoId][]" id="propositoId[]" {if $clave == $propositoChecked.$clave} checked {/if} title="Campo requerido: seleccione una opción">&nbsp;{$valor|escape:"html"}
-                                        <span></span>
-                                    </label>
+
+                    <div class="row">
+                        <label>Propósito de pozo</label>
+                        <div class="col-lg-12" >
+                            <div class="checkbox">
+                                <div class="container">
+                                    {assign var="contador" value=1}
+                                    {assign var="total" value=$cataobj.proposito_pozo|@count}
+                                    {foreach from=$cataobj.proposito_pozo key=clave item=valor}
+                                    {if $contador == 1}
+                                    <div class="row">
+                                    {/if}
+                                        <div class="col-lg-6">
+                                            <label class="m-checkbox">
+                                                <input type="checkbox" value="{$clave|escape:"html"}" name="item[propositoId][]" id="propositoId[]" {if $clave == $propositoChecked.$clave} checked {/if} title="Campo requerido: seleccione una opción">&nbsp;{$valor|escape:"html"}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    {if $contador == 2}
+                                    </div>
+                                    {assign var=contador value=0}
+                                    {/if}
+                                    {assign var=contador value=$contador+1}
+                                    {/foreach}
+                                    {if $total mod 2 == 1}
+                                    </div>
+                                    {/if}
                                 </div>
-                            {if $contador == 2}
                             </div>
-                            {assign var=contador value=0}
-                            {/if}
-                            {assign var=contador value=$contador+1}
-                            {/foreach}
-                            {if $total mod 2 == 1}
-                            </div>
-                            {/if}
                         </div>
                     </div>
+
+                    <div class="row" id="caso_red_monitoreo">
+                        <label>Redes de Monitoreo</label>
+                        <div class="input-group" >
+                            <select class="form-control m-input select2" name="item[redMonitoreoId]" id="redMonitoreoId" data-msg="Campo requerido: seleccione una opción">
+                                <option value="">Seleccione red de Monitoreo</option>
+                                {html_options options=$cataobj.listaRedMonitoreo selected=$item.redMonitoreoId}
+                            </select>
+                        </div>  
+                    </div>
+
                 </div>
             </div>         
 

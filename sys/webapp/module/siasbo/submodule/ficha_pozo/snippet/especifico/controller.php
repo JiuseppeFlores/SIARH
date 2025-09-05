@@ -13,7 +13,12 @@ switch($accion) {
         //$core->writeLog($privFace,__FILE__,__LINE__);
         $subObjCatalog->conf_catalog_datos_general();
         $cataobj = $subObjCatalog->getCatalogList();
+        // var_dump($cataobj);
         $smarty->assign("cataobj", $cataobj);
+
+        // $listaRedMonitoreo = $subObjItem->get_item_datatable_Rows_redes();
+        // var_dump($listaRedMonitoreo);
+        // $smarty->assign("cataItems", $listaRedMonitoreo);
 
         if($type=="update") {
             $item = $subObjItem->get_item($id, "pozo");

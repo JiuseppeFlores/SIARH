@@ -6,7 +6,6 @@
     <form class="m-form m-form--state m-form--fit m-form--label-align-right" method="POST" action="{$getModule}" id="general_form">
 
         <input type="hidden" name="item[tipo]" id="tipo" value="5" required>
-
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">

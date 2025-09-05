@@ -104,7 +104,7 @@ class Snippet extends Table
         /**
          * tabla de la base de datos que listaremos
          */
-        $table = $this->tabla["item"];
+        $table = $this->tabla["pozo"];
         /**
          * El nombre del campo que guarda id principal
          */
@@ -128,7 +128,7 @@ class Snippet extends Table
         /**
          * Resultado de la consulta enviada
          */
-        // var_dump("get_item_datatable_Rows",$db, $grilla, $table, $primaryKey, $extraWhere, $groupBy, $having);
+        var_dump("get_item_datatable_Rows",$db, $grilla, $table, $primaryKey, $extraWhere, $groupBy, $having);
         $resultado = $this->get_grilla_datatable_simple($db, $grilla, $table, $primaryKey, $extraWhere, $groupBy, $having);
         /**
          * apartir de aca podemos transformar datos, de acuerdo a requerimiento

@@ -2965,7 +2965,6 @@ class Index extends Table {
         $tipoUsuario = $_SESSION["userv"]["tipoUsuario"];
                //if ($usuario === 'admin') {
         if ($tipoUsuario == "0" || $tipoUsuario == "1"){
-
             return array(array(
                     'crear' =>1,
                     'editar' => 1,

@@ -18,6 +18,7 @@ class Subcatalogo extends Table{
 
         $this->addCatalogList($this->tabla["c_pozo_usoagua"],"usoagua_pozo","","","","itemId","","");
         $this->addCatalogList($this->tabla["c_pozo_proposito"],"proposito_pozo","","","","itemId","","");
+        $this->addCatalogList($this->tabla["item"],"listaRedMonitoreo","","","","itemId","tipo=5 AND estado IN ('Revisado')","");
 
     }
 

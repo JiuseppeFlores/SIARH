@@ -7,7 +7,6 @@
         id="general_form">
 
         <input type="hidden" name="item[tipo]" id="tipo" value="4" required>
-        <input type="hidden" id="idUsuarioResponsable" value="{$item.userCreate|escape:"html"}">
 
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">

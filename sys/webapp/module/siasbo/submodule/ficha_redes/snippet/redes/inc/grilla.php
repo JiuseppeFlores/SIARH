@@ -133,13 +133,13 @@ $grilla_items[]=array(
 //         ,   "activo"=> $field_activo
 //         );
 
-$field_name = "estado";
-$grilla_items[]=array(
-    "campo" => $field_name // el campo de la base de datos que recupera
-,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
-,   "label"=> "Estado" //
-,   "activo"=> 1
-);
+// $field_name = "estado";
+// $grilla_items[]=array(
+//     "campo" => $field_name // el campo de la base de datos que recupera
+// ,   "field" => "$field_name" // se da formato o se configura el nombre del campo resultado
+// ,   "label"=> "Estado" //
+// ,   "activo"=> 1
+// );
 
 $field_name = "codigo";
 $grilla_items[]=array(

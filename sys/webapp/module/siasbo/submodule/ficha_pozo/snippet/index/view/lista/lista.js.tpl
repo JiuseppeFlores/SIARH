@@ -659,6 +659,7 @@
 
     function permisos_usuario() {
         //alert("Permisos usuario pozo");
+        var idUsuarioResponsable = parseInt($('#idUsuarioResponsable').val());
         jQuery.ajax({
             url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=pozo', //&perpozo=pozo ya no es necesario
             //data: data,
@@ -674,12 +675,37 @@
 
                 //alert('{/literal}{$dato1}{literal}');
 
-                if (obj_permiso[0].crear == 1) {
-                    $("#btn_importar_archivo").show();
-                    $("#btn_update").show();
-                } else {
-                    $("#btn_importar_archivo").hide();
-                    $("#btn_update").hide();
+                // if (obj_permiso[0].crear == 1) {
+                //     $("#btn_importar_archivo").show();
+                //     $("#btn_update").show();
+                // } else {
+                //     $("#btn_importar_archivo").hide();
+                //     $("#btn_update").hide();
+                // }
+
+                switch (parseInt(obj_permiso[0].tipoUsuario)) {
+                    case 2:
+                        if ((obj_permiso[0].crear == 1 || obj_permiso[0].editar == 1) && obj_permiso[0].usuarioId == idUsuarioResponsable){    
+                            $("#btn_importar_archivo").show();
+                            $("#btn_update").show();
+                        }else{
+                            $("#btn_importar_archivo").hide();
+                            $("#btn_update").hide();
+                        }
+                        break;
+                    case 3:
+                        $("#btn_importar_archivo").hide();
+                        $("#btn_update").hide();
+                        break;
+                    default:
+                        if (obj_permiso[0].crear == 1 || obj_permiso[0].editar == 1){                                
+                            $("#btn_importar_archivo").show();
+                            $("#btn_update").show();
+                        }else{
+                            $("#btn_importar_archivo").hide();
+                            $("#btn_update").hide();
+                        }
+                        break;
                 }
             },
         });

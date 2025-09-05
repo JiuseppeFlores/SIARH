@@ -5,7 +5,6 @@
     <!-- <input type="hidden" name="item[pozoId]" id="pozoId" value="{$pozoId}">
  --><input type="hidden" name="item[pozoId]" id="pozoId" value="{$pozoCod}">
     <!-- <input type="hidden" name="item[tipo]" id="tipo" value="1"> -->
-
     <div class="modal-header">
         <h4 class="modal-title">Registro de columna litológica</h4>
     </div>

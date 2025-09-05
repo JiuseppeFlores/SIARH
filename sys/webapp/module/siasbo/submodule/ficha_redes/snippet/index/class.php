@@ -2971,14 +2971,16 @@ class Index extends Table {
                     'crear' => 1,
                     'editar' => 1,
                     'eliminar' => 1,
-                    'itemId' => 279,
-                    'nombre' => '1.- Pozos'
+                    'usuarioId' => 0,
+                    'tipoUsuario' => intval($tipoUsuario),
+                    'itemId' => $itemIdSubmoduloPozo,
+                    'nombre' => '5.- Redes de Monitoreo'
                     ) 
                 );
         } else {
             //$this->dbm->debug = true;
             $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
-            $sql = "SELECT b.crear, b.editar, b.eliminar, c.itemId, c.nombre 
+            $sql = "SELECT b.crear, b.editar, b.eliminar, c.itemId, c.nombre, a.tipoUsuario, b.usuarioId
             FROM vrhr_snir.core_usuario as a inner join vrhr_snir.core_usuario_permisos as b on a.itemId = b.usuarioId 
             inner join vrhr_snir.core_submodulo as c on b.subModuloId = c.itemId 
             WHERE a.usuario='".$usuario."' and c.itemId=".$itemIdSubmoduloPozo;

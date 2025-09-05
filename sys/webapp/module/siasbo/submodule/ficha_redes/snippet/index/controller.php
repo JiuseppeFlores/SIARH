@@ -61,7 +61,7 @@ switch($accion) {
     //Obtener los permisos para ficha pozo
     case 'obtenerPermisos':
         //$perpozo = '1.- Pozos';
-        $itemIdSubmoduloPozo = 279;
+        $itemIdSubmoduloPozo = 1815;
         $res = $objItem->get_permisos($_SESSION[userv][usuario], $itemIdSubmoduloPozo);
         echo json_encode($res);
         // $dato = 1;

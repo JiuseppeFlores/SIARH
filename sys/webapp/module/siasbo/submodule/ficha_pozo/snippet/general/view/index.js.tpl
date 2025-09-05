@@ -898,9 +898,9 @@
 //------------------------Permisos----------------------------------
 
     function permisos_usuario(){ //Hacemos una llamada al controlador del snippet index
+        var idUsuarioResponsable = parseInt($('#idUsuarioResponsable').val());
         var type = '{/literal}{$type}{literal}';
         var id = "{/literal}{$id}{literal}";
-        var idUsuarioResponsable = parseInt($('#idUsuarioResponsable').val());
         jQuery.ajax({
             url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=pozo&type='+type+'&id='+id, //&perpozo=pozo
             //data: data,

@@ -2,9 +2,9 @@
 
 <form class="m-form m-form--state m-form--fit m-form--label-align-right" method="POST" action="{$getModule}" id="form_calidad">
     <input type="hidden" name="item[manantialId]" id="cal_manantialId" value="{$manantialId}">
-
     <div class="modal-header">
         <h4 class="modal-title">Datos de calidad</h4>
+        <button type="button" class="btn btn-secondary btn-block-custom" data-dismiss="modal"><i class="fa fa-times"></i></button>
     </div>
 
     <div class="modal-body">

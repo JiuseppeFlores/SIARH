@@ -11,6 +11,15 @@ class Snippet extends Table
 
     }
 
+    // public function get_item_datatable_Rows_redes(){
+ 
+    //     $sql_item_redes = "SELECT itemId,codigo,nombre FROM item WHERE tipo=5 and estado IN ('Registrado', 'Observado', 'Revisado')";
+    //     $info = $this->dbm->Execute($sql_item_redes);
+    //     $resultado = $info->fields;
+    //     // var_dump($resultado);
+    //     return $resultado;
+    // }
+
     function get_item($idItem, $tipoTabla, $variante="") {
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
         $info = '';

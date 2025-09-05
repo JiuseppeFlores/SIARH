@@ -5,6 +5,7 @@
 
     <div class="modal-header">
         <h4 class="modal-title">Datos de archivo adjunto</h4>
+        <button type="button" class="btn btn-secondary btn-block-custom" data-dismiss="modal"><i class="fa fa-times"></i></button>
     </div>
 
     <div class="modal-body">        

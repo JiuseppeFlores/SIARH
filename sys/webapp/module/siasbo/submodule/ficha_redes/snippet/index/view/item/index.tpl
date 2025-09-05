@@ -8,8 +8,9 @@
         <div class="m-alert__text">
             <strong>FICHA ID: <span class="m--font-primary">{$item.itemId}</span></strong>
             &nbsp;&nbsp;|&nbsp;&nbsp;
-            <strong>CÓDIGO:&nbsp;</strong>{$item.codigo}&nbsp;&nbsp;|&nbsp;&nbsp;
+            {* <strong>CÓDIGO:&nbsp;</strong>{$item.codigo}&nbsp;&nbsp;|&nbsp;&nbsp; *}
             <strong>NOMBRE:&nbsp;</strong>{$item.nombre}
+            <input type="hidden" id="idUsuarioResponsable" value="{$item.userCreate|escape:"html"}">
         </div>
     </div>
     {/if}

@@ -172,6 +172,7 @@
             type: 'POST',
             //dataType: "json",
             success: function(data){
+                // console.log(data, idUsuarioResponsable);
                 obj_permiso = JSON.parse(data);
 
                 // if (obj_permiso[0].crear == 1){                                

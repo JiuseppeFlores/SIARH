@@ -9,6 +9,8 @@
             &nbsp;&nbsp;|&nbsp;&nbsp;
             <strong>CÓDIGO:&nbsp;</strong>{$item.codigo}&nbsp;&nbsp;|&nbsp;&nbsp;
             <strong>NOMBRE:&nbsp;</strong>{$item.nombre}
+
+            <input type="hidden" id="idUsuarioResponsable" value="{$item.userCreate|escape:"html"}">
         </div>
     </div>
     {/if}

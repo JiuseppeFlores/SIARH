@@ -137,6 +137,7 @@
             type: 'POST',
             //dataType: "json",
             success: function(data){
+                // console.log(data, idUsuarioResponsable);
                 obj_permiso = JSON.parse(data);
                 // console.log('recuperando permisos de usuarios(data especifico)::',obj_permiso[0]);
                 // if (obj_permiso[0].crear == 1){                                

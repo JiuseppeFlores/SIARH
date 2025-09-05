@@ -61,6 +61,10 @@ $campos_item["observaciones"]=array(
     "tipo"=>"text"
 ,   "label"=>"observaciones");
 
+$campos_item["redMonitoreoId"]=array(
+    "tipo"=>"text"
+,   "label"=>"redMonitoreoId");
+
 $grupo = "campos_especifico"; //item //perforacion
 $campos[$grupo]= $campos_item;
 unset($campos_item);

@@ -894,6 +894,8 @@
 //------------------------Permisos----------------------------------
 
     function permisos_usuario(){ //Hacemos una llamada al controlador del snippet index
+        var idUsuarioResponsable = parseInt($('#idUsuarioResponsable').val());
+        var type = '{/literal}{$type}{literal}';
         jQuery.ajax({
             url: '{/literal}{$getModule}{literal}&accion=obtenerPermisos&perpozo=pozo', //&perpozo=pozo
             //data: data,
@@ -906,12 +908,42 @@
                 //alert(data);
                 obj_permiso = JSON.parse(data);
 
-                if (obj_permiso[0].crear == 1){
-                    $("#general_submit").show();
-                }else{
-                    $("#general_submit").hide();
-                    $("#general_observado").show();
-                    $("#general_revisado").show();
+                // if (obj_permiso[0].crear == 1){
+                //     $("#general_submit").show();
+                // }else{
+                //     $("#general_submit").hide();
+                //     $("#general_observado").show();
+                //     $("#general_revisado").show();
+                // }
+                switch (parseInt(obj_permiso[0].tipoUsuario)) {
+                    case 2:
+                        if (obj_permiso[0].crear == 1 && obj_permiso[0].usuarioId == idUsuarioResponsable){    
+                            $("#general_submit").show();
+                        }else{
+                            $("#general_submit").hide();
+                        }
+                        $("#general_observado").hide();
+                        $("#general_revisado").hide();
+                        break;
+                    case 3:
+                        $("#general_submit").hide();
+                        $("#general_observado").hide();
+                        $("#general_revisado").hide();
+                        break;
+                    default:
+                        if (obj_permiso[0].crear == 1){                                
+                            $("#general_submit").show();
+                        }else{
+                            $("#general_submit").hide();
+                        }
+                        if (obj_permiso[0].editar == 1 && type == 'update'){
+                            $("#general_observado").show();
+                            $("#general_revisado").show();
+                        }else{
+                            $("#general_observado").hide();
+                            $("#general_revisado").hide();
+                        }
+                        break;
                 }
             },
         });
