@@ -63,7 +63,7 @@ class Snippet extends Table {
 
     function get_datos_pozo_litologia($pozoId) {
         $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
-        $sql = "SELECT a.itemId, c.nombre, a.profundidad_desde, a.profundidad_hasta, c.nombre 
+        $sql = "SELECT a.itemId, c.nombre, c.imagen, a.profundidad_desde, a.profundidad_hasta 
                 FROM item_pozo_litologica a
                 LEFT JOIN catalogo_pozo_litologico_permeabilidad b ON a.permeabilidad = b.itemId 
                 LEFT JOIN catalogo_pozo_litologico c ON a.litologiaId1 = c.itemId
@@ -145,6 +145,20 @@ class Snippet extends Table {
         return $datos;
     }
 
+    function get_datos_pozo_monitoreo_calidad_dato($pozoId) {
+        $this->dbm->SetFetchMode(ADODB_FETCH_ASSOC);
+        $sql = "SELECT a.itemId, a.calidadId, c.nombre AS parametro, d.nombre AS compuesto, a.valor, a.observaciones
+                FROM item_pozo_monitor_calidad_dato a
+                LEFT JOIN item_pozo_monitor_calidad b ON a.calidadId = b.itemId
+                LEFT JOIN catalogo_pozo_monitor_calidad_parametro c ON a.parametroId = c.itemId
+                LEFT JOIN catalogo_pozo_monitor_calidad_compuesto d ON a.compuestoId = d.itemId
+                WHERE b.pozoId = $pozoId
+                ORDER BY a.itemId ASC;";
+        $datos = $this->dbm->Execute($sql);
+        $datos = $datos->GetRows();
+        return $datos;
+    }
+
     function get_ficha_pozo($pozoId, $nombre_archivo) {
         //Crear documento a partir de plantilla
         $plantilla = new TemplateProcessor('template/siasbo/ficha_pozo/template_pozo.docx');
@@ -158,6 +172,7 @@ class Snippet extends Table {
         $datos_hidraulico_recuperacion = $this->get_datos_pozo_hidraulico_recuperacion($pozoId);
         $datos_monitoreo_cantidad = $this->get_datos_pozo_monitoreo_cantidad($pozoId);
         $datos_monitoreo_calidad = $this->get_datos_pozo_monitoreo_calidad($pozoId);
+        $datos_monitoreo_calidad_dato = $this->get_datos_pozo_monitoreo_calidad_dato($pozoId);
 
         //Consulta catálogos a la base de datos
         $catalogo_comunidad = $this->get_catalogo_comunidad();
@@ -255,10 +270,12 @@ class Snippet extends Table {
         $litologia_profundidad_desde = array();
         $litologia_profundidad_hasta = array();
         $litologia_formacion = array();
+        $litologia_imagen = array();
         foreach ($datos_litologia as $clave => $valor) {
             $litologia_profundidad_desde[] = $valor['profundidad_desde'];
             $litologia_profundidad_hasta[] = $valor['profundidad_hasta'];
-            $litologia_formacion[] = $valor['litologia1'];
+            $litologia_formacion[] = $valor['nombre'];
+            $litologia_imagen[] = $valor['imagen'];
         }
         $contador = 1;
         $tamanio = count($litologia_profundidad_desde);
@@ -267,6 +284,17 @@ class Snippet extends Table {
             $plantilla->setValue('litologia.profundidad_desde#'.$contador, $litologia_profundidad_desde[$i]);
             $plantilla->setValue('litologia.profundidad_hasta#'.$contador, $litologia_profundidad_hasta[$i]);
             $plantilla->setValue('litologia.formacion#'.$contador, htmlspecialchars($litologia_formacion[$i]));
+            try{
+                $plantilla->setImageValue('litologia.imagen#'.$contador, [
+                    'path' => 'images/siasbo/textura/'.$litologia_imagen[$i],
+                    'width' => 140,
+                    'height' => 40,
+                    'ratio' => true,
+    
+                ]);
+            }catch(Exception $e){
+                $plantilla->setValue('litologia.imagen#'.$contador, htmlspecialchars(''));
+            }
             $contador++;
         }
         
@@ -404,6 +432,7 @@ class Snippet extends Table {
         $monitoreo_calidad_codigo_lab = array();
         $monitoreo_calidad_profundidad = array();
         $monitoreo_calidad_obs = array();
+        $monitoreo_calidad_dato = array();
 
         foreach ($datos_monitoreo_calidad as $clave => $valor) {
             $monitoreo_calidad_fecha[] = $valor['fecha_muestreo'];
@@ -418,32 +447,47 @@ class Snippet extends Table {
             $monitoreo_calidad_codigo_lab[] = $valor['codigo_laboratorio'];
             $monitoreo_calidad_profundidad[] = $valor['profundidad'];
             $monitoreo_calidad_obs[] = $valor['observaciones'];
+
+            $monitoreo_calidad_dato_tipo = array();
+            foreach($datos_monitoreo_calidad_dato as $dato){
+                $id = $dato['calidadId'];
+                if ($id == $valor['itemId']) {
+                    $monitoreo_calidad_dato_tipo[] = $dato;
+                }
+            }
+            $monitoreo_calidad_dato[] = $monitoreo_calidad_dato_tipo;
         }
+
         $contador = 1;
         $tamanio = count($monitoreo_calidad_fecha);
-        $plantilla->cloneRow('mcal.fecha', $tamanio);
-        for ($i=0; $i < $tamanio; $i++) {
+        $plantilla->cloneBlock('mcal.registros', $tamanio, true, true);
+        for($i = 0 ; $i < $tamanio ; $i++){
+            // Datos de muestreo
             $plantilla->setValue('mcal.fecha#'.$contador, htmlspecialchars($monitoreo_calidad_fecha[$i]));
             $plantilla->setValue('mcal.hora#'.$contador, htmlspecialchars($monitoreo_calidad_caudal[$i]));
             $plantilla->setValue('mcal.epoca#'.$contador, htmlspecialchars($catalogo_epoca[$monitoreo_calidad_epoca[$i]]));
             $plantilla->setValue('mcal.entidad#'.$contador, htmlspecialchars($monitoreo_calidad_entidad[$i]));
             $plantilla->setValue('mcal.codigo#'.$contador, htmlspecialchars($monitoreo_calidad_codigo[$i]));
-            $contador++;
-        }
-
-        $contador = 1;
-        $tamanio = count($monitoreo_calidad_fecha_analisis);
-        $plantilla->cloneRow('mcal.fecha_analisis', $tamanio);
-        for ($i=0; $i < $tamanio; $i++) {
+            //Datos de laboratorio
             $plantilla->setValue('mcal.fecha_analisis#'.$contador, htmlspecialchars($monitoreo_calidad_fecha_analisis[$i]));
             $plantilla->setValue('mcal.hora_analisis#'.$contador, htmlspecialchars($monitoreo_calidad_hora_analisis[$i]));
             $plantilla->setValue('mcal.nombre_lab#'.$contador, htmlspecialchars($monitoreo_calidad_nombre_lab[$i]));
             $plantilla->setValue('mcal.codigo_lab#'.$contador, htmlspecialchars($monitoreo_calidad_codigo_lab[$i]));
             $plantilla->setValue('mcal.profundidad#'.$contador, htmlspecialchars($monitoreo_calidad_profundidad[$i]));
             $plantilla->setValue('mcal.obs#'.$contador, htmlspecialchars($monitoreo_calidad_obs[$i]));
+            //Datos de parámetros
+            $contadorj = 1;
+            $tamanioj = count($monitoreo_calidad_dato[$i]);
+            $plantilla->cloneRow('mcal.parametro#'.$contador, $tamanioj);
+            for($j = 0 ; $j < $tamanioj ; $j++){
+                $plantilla->setValue('mcal.parametro#'.$contador.'#'.$contadorj, htmlspecialchars($monitoreo_calidad_dato[$i][$j]['parametro']));
+                $plantilla->setValue('mcal.compuesto#'.$contador.'#'.$contadorj, htmlspecialchars($monitoreo_calidad_dato[$i][$j]['compuesto']));
+                $plantilla->setValue('mcal.valor#'.$contador.'#'.$contadorj, htmlspecialchars($monitoreo_calidad_dato[$i][$j]['valor']));
+                $plantilla->setValue('mcal.observacion#'.$contador.'#'.$contadorj, htmlspecialchars($monitoreo_calidad_dato[$i][$j]['observaciones']));
+                $contadorj++;
+            }
             $contador++;
         }
-
         //Genera documento para su descarga
         //\PhpOffice\PhpWord\Settings::setPdfRendererPath('lib/tcpdf');
         //\PhpOffice\PhpWord\Settings::setPdfRendererName('TCPDF');
